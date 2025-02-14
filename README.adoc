@@ -20,6 +20,8 @@ image:https://img.shields.io/badge/Contributor%20Covenant-v2.1%20adopted-ff69b4.
 
 SC Kill Monitor is an application to search the Star Citizen `game.log` file for the person who killed you.
 
+Disclaimer: The player names determined with SC Kill Monitor must not be used for purposes that violate the Star Citizen Terms and Conditions. The log may only be used to report griefing incidents and/or stream sniping.
+
 SC Kill Monitor is an unofficial Star Citizen fan project, not affiliated with the Cloud Imperium group of companies.
 All content on this site not authored by its host or users are property of their respective owners.
 Star Citizen®, Roberts Space Industries® and Cloud Imperium® are registered trademarks of Cloud Imperium Rights LLC.
@@ -49,7 +51,7 @@ By participating in this project, you agree to abide by its terms.
 == Team
 
 * Lucas Greuloch (https://gitlab.com/greluc[@greluc])
-* rjcncpt (https://github.com/rjcncpt[@rjcncpt])
+* René Jansen (https://gitlab.com/rjcncpt[@rjcncpt])
 
 image:src/main/resources/logos/MadeByTheCommunity_Black.png[link="https://robertsspaceindustries.com/en/",100]
 image:src/main/resources/logos/Logo_Java.svg[link="https://en.wikipedia.org/wiki/Java_(programming_language)",50]
