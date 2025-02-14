@@ -1,0 +1,93 @@
+image: azul/zulu-openjdk:23-latest
+
+stages:
+  - build
+  - test
+  - publish
+
+variables:
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+  LM_JAVA_VERSION: "23"
+  SAST_JAVA_VERSION: "23"
+  DS_DISABLE_DIND: "true"
+  SAST_DISABLE_DIND: "true"
+
+before_script:
+  - export GRADLE_USER_HOME=`pwd`/.gradle
+  - chmod +x ./gradlew
+
+cache:
+  paths:
+    - .gradle/wrapper
+    - .gradle/caches
+
+build:
+  stage: build
+  script:
+    - ./gradlew assemble --build-cache --warning-mode all
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    policy: push
+    paths:
+      - build
+      - .gradle
+  artifacts:
+    paths:
+      - build/libs/*.jar
+    expire_in: 1 week
+
+test:
+  stage: test
+  needs:
+    - job: build
+      artifacts: false
+  script:
+    - ./gradlew check --warning-mode all
+    - cat build/reports/jacoco/test/html/index.html
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    policy: pull
+    paths:
+      - build
+      - .gradle
+  dependencies:
+    - build
+  coverage: '/Total.*?([0-9]{1,3})%/'
+  artifacts:
+    reports:
+      junit: build/test-results/test/**/TEST-*.xml
+
+publish:
+  stage: publish
+  needs:
+    - job: build
+      artifacts: true
+    - job: test
+      artifacts: false
+  script:
+    - ./gradlew publish --warning-mode all -PjobToken=$CI_JOB_TOKEN
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    policy: pull
+    paths:
+      - build
+      - .gradle
+  dependencies:
+    - build
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      when: on_success
+      allow_failure: false
+
+include:
+  - template: Jobs/Code-Quality.gitlab-ci.yml
+  - template: Secret-Detection.gitlab-ci.yml
+  - template: Jobs/Dependency-Scanning.latest.gitlab-ci.yml
+  - template: Jobs/SAST.latest.gitlab-ci.yml
+
+code_quality_html:
+  extends: code_quality
+  variables:
+    REPORT_FORMAT: html
+  artifacts:
+    paths: [gl-code-quality-report.html]
