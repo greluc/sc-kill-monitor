@@ -43,3 +43,6 @@ bin/
 /src/test/resources/game.02.log
 /src/test/resources/game.01.log
 output
+/.idea/.copilot-plugin
+/.idea/copyright/profiles_settings.xml
+/.idea/copyright/GPLv3.xml
