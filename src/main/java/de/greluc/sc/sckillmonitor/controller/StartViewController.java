@@ -36,9 +36,6 @@ import static de.greluc.sc.sckillmonitor.Constants.*;
  * @version 1.0.0
  */
 public class StartViewController implements SettingsListener {
-
-    @FXML
-    private Label welcomeText;
     @FXML
     private Label selectedPathValue;
     @FXML
