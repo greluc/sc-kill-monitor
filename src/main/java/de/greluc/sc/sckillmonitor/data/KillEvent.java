@@ -71,7 +71,7 @@ public final class KillEvent {
   @Contract(pure = true)
   @Override
   public @NotNull String toString() {
-    return "KillEvent at Time " + timestamp.format(DateTimeFormatter.ofPattern("dd.MM.yy HH:mm:ss:SSS")) + " UTC" + "\n" +
+    return "Kill Date = " + timestamp.format(DateTimeFormatter.ofPattern("dd.MM.yy HH:mm:ss:SSS")) + " UTC" + "\n" +
         "Killed Player = " + killedPlayer + "\n" +
         "Zone = " + zone + "\n" +
         "Killer = " + killer + "\n" +
