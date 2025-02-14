@@ -20,7 +20,7 @@
 
 package de.greluc.sc.sckillmonitor.controller;
 
-import de.greluc.sc.sckillmonitor.SettingsListener;
+import de.greluc.sc.sckillmonitor.settings.SettingsListener;
 import de.greluc.sc.sckillmonitor.settings.SettingsData;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;

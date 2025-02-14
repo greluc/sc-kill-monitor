@@ -18,13 +18,56 @@
  * along with SC Kill Monitor. If not, see <http://www.gnu.org/licenses/>.                        *
  **************************************************************************************************/
 
-package de.greluc.sc.sckillmonitor;
+package de.greluc.sc.sckillmonitor.settings;
 
-/**
- * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
- * @since 1.0.0
- * @version 1.0.0
- */
-public interface SettingsListener {
-  void settingsChanged();
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
+
+class SettingsDataTest {
+
+  @Test
+  void testSetSelectedChannelUpdatesValue() {
+    // Arrange
+    String newChannel = "PTU";
+
+    // Act
+    SettingsData.setSelectedChannel(newChannel);
+
+    // Assert
+    assertEquals(newChannel, SettingsData.getSelectedChannel());
+  }
+
+  @Test
+  void testSetSelectedChannelNotifiesListeners() {
+    // Arrange
+    String newChannel = "TECH-PREVIEW";
+    SettingsListener mockListener = mock(SettingsListener.class);
+    SettingsData.addListener(mockListener);
+
+    // Act
+    SettingsData.setSelectedChannel(newChannel);
+
+    // Assert
+    verify(mockListener, times(1)).settingsChanged();
+
+    // Cleanup
+    SettingsData.removeListener(mockListener);
+  }
+
+  @Test
+  void testSetSelectedChannelDoesNotNotifyRemovedListener() {
+    // Arrange
+    String newChannel = "HOTFIX";
+    SettingsListener mockListener = mock(SettingsListener.class);
+    SettingsData.addListener(mockListener);
+    SettingsData.removeListener(mockListener);
+
+    // Act
+    SettingsData.setSelectedChannel(newChannel);
+
+    // Assert
+    verify(mockListener, never()).settingsChanged();
+  }
 }

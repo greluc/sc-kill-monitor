@@ -20,7 +20,6 @@
 
 package de.greluc.sc.sckillmonitor.settings;
 
-import de.greluc.sc.sckillmonitor.SettingsListener;
 import lombok.Getter;
 
 import java.util.ArrayList;

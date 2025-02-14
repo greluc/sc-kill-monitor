@@ -1,10 +1,10 @@
 {
   "bomFormat" : "CycloneDX",
   "specVersion" : "1.6",
-  "serialNumber" : "urn:uuid:73526d31-90b8-492d-8e71-844a09c16950",
+  "serialNumber" : "urn:uuid:6a03b64e-da4b-4289-8175-f7077edf4500",
   "version" : 1,
   "metadata" : {
-    "timestamp" : "2025-02-14T12:13:43Z",
+    "timestamp" : "2025-02-14T23:49:01Z",
     "tools" : {
       "components" : [
         {
@@ -24,7 +24,12 @@
       "version" : "1.0.0",
       "purl" : "pkg:maven/de.greluc.sc/sckillmonitor@1.0.0",
       "modified" : false,
-      "externalReferences" : [ ]
+      "externalReferences" : [
+        {
+          "type" : "vcs",
+          "url" : "https://gitlab.com/flightsimtools/sc/sc-kill-monitor.git"
+        }
+      ]
     },
     "licenses" : [ ]
   },

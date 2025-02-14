@@ -46,6 +46,8 @@ dependencies {
   implementation("org.jetbrains:annotations:$annotationsVersion")
   implementation("io.github.mkpaz:atlantafx-base:${atlantafxVersion}")
   testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+  // https://mvnrepository.com/artifact/org.mockito/mockito-core
+  testImplementation("org.mockito:mockito-core:5.15.2")
   testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 }
 
