@@ -1,0 +1,55 @@
+= SC Kill Monitor
+
+image:https://gitlab.com/flightsimtools/sc/sc-kill-monitor/badges/main/pipeline.svg?ignore_skipped=true&style=flat-square&key_text=main[Pipeline Status main,link=https://gitlab.com/flightsimtools/sc/sc-kill-monitor/pipelines]
+image:https://gitlab.com/flightsimtools/sc/sc-kill-monitor/badges/develop/pipeline.svg?ignore_skipped=true&style=flat-square&key_text=develop[Pipeline Status develop,link=https://gitlab.com/flightsimtools/sc/sc-kill-monitor/pipelines]
+image:https://gitlab.com/flightsimtools/sc/sc-kill-monitor/badges/main/coverage.svg?style=flat-square&key_text=Code+Coverage&key_width=100[Code Coverage,link=https://gitlab.com/flightsimtools/sc/sc-kill-monitor/-/commits/main]
+image:https://gitlab.com/flightsimtools/sc/sc-kill-monitor/-/badges/release.svg?style=flat-square&key_text=Latest+Release&key_width=100[Latest Release,link=https://gitlab.com/flightsimtools/sc/sc-kill-monitor/-/releases]
+image:https://img.shields.io/badge/License-GPLv3-blue.svg?style=flat-square[License: GPLv3,link=LICENSE]
+image:https://img.shields.io/badge/Contributor%20Covenant-v2.1%20adopted-ff69b4.svg?style=flat-square[Code of Conduct,link=CODE_OF_CONDUCT.adoc]
+
+== Table Of Contents
+
+* <<description, Description>>
+* <<current-release, Current Release>>
+* <<license, License>>
+* <<contribution, Contribution>>
+* <<team, Team>>
+
+[#description]
+== Description
+
+SC Kill Monitor is an application to search the Star Citizen `game.log` file for the person who killed you.
+
+SC Kill Monitor is an unofficial Star Citizen fan project, not affiliated with the Cloud Imperium group of companies.
+All content on this site not authored by its host or users are property of their respective owners.
+Star Citizen®, Roberts Space Industries® and Cloud Imperium® are registered trademarks of Cloud Imperium Rights LLC.
+
+[#current-release]
+== Current Release
+
+v1.0.0
+
+[#license]
+== License
+
+SC Kill Monitor is licensed under the GNU General Public License v3.0 (GPLv3).
+You can find the license text under link:LICENSE[LICENSE].
+
+For more information about this license, please visit https://www.gnu.org/licenses/gpl-3.0.en.html[https://www.gnu.org/licenses/gpl-3.0.en.html].
+
+[#contribution]
+== Contribution
+
+* You can find the source code under https://gitlab.com/flightsimtools/sc/sc-kill-monitor[https://gitlab.com/flightsimtools/sc/sc-kill-monitor].
+* Please read link:CONTRIBUTING.adoc[CONTRIBUTING] when you wish to contribute to this project.
+* Please note that this project is released with a Contributor link:CODE_OF_CONDUCT.adoc[CODE_OF_CONDUCT].
+By participating in this project, you agree to abide by its terms.
+
+[#team]
+== Team
+
+* Lucas Greuloch (@greluc)
+
+image:src/main/resources/logos/MadeByTheCommunity_Black.png[link="https://robertsspaceindustries.com/en/",100]
+image:src/main/resources/logos/Logo_Java.svg[link="https://en.wikipedia.org/wiki/Java_(programming_language)",50]
+image:src/main/resources/logos/Logo_GPLv3.svg[link="https://www.gnu.org/licenses/gpl-3.0.en.html",100]
