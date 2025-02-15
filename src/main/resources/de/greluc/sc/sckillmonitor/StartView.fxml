@@ -67,14 +67,14 @@
          <Insets right="10.0" />
       </GridPane.margin>
    </Label>
-   <TextField fx:id="inputHandle" promptText="SC Player Handle" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+   <TextField fx:id="inputHandle" promptText="SC Player Handle (required)" GridPane.columnIndex="2" GridPane.rowIndex="5" />
    <Label text="Set Scan Intervall (s):" GridPane.columnIndex="1" GridPane.rowIndex="6">
       <GridPane.margin>
          <Insets right="10.0" />
       </GridPane.margin>
    </Label>
-   <TextField fx:id="inputInterval" promptText="Time in Seconds" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-   <Label text="Disclaimer: The player names determined with the ‘SC Kill Monitor’ app may not be used for purposes that violate the Star Citizen Terms and Conditions. The log may only be used to report griefing incidents and/or stream sniping." wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="2" GridPane.valignment="TOP">
+   <TextField fx:id="inputInterval" promptText="Time in Seconds (required)" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+   <Label text="Disclaimer: The player names determined with the SC Kill Monitor app may not be used for purposes that violate the Star Citizen Terms and Conditions. The log may only be used to report griefing incidents and/or stream sniping." wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="2" GridPane.valignment="TOP">
       <GridPane.margin>
          <Insets top="10.0" />
       </GridPane.margin>
