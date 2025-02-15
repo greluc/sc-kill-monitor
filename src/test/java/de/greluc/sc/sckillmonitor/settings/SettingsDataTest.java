@@ -20,6 +20,7 @@
 
 package de.greluc.sc.sckillmonitor.settings;
 
+import de.greluc.sc.sckillmonitor.controller.MainViewController;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

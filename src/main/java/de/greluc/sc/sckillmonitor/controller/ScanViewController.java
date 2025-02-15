@@ -54,12 +54,20 @@ public class ScanViewController {
   private VBox textPane;
   @FXML
   private ScrollPane scrollPane;
+  private MainViewController mainViewController;
 
   @FXML
   protected void initialize() {
     textPane.setFillWidth(true);
-    scrollPane.setFitToHeight(true); // Let scrolling be vertical only
+    scrollPane.setFitToHeight(true);
+    scrollPane.setFitToWidth(true);
     executorService.submit(this::startScan);
+  }
+
+  @FXML
+  private void onStopPressed() {
+    executorService.shutdownNow();
+    mainViewController.onStopPressed();
   }
 
   @SuppressWarnings("InfiniteLoopStatement")
@@ -92,9 +100,13 @@ public class ScanViewController {
       } catch (IOException ioException) {
         System.err.println("Error reading the log file: " + ioException.getMessage());
       }
+
       try {
         TimeUnit.SECONDS.sleep(SettingsData.getInterval());
-      } catch (InterruptedException ignored) {
+      } catch (InterruptedException e) {
+        System.out.println("Scanning thread was interrupted. Terminating...");
+        Thread.currentThread().interrupt();
+        return;
       }
     }
   }
@@ -180,5 +192,9 @@ public class ScanViewController {
     int endIndex = text.indexOf(endToken, startIndex);
     if (endIndex == -1) return "";
     return text.substring(startIndex, endIndex);
+  }
+
+  void setMainViewController(MainViewController mainViewController) {
+    this.mainViewController = mainViewController;
   }
 }

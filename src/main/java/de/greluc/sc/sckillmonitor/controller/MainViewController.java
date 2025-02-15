@@ -41,6 +41,7 @@ public class MainViewController {
   @FXML
   private GridPane basePane;
   private GridPane startPane;
+  private GridPane scanPane;
   private final SettingsHandler settingsHandler = new SettingsHandler();
 
   @FXML
@@ -90,15 +91,31 @@ public class MainViewController {
   protected void onStartPressed() {
     basePane.getChildren().remove(startPane);
     FXMLLoader fxmlLoader = new FXMLLoader(ScKillMonitorApp.class.getResource("ScanView.fxml"));
-    ScrollPane scanPane = null;
+    scanPane = null;
     try {
       scanPane = fxmlLoader.load();
     } catch (IOException e) {
       System.err.println("Could not load ScanView.fxml"); // TODO real logging
       System.exit(-1);
     }
-    scanPane.setFitToWidth(true);
+    ScanViewController scanViewController = fxmlLoader.getController();
+    scanViewController.setMainViewController(this);
     GridPane.setConstraints(scanPane, 0, 1);
     basePane.getChildren().add(scanPane);
+  }
+
+  protected void onStopPressed() {
+    basePane.getChildren().remove(scanPane);
+    FXMLLoader fxmlLoader = new FXMLLoader(ScKillMonitorApp.class.getResource("StartView.fxml"));
+    try {
+      startPane = fxmlLoader.load();
+    } catch (IOException e) {
+      System.err.println("Could not load StartView.fxml"); // TODO real logging
+      System.exit(-1);
+    }
+    StartViewController startViewController = fxmlLoader.getController();
+    startViewController.setMainViewController(this);
+    GridPane.setConstraints(startPane, 0, 1);
+    basePane.getChildren().add(startPane);
   }
 }
