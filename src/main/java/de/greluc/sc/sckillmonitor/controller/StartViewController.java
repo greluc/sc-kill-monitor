@@ -56,7 +56,7 @@ public class StartViewController implements SettingsListener {
         inputInterval.setText(String.valueOf(SettingsData.getInterval()));
         channelSelection.setItems(
             FXCollections
-                .observableArrayList(LIVE, PTU, EPTU, HOTFIX, TECH_PREVIEW));
+                .observableArrayList(LIVE, PTU, EPTU, HOTFIX, TECH_PREVIEW, CUSTOM));
         channelSelection.getSelectionModel().select(SettingsData.getSelectedChannel());
         setSelectedPath();
         SettingsData.addListener(this);
@@ -98,6 +98,9 @@ public class StartViewController implements SettingsListener {
                 break;
             case TECH_PREVIEW:
                 selectedPathValue.setText(SettingsData.getPathTechPreview());
+                break;
+            case CUSTOM:
+                selectedPathValue.setText(SettingsData.getPathCustom());
                 break;
             default:
                 selectedPathValue.setText(SettingsData.getPathLive());

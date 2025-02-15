@@ -44,13 +44,15 @@ public class SettingsData {
   @Getter
   private static String pathTechPreview = "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\TECH-PREVIEW\\game.log";
   @Getter
-  private static String handle = "greluc";
+  private static String pathCustom = "";
+  @Getter
+  private static String handle = "";
   @Getter
   private static int interval = 1;
   @Getter
   private static String selectedChannel = LIVE;
 
-  private static List<SettingsListener> listeners = new ArrayList<SettingsListener>();
+  private static final List<SettingsListener> listeners = new ArrayList<>();
 
   public static void setPathLive(String pathLive) {
     SettingsData.pathLive = pathLive;
@@ -74,6 +76,11 @@ public class SettingsData {
 
   public static void setPathTechPreview(String pathTechPreview) {
     SettingsData.pathTechPreview = pathTechPreview;
+    listeners.forEach(SettingsListener::settingsChanged);
+  }
+
+  public static void setPathCustom(String pathCustom) {
+    SettingsData.pathCustom = pathCustom;
     listeners.forEach(SettingsListener::settingsChanged);
   }
 

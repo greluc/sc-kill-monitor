@@ -40,6 +40,7 @@ public class SettingsHandler {
     preferences.put("PATH_EPTU", SettingsData.getPathEptu());
     preferences.put("PATH_HOTFIX", SettingsData.getPathHotfix());
     preferences.put("PATH_TECH_PREVIEW", SettingsData.getPathTechPreview());
+    preferences.put("PATH_CUSTOM", SettingsData.getPathCustom());
     preferences.put("PLAYER_HANDLE", SettingsData.getHandle());
     preferences.putInt("SCAN_INTERVAL_SECONDS", SettingsData.getInterval());
     try {
@@ -60,6 +61,7 @@ public class SettingsHandler {
     SettingsData.setPathEptu(preferences.get("PATH_EPTU", "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\EPTU\\game.log"));
     SettingsData.setPathHotfix(preferences.get("PATH_HOTFIX", "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\HOTFIX\\game.log"));
     SettingsData.setPathTechPreview(preferences.get("PATH_TECH_PREVIEW", "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\TECH-PREVIEW\\game.log"));
+    SettingsData.setPathCustom(preferences.get("PATH_CUSTOM", ""));
     SettingsData.setHandle(preferences.get("PLAYER_HANDLE", ""));
     SettingsData.setInterval(Integer.parseInt(preferences.get("SCAN_INTERVAL_SECONDS", "1")));
   }

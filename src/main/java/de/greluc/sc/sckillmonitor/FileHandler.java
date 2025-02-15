@@ -20,28 +20,26 @@
 
 package de.greluc.sc.sckillmonitor;
 
-import lombok.Generated;
+import javafx.stage.FileChooser;
+import lombok.extern.log4j.Log4j2;
+import org.jetbrains.annotations.Nullable;
 
-/**
- * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
- * @since 1.0.0
- * @version 1.0.0
- */
-public class Constants {
-  public static final String LIVE = "LIVE";
-  public static final String PTU = "PTU";
-  public static final String EPTU = "EPTU";
-  public static final String HOTFIX = "HOTFIX";
-  public static final String TECH_PREVIEW = "TECH-PREVIEW";
-  public static final String CUSTOM = "Custom";
+import java.io.File;
 
-  public static final String UTILITY_CLASS = "Utility class";
+@Log4j2
+public class FileHandler {
 
   /**
-   * Used to exclude the unused constructor from code coverage evaluation.
+   * Opens a dialog in which the user can choose the path to the OFP file.
+   *
+   * @return {@link File} object representing the OFP file. Null when no file has been chosen.
    */
-  @Generated
-  private Constants() {
-    throw new IllegalStateException(Constants.UTILITY_CLASS);
+  public static @Nullable File showFileChooser() {
+    log.debug("Trying to choose a file!");
+    final var fileType = "*.log";
+    final var filter = new FileChooser.ExtensionFilter("log File", fileType);
+    final var chooser = new FileChooser();
+    chooser.getExtensionFilters().add(filter);
+    return chooser.showOpenDialog(null);
   }
 }
