@@ -45,8 +45,8 @@ import static de.greluc.sc.sckillmonitor.Constants.TECH_PREVIEW;
 
 /**
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
- * @since 1.0.0
  * @version 1.0.0
+ * @since 1.0.0
  */
 public class ScanViewController {
   private final ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -70,7 +70,6 @@ public class ScanViewController {
     mainViewController.onStopPressed();
   }
 
-  @SuppressWarnings("InfiniteLoopStatement")
   public void startScan() {
     String selectedPathValue = switch (SettingsData.getSelectedChannel()) {
       case PTU -> SettingsData.getPathPtu();
@@ -187,10 +186,14 @@ public class ScanViewController {
   @SuppressWarnings("SameParameterValue")
   private @NotNull String extractValue(@NotNull String text, @NotNull String startToken, @NotNull String endToken) {
     int startIndex = text.indexOf(startToken);
-    if (startIndex == -1) return "";
+    if (startIndex == -1) {
+      return "";
+    }
     startIndex += startToken.length();
     int endIndex = text.indexOf(endToken, startIndex);
-    if (endIndex == -1) return "";
+    if (endIndex == -1) {
+      return "";
+    }
     return text.substring(startIndex, endIndex);
   }
 
