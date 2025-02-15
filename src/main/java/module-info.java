@@ -6,6 +6,7 @@ module de.greluc.sc.sckillmonitor {
     requires org.jetbrains.annotations;
     requires static lombok;
     requires java.prefs;
+    requires org.apache.logging.log4j;
 
     opens de.greluc.sc.sckillmonitor to javafx.fxml;
     exports de.greluc.sc.sckillmonitor;

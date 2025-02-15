@@ -27,6 +27,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
+import lombok.extern.log4j.Log4j2;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;
@@ -48,6 +49,7 @@ import static de.greluc.sc.sckillmonitor.Constants.TECH_PREVIEW;
  * @version 1.0.0
  * @since 1.0.0
  */
+@Log4j2
 public class ScanViewController {
   private final ExecutorService executorService = Executors.newSingleThreadExecutor();
   @FXML
@@ -140,6 +142,8 @@ public class ScanViewController {
 
                 textPane.getChildren().add(textArea);
               });
+
+              log.info("New kill event detected:\n" + killEvent);
 
               lastTime.set(killEvent.getTimestamp());
             }

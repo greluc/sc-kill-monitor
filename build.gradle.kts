@@ -45,6 +45,10 @@ dependencies {
   implementation("org.controlsfx:controlsfx:${controlsfxVersion}")
   implementation("org.jetbrains:annotations:$annotationsVersion")
   implementation("io.github.mkpaz:atlantafx-base:${atlantafxVersion}")
+  // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
+  implementation("org.apache.logging.log4j:log4j-core:2.24.3")
+  // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api
+  implementation("org.apache.logging.log4j:log4j-api:2.24.3")
   testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
   // https://mvnrepository.com/artifact/org.mockito/mockito-core
   testImplementation("org.mockito:mockito-core:5.15.2")
