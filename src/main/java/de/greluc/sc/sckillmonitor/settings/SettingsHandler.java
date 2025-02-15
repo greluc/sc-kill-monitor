@@ -20,6 +20,8 @@
 
 package de.greluc.sc.sckillmonitor.settings;
 
+import lombok.extern.log4j.Log4j2;
+
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
@@ -28,6 +30,7 @@ import java.util.prefs.Preferences;
  * @since 1.0.0
  * @version 1.0.0
  */
+@Log4j2
 public class SettingsHandler {
   private final Preferences preferences = Preferences.userRoot().node(this.getClass().getName());
 
@@ -42,7 +45,7 @@ public class SettingsHandler {
     try {
       preferences.flush();
     } catch (BackingStoreException exception) {
-      System.err.println("Couldn't persist the preferences to the persistent store!"); // TODO real logging and error message
+      log.error("Couldn't persist the preferences to the persistent store!", exception);
     }
   }
 
@@ -50,7 +53,7 @@ public class SettingsHandler {
     try {
       preferences.sync();
     } catch (BackingStoreException e) {
-      System.err.println("Couldn't load settings. Using defaults."); // TODO real logging and error message
+      log.error("Couldn't load the preferences from the persistent store! Using defaults.", e);
     }
     SettingsData.setPathLive(preferences.get("PATH_LIVE", "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\LIVE\\game.log"));
     SettingsData.setPathPtu(preferences.get("PATH_EPTU", "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\EPTU\\game.log"));

@@ -20,46 +20,41 @@
 
 package de.greluc.sc.sckillmonitor;
 
-import atlantafx.base.theme.PrimerDark;
-import atlantafx.base.theme.PrimerLight;
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import lombok.extern.log4j.Log4j2;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import lombok.Generated;
+import lombok.NonNull;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
+public class AlertHandler {
 
-/**
- * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
- * @since 1.0.0
- * @version 1.0.0
- */
-@Log4j2
-public class ScKillMonitorApp extends Application {
-    @Override
-    public void start(@NotNull Stage stage) {
-        try {
-            Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
-            Application.setUserAgentStylesheet(new PrimerDark().getUserAgentStylesheet());
-            FXMLLoader fxmlLoader = new FXMLLoader(ScKillMonitorApp.class.getResource("MainView.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 600, 400);
-            stage.setTitle("SC Kill Monitor");
-            stage.setScene(scene);
-            stage.setOnCloseRequest(t -> {
-                Platform.exit();
-                System.exit(0);
-            });
-            stage.show();
-        } catch (IOException ioException) {
-            log.error("Could not load main view", ioException);
-            System.exit(-1);
-        }
-    }
+  /**
+   * Shows a general error that doesn't specify a specific error in its message.
+   */
+  @Generated
+  public static void showGeneralError() {
+    showAlert(Alert.AlertType.ERROR, "SC Kill Monitor", "ERROR", "An error occurred while performing the desired action.");
+  }
 
-    public static void main(String[] args) {
-        launch();
-    }
+  /**
+   * Shows an alert. Uses the {@link Alert} class.
+   *
+   * @param alertType {@link Alert.AlertType} that should be used for the alert.
+   * @param titleKey I18N key for the title of the alert window.
+   * @param headerKey I18N key for the short text with main information.
+   * @param contentKey I18N key for the description of the alert.
+   */
+  @Generated
+  public static void showAlert(@NotNull @NonNull Alert.AlertType alertType,
+                        @NotNull @NonNull String titleKey, @NotNull @NonNull String headerKey,
+                        @NotNull @NonNull String contentKey) {
+    var alert = new Alert(alertType);
+    alert.titleProperty().set(titleKey);
+    alert.headerTextProperty().set(headerKey);
+    alert.contentTextProperty().set(contentKey);
+    alert.setResizable(true);
+    alert.setHeight(500);
+    alert.setWidth(500);
+    alert.showAndWait();
+  }
 }

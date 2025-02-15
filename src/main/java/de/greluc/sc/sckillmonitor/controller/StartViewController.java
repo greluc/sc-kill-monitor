@@ -20,13 +20,16 @@
 
 package de.greluc.sc.sckillmonitor.controller;
 
+import de.greluc.sc.sckillmonitor.AlertHandler;
 import de.greluc.sc.sckillmonitor.settings.SettingsListener;
 import de.greluc.sc.sckillmonitor.settings.SettingsData;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import lombok.extern.log4j.Log4j2;
 
 import static de.greluc.sc.sckillmonitor.Constants.*;
 
@@ -35,6 +38,7 @@ import static de.greluc.sc.sckillmonitor.Constants.*;
  * @since 1.0.0
  * @version 1.0.0
  */
+@Log4j2
 public class StartViewController implements SettingsListener {
     @FXML
     private Label selectedPathValue;
@@ -60,6 +64,16 @@ public class StartViewController implements SettingsListener {
 
     @FXML
     protected void onStartButtonClicked() {
+        if (inputHandle.getText().isEmpty()) {
+            log.warn("Handle is empty");
+            AlertHandler.showAlert(Alert.AlertType.ERROR, "SC Kill Monitor", "Handle is empty", "Please enter a handle");
+            return;
+        }
+        if (inputInterval.getText().isEmpty()) {
+            log.warn("Interval is empty");
+            AlertHandler.showAlert(Alert.AlertType.ERROR, "SC Kill Monitor", "Interval is empty", "Please enter an interval");
+            return;
+        }
         SettingsData.setHandle(inputHandle.getText());
         SettingsData.setInterval(Integer.parseInt(inputInterval.getText())); // TODO error handling
         mainViewController.onStartPressed();
