@@ -35,7 +35,6 @@ For more information about this license, please visit https://www.gnu.org/licens
 [#contribution]
 == Contribution
 
-* You can find the source code under https://github.com/greluc/sc-kill-monitor[https://github.com/greluc/sc-kill-monitor].
 * Please read link:CONTRIBUTING.adoc[CONTRIBUTING] when you wish to contribute to this project.
 * Please note that this project is released with a Contributor link:CODE_OF_CONDUCT.adoc[CODE_OF_CONDUCT].
 By participating in this project, you agree to abide by its terms.
