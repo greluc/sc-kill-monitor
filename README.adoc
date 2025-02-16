@@ -46,7 +46,7 @@ By participating in this project, you agree to abide by its terms.
 [#team]
 == Team
 
-* Lucas Greuloch (https://gitlab.com/greluc[@greluc])
+* Lucas Greuloch (https://github.com/greluc[@greluc])
 * René Jansen (https://github.com/rjcncpt[@rjcncpt])
 
 image:src/main/resources/logos/MadeByTheCommunity_Black.png[link="https://robertsspaceindustries.com/en/",100]
