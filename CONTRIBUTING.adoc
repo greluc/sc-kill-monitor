@@ -2,7 +2,7 @@
 
 First off, thanks for taking the time to contribute.
 
-The following is a set of guidelines for contributing to SC Kill Monitor, which is https://gitlab.com/flightsimtools/sc/sc-kill-monitor[hosted with GitLab].
+The following is a set of guidelines for contributing to SC Kill Monitor, which is https://github.com/greluc/sc-kill-monitor[hosted with GitHub].
 These are mostly guidelines, not rules.
 Use your best judgment and feel free to propose changes to this document in a merge request.
 
@@ -54,7 +54,6 @@ Following these guidelines helps maintainers and the community to understand you
 Before creating bug reports, check <<before-submitting-a-bug-report,this list>> as you might find out that  you don't need to create one.
 When you're creating a bug report, <<how-do-i-submit-a-good-bug-report,include as many details as possible>>.
 Fill out link:.gitlab/issue_templates/Bug.md[the required template], the information it asks for helps us to resolve issues faster.
-You can  likewise submit a new (bug-)issue by sending it to link:mailto:contact-project+flightsimtools-sc-sc-kill-monitor-67138143-issue-@incoming.gitlab.com[contact-project+flightsimtools-sc-sc-kill-monitor-67138143-issue-@incoming.gitlab.com].
 
 [#before-submitting-a-bug-report]
 ==== Before Submitting A Bug Report
