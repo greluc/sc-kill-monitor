@@ -35,6 +35,8 @@ public class Constants {
   public static final String TECH_PREVIEW = "TECH-PREVIEW";
   public static final String CUSTOM = "Custom";
 
+  public static final String APP_TITLE = "SC Kill Monitor";
+
   public static final String UTILITY_CLASS = "Utility class";
 
   /**

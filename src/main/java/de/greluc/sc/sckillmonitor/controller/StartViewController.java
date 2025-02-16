@@ -66,12 +66,12 @@ public class StartViewController implements SettingsListener {
     protected void onStartButtonClicked() {
         if (inputHandle.getText().isEmpty()) {
             log.warn("Handle is empty");
-            AlertHandler.showAlert(Alert.AlertType.ERROR, "SC Kill Monitor", "Handle is empty", "Please enter a handle");
+            AlertHandler.showAlert(Alert.AlertType.ERROR, "Handle is empty", "Please enter a handle");
             return;
         }
         if (inputInterval.getText().isEmpty()) {
             log.warn("Interval is empty");
-            AlertHandler.showAlert(Alert.AlertType.ERROR, "SC Kill Monitor", "Interval is empty", "Please enter an interval");
+            AlertHandler.showAlert(Alert.AlertType.ERROR, "Interval is empty", "Please enter an interval");
             return;
         }
         SettingsData.setHandle(inputHandle.getText());

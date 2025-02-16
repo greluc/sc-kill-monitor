@@ -26,6 +26,8 @@ import lombok.Generated;
 import lombok.NonNull;
 import org.jetbrains.annotations.NotNull;
 
+import static de.greluc.sc.sckillmonitor.Constants.APP_TITLE;
+
 public class AlertHandler {
 
   /**
@@ -33,23 +35,22 @@ public class AlertHandler {
    */
   @Generated
   public static void showGeneralError() {
-    showAlert(Alert.AlertType.ERROR, "SC Kill Monitor", "ERROR", "An error occurred while performing the desired action.");
+    showAlert(Alert.AlertType.ERROR, "ERROR", "An error occurred while performing the desired action.");
   }
 
   /**
    * Shows an alert. Uses the {@link Alert} class.
    *
    * @param alertType {@link Alert.AlertType} that should be used for the alert.
-   * @param titleKey I18N key for the title of the alert window.
-   * @param headerKey I18N key for the short text with main information.
+   * @param headerKey I18N key for the short text with the main information.
    * @param contentKey I18N key for the description of the alert.
    */
   @Generated
   public static void showAlert(@NotNull @NonNull Alert.AlertType alertType,
-                        @NotNull @NonNull String titleKey, @NotNull @NonNull String headerKey,
-                        @NotNull @NonNull String contentKey) {
+                               @NotNull @NonNull String headerKey,
+                               @NotNull @NonNull String contentKey) {
     var alert = new Alert(alertType);
-    alert.titleProperty().set(titleKey);
+    alert.titleProperty().set(APP_TITLE);
     alert.headerTextProperty().set(headerKey);
     alert.contentTextProperty().set(contentKey);
     alert.setResizable(true);
