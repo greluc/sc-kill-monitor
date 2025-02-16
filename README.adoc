@@ -1,9 +1,5 @@
 = SC Kill Monitor
 
-image:https://gitlab.com/flightsimtools/sc/sc-kill-monitor/badges/main/pipeline.svg?ignore_skipped=true&style=flat-square&key_text=main[Pipeline Status main,link=https://gitlab.com/flightsimtools/sc/sc-kill-monitor/pipelines]
-image:https://gitlab.com/flightsimtools/sc/sc-kill-monitor/badges/develop/pipeline.svg?ignore_skipped=true&style=flat-square&key_text=develop[Pipeline Status develop,link=https://gitlab.com/flightsimtools/sc/sc-kill-monitor/pipelines]
-image:https://gitlab.com/flightsimtools/sc/sc-kill-monitor/badges/main/coverage.svg?style=flat-square&key_text=Code+Coverage&key_width=100[Code Coverage,link=https://gitlab.com/flightsimtools/sc/sc-kill-monitor/-/commits/main]
-image:https://gitlab.com/flightsimtools/sc/sc-kill-monitor/-/badges/release.svg?style=flat-square&key_text=Latest+Release&key_width=100[Latest Release,link=https://gitlab.com/flightsimtools/sc/sc-kill-monitor/-/releases]
 image:https://img.shields.io/badge/License-GPLv3-blue.svg?style=flat-square[License: GPLv3,link=LICENSE]
 image:https://img.shields.io/badge/Contributor%20Covenant-v2.1%20adopted-ff69b4.svg?style=flat-square[Code of Conduct,link=CODE_OF_CONDUCT.adoc]
 
@@ -42,7 +38,7 @@ For more information about this license, please visit https://www.gnu.org/licens
 [#contribution]
 == Contribution
 
-* You can find the source code under https://gitlab.com/flightsimtools/sc/sc-kill-monitor[https://gitlab.com/flightsimtools/sc/sc-kill-monitor].
+* You can find the source code under https://github.com/greluc/sc-kill-monitor[https://github.com/greluc/sc-kill-monitor].
 * Please read link:CONTRIBUTING.adoc[CONTRIBUTING] when you wish to contribute to this project.
 * Please note that this project is released with a Contributor link:CODE_OF_CONDUCT.adoc[CODE_OF_CONDUCT].
 By participating in this project, you agree to abide by its terms.
