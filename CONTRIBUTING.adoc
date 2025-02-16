@@ -54,7 +54,7 @@ Following these guidelines helps maintainers and the community to understand you
 Before creating bug reports, check <<before-submitting-a-bug-report,this list>> as you might find out that  you don't need to create one.
 When you're creating a bug report, <<how-do-i-submit-a-good-bug-report,include as many details as possible>>.
 Fill out link:.gitlab/issue_templates/Bug.md[the required template], the information it asks for helps us to resolve issues faster.
-You can  likewise submit a new (bug-)issue by sending it to link:mailto:contact-project+flightsimtools-sc-sc-kill-monitor-67138143-issue-@incoming.gitlab.com[contact-project+flightsimtools-sc-sc-kill-monitor-67138143-issue-@incoming.gitlab.com].
+You can  likewise submit a new (bug-)issue by sending it to link:mailto:contact-project+greluc-oss-sc-sc-kill-monitor-support@incoming.gitlab.com[contact-project+greluc-oss-sc-sc-kill-monitor-support@incoming.gitlab.com].
 
 [#before-submitting-a-bug-report]
 ==== Before Submitting A Bug Report
@@ -117,7 +117,7 @@ Following these guidelines helps maintainers and the community to understand you
 Before creating enhancement suggestions, check <<before-submitting-an-enhancement-suggestion,this list>> as you might find out that you don't need to create one.
 When you're creating an enhancement suggestion, <<how-do-i-submit-a-good-enhancement-suggestion,include as many details as possible>>.
 Fill in link:.gitlab/issue_templates/Feature.md[the template], including the steps that you imagine you would take if the feature you're requesting existed.
-You can likewise submit a new (feature-)issue by sending it to link:mailto:contact-project+flightsimtools-sc-sc-kill-monitor-67138143-issue-@incoming.gitlab.com[contact-project+flightsimtools-sc-sc-kill-monitor-67138143-issue-@incoming.gitlab.com].
+You can likewise submit a new (feature-)issue by sending it to link:mailto:contact-project+greluc-oss-sc-sc-kill-monitor-support@incoming.gitlab.com[contact-project+greluc-oss-sc-sc-kill-monitor-support@incoming.gitlab.com].
 
 [#before-submitting-an-enhancement-suggestion]
 ==== Before Submitting An Enhancement Suggestion
@@ -185,7 +185,7 @@ For example, [FEATURE – Database] or [BUG – API].
 === Java Style Guide
 
 * Follow the https://google.github.io/styleguide/javaguide.html[Java Style Guide] of Google.
-You can find the XML file for IntelliJ IDEA in the settings directory.
+You can find the XML file for IntelliJ IDEA in the config/settings directory.
 * Use two spaces for idents.
 
 [#javadoc-style-guide]

@@ -20,11 +20,42 @@
 
 package de.greluc.sc.sckillmonitor;
 
-/**
- * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
- * @since 1.0.0
- * @version 1.0.0
- */
-public interface SettingsListener {
-  void settingsChanged();
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import lombok.Generated;
+import lombok.NonNull;
+import org.jetbrains.annotations.NotNull;
+
+import static de.greluc.sc.sckillmonitor.Constants.APP_TITLE;
+
+public class AlertHandler {
+
+  /**
+   * Shows a general error that doesn't specify a specific error in its message.
+   */
+  @Generated
+  public static void showGeneralError() {
+    showAlert(Alert.AlertType.ERROR, "ERROR", "An error occurred while performing the desired action.");
+  }
+
+  /**
+   * Shows an alert. Uses the {@link Alert} class.
+   *
+   * @param alertType {@link Alert.AlertType} that should be used for the alert.
+   * @param headerKey I18N key for the short text with the main information.
+   * @param contentKey I18N key for the description of the alert.
+   */
+  @Generated
+  public static void showAlert(@NotNull @NonNull Alert.AlertType alertType,
+                               @NotNull @NonNull String headerKey,
+                               @NotNull @NonNull String contentKey) {
+    var alert = new Alert(alertType);
+    alert.titleProperty().set(APP_TITLE);
+    alert.headerTextProperty().set(headerKey);
+    alert.contentTextProperty().set(contentKey);
+    alert.setResizable(true);
+    alert.setHeight(500);
+    alert.setWidth(500);
+    alert.showAndWait();
+  }
 }

@@ -25,10 +25,10 @@ import de.greluc.sc.sckillmonitor.settings.SettingsHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
 
@@ -37,10 +37,12 @@ import java.io.IOException;
  * @since 1.0.0
  * @version 1.0.0
  */
+@Log4j2
 public class MainViewController {
   @FXML
   private GridPane basePane;
   private GridPane startPane;
+  private GridPane scanPane;
   private final SettingsHandler settingsHandler = new SettingsHandler();
 
   @FXML
@@ -49,8 +51,8 @@ public class MainViewController {
     FXMLLoader fxmlLoader = new FXMLLoader(ScKillMonitorApp.class.getResource("StartView.fxml"));
     try {
       startPane = fxmlLoader.load();
-    } catch (IOException e) {
-      System.err.println("Could not load StartView.fxml"); // TODO real logging
+    } catch (IOException ioException) {
+      log.error("Could not load StartView.fxml", ioException);
       System.exit(-1);
     }
     StartViewController startViewController = fxmlLoader.getController();
@@ -72,8 +74,8 @@ public class MainViewController {
       stage.setResizable(true);
       stage.initModality(Modality.APPLICATION_MODAL);
       stage.show();
-    } catch (IOException e) {
-      System.err.println("Couldn't load SettingsView.fxml");
+    } catch (IOException ioException) {
+      log.error("Couldn't load SettingsView.fxml", ioException);
     }
   }
 
@@ -90,15 +92,31 @@ public class MainViewController {
   protected void onStartPressed() {
     basePane.getChildren().remove(startPane);
     FXMLLoader fxmlLoader = new FXMLLoader(ScKillMonitorApp.class.getResource("ScanView.fxml"));
-    ScrollPane scanPane = null;
+    scanPane = null;
     try {
       scanPane = fxmlLoader.load();
-    } catch (IOException e) {
-      System.err.println("Could not load ScanView.fxml"); // TODO real logging
+    } catch (IOException ioException) {
+      log.error("Could not load ScanView.fxml", ioException);
       System.exit(-1);
     }
-    scanPane.setFitToWidth(true);
+    ScanViewController scanViewController = fxmlLoader.getController();
+    scanViewController.setMainViewController(this);
     GridPane.setConstraints(scanPane, 0, 1);
     basePane.getChildren().add(scanPane);
+  }
+
+  protected void onStopPressed() {
+    basePane.getChildren().remove(scanPane);
+    FXMLLoader fxmlLoader = new FXMLLoader(ScKillMonitorApp.class.getResource("StartView.fxml"));
+    try {
+      startPane = fxmlLoader.load();
+    } catch (IOException ioException) {
+      log.error("Could not load StartView.fxml", ioException);
+      System.exit(-1);
+    }
+    StartViewController startViewController = fxmlLoader.getController();
+    startViewController.setMainViewController(this);
+    GridPane.setConstraints(startPane, 0, 1);
+    basePane.getChildren().add(startPane);
   }
 }

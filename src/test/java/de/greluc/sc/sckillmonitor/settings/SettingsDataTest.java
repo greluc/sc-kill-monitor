@@ -18,48 +18,57 @@
  * along with SC Kill Monitor. If not, see <http://www.gnu.org/licenses/>.                        *
  **************************************************************************************************/
 
-package de.greluc.sc.sckillmonitor;
+package de.greluc.sc.sckillmonitor.settings;
 
-import atlantafx.base.theme.PrimerDark;
-import atlantafx.base.theme.PrimerLight;
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import lombok.extern.log4j.Log4j2;
-import org.jetbrains.annotations.NotNull;
+import de.greluc.sc.sckillmonitor.controller.MainViewController;
+import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
 
-/**
- * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
- * @since 1.0.0
- * @version 1.0.0
- */
-@Log4j2
-public class ScKillMonitorApp extends Application {
-    @Override
-    public void start(@NotNull Stage stage) {
-        try {
-            Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
-            Application.setUserAgentStylesheet(new PrimerDark().getUserAgentStylesheet());
-            FXMLLoader fxmlLoader = new FXMLLoader(ScKillMonitorApp.class.getResource("MainView.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 600, 400);
-            stage.setTitle("SC Kill Monitor");
-            stage.setScene(scene);
-            stage.setOnCloseRequest(t -> {
-                Platform.exit();
-                System.exit(0);
-            });
-            stage.show();
-        } catch (IOException ioException) {
-            log.error("Could not load main view", ioException);
-            System.exit(-1);
-        }
-    }
+class SettingsDataTest {
 
-    public static void main(String[] args) {
-        launch();
-    }
+  @Test
+  void testSetSelectedChannelUpdatesValue() {
+    // Arrange
+    String newChannel = "PTU";
+
+    // Act
+    SettingsData.setSelectedChannel(newChannel);
+
+    // Assert
+    assertEquals(newChannel, SettingsData.getSelectedChannel());
+  }
+
+  @Test
+  void testSetSelectedChannelNotifiesListeners() {
+    // Arrange
+    String newChannel = "TECH-PREVIEW";
+    SettingsListener mockListener = mock(SettingsListener.class);
+    SettingsData.addListener(mockListener);
+
+    // Act
+    SettingsData.setSelectedChannel(newChannel);
+
+    // Assert
+    verify(mockListener, times(1)).settingsChanged();
+
+    // Cleanup
+    SettingsData.removeListener(mockListener);
+  }
+
+  @Test
+  void testSetSelectedChannelDoesNotNotifyRemovedListener() {
+    // Arrange
+    String newChannel = "HOTFIX";
+    SettingsListener mockListener = mock(SettingsListener.class);
+    SettingsData.addListener(mockListener);
+    SettingsData.removeListener(mockListener);
+
+    // Act
+    SettingsData.setSelectedChannel(newChannel);
+
+    // Assert
+    verify(mockListener, never()).settingsChanged();
+  }
 }

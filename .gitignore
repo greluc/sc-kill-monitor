@@ -46,3 +46,6 @@ output
 /.idea/.copilot-plugin
 /.idea/copyright/profiles_settings.xml
 /.idea/copyright/GPLv3.xml
+/.idea/checkstyleidea-libs/readme.txt
+/logs/sckillmonitor.log
+/.idea/git_toolbox_blame.xml

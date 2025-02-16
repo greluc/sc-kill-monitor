@@ -27,6 +27,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
+import lombok.extern.log4j.Log4j2;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;
@@ -45,24 +46,32 @@ import static de.greluc.sc.sckillmonitor.Constants.TECH_PREVIEW;
 
 /**
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
- * @since 1.0.0
  * @version 1.0.0
+ * @since 1.0.0
  */
+@Log4j2
 public class ScanViewController {
   private final ExecutorService executorService = Executors.newSingleThreadExecutor();
   @FXML
   private VBox textPane;
   @FXML
   private ScrollPane scrollPane;
+  private MainViewController mainViewController;
 
   @FXML
   protected void initialize() {
     textPane.setFillWidth(true);
-    scrollPane.setFitToHeight(true); // Let scrolling be vertical only
+    scrollPane.setFitToHeight(true);
+    scrollPane.setFitToWidth(true);
     executorService.submit(this::startScan);
   }
 
-  @SuppressWarnings("InfiniteLoopStatement")
+  @FXML
+  private void onStopPressed() {
+    executorService.shutdownNow();
+    mainViewController.onStopPressed();
+  }
+
   public void startScan() {
     String selectedPathValue = switch (SettingsData.getSelectedChannel()) {
       case PTU -> SettingsData.getPathPtu();
@@ -73,28 +82,34 @@ public class ScanViewController {
     };
 
     if (selectedPathValue == null || selectedPathValue.isEmpty()) {
-      System.err.println("No log file path specified!");
-      System.err.println("Check your input!");
+      log.error("No log file path specified!");
+      log.error("Check your input!");
       System.exit(-1);
     }
     if (SettingsData.getHandle() == null || SettingsData.getHandle().isEmpty()) {
-      System.err.println("No log handle specified!");
-      System.err.println("Check your input!");
+      log.error("No handle specified!");
+      log.error("Check your input!");
       System.exit(-1);
     }
-    System.out.println("Using the selected path: " + selectedPathValue);
+    log.debug("Using the selected handle: {}", SettingsData.getHandle());
+    log.debug("Using the selected channel: {}", SettingsData.getSelectedChannel());
+    log.debug("Using the selected log file path: {}", selectedPathValue);
 
     AtomicReference<ZonedDateTime> lastTime = new AtomicReference<>(ZonedDateTime.now().minusYears(1));
     while (true) {
       try {
         extractKillEvents(selectedPathValue, lastTime);
-        System.out.println("Scan finished!");
+        log.debug("Finished extracting kill events from log file: {}", selectedPathValue);
       } catch (IOException ioException) {
-        System.err.println("Error reading the log file: " + ioException.getMessage());
+        log.error("Failed to read the log file: {}", selectedPathValue, ioException);
       }
+
       try {
         TimeUnit.SECONDS.sleep(SettingsData.getInterval());
-      } catch (InterruptedException ignored) {
+      } catch (InterruptedException e) {
+        log.debug("Scan thread was interrupted. Terminating...");
+        Thread.currentThread().interrupt();
+        return;
       }
     }
   }
@@ -130,6 +145,8 @@ public class ScanViewController {
                 textPane.getChildren().add(textArea);
               });
 
+              log.info("New kill event detected:\n{}", killEvent);
+
               lastTime.set(killEvent.getTimestamp());
             }
           });
@@ -159,7 +176,7 @@ public class ScanViewController {
 
       return Optional.of(new KillEvent(ZonedDateTime.parse(timestamp, DateTimeFormatter.ISO_DATE_TIME), killedPlayer, killer, weapon, damageType, zone));
     } catch (Exception exception) {
-      System.err.println("Failed to parse log line: " + logLine);
+      log.error("Failed to parse log line: {}", logLine, exception);
       return Optional.empty();
     }
   }
@@ -175,10 +192,18 @@ public class ScanViewController {
   @SuppressWarnings("SameParameterValue")
   private @NotNull String extractValue(@NotNull String text, @NotNull String startToken, @NotNull String endToken) {
     int startIndex = text.indexOf(startToken);
-    if (startIndex == -1) return "";
+    if (startIndex == -1) {
+      return "";
+    }
     startIndex += startToken.length();
     int endIndex = text.indexOf(endToken, startIndex);
-    if (endIndex == -1) return "";
+    if (endIndex == -1) {
+      return "";
+    }
     return text.substring(startIndex, endIndex);
+  }
+
+  void setMainViewController(MainViewController mainViewController) {
+    this.mainViewController = mainViewController;
   }
 }

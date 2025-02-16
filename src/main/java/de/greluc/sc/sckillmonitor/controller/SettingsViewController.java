@@ -20,6 +20,7 @@
 
 package de.greluc.sc.sckillmonitor.controller;
 
+import de.greluc.sc.sckillmonitor.FileHandler;
 import de.greluc.sc.sckillmonitor.settings.SettingsData;
 import de.greluc.sc.sckillmonitor.settings.SettingsHandler;
 import javafx.fxml.FXML;
@@ -27,6 +28,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import lombok.Generated;
 import lombok.Setter;
+import org.jetbrains.annotations.NotNull;
+
+import java.io.File;
 
 /**
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
@@ -44,6 +48,8 @@ public class SettingsViewController {
   private TextField inputPathHotfix;
   @FXML
   private TextField inputPathTechPreview;
+  @FXML
+  private TextField inputPathCustom;
   @Setter
   private SettingsHandler settingsHandler;
 
@@ -54,6 +60,7 @@ public class SettingsViewController {
     inputPathEptu.setText(SettingsData.getPathEptu());
     inputPathHotfix.setText(SettingsData.getPathHotfix());
     inputPathTechPreview.setText(SettingsData.getPathTechPreview());
+    inputPathCustom.setText(SettingsData.getPathCustom());
   }
 
   @FXML
@@ -63,6 +70,7 @@ public class SettingsViewController {
     SettingsData.setPathEptu(inputPathEptu.getText());
     SettingsData.setPathHotfix(inputPathHotfix.getText());
     SettingsData.setPathTechPreview(inputPathTechPreview.getText());
+    SettingsData.setPathCustom(inputPathCustom.getText());
     settingsHandler.saveSettings();
     closeWindow();
   }
@@ -75,5 +83,44 @@ public class SettingsViewController {
   private void closeWindow() {
     var stage = (Stage) inputPathLive.getScene().getWindow();
     stage.close();
+  }
+
+  @FXML
+  private void onLiveClicked() {
+    inputPathLive.setText(getPath());
+  }
+
+  @FXML
+  private void onPtuClicked() {
+    inputPathPtu.setText(getPath());
+  }
+
+  @FXML
+  private void onEptuClicked() {
+    inputPathEptu.setText(getPath());
+  }
+
+  @FXML
+  private void onHotfixClicked() {
+    inputPathHotfix.setText(getPath());
+  }
+
+  @FXML
+  private void onTechPreviewClicked() {
+    inputPathTechPreview.setText(getPath());
+  }
+
+  @FXML
+  private void onCustomClicked() {
+    inputPathCustom.setText(getPath());
+  }
+
+  private @NotNull String getPath() {
+    File file = FileHandler.showFileChooser();
+    if (file != null) {
+       return file.getPath();
+    } else {
+      return "";
+    }
   }
 }

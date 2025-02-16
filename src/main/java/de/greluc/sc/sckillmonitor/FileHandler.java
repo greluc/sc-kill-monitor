@@ -20,46 +20,26 @@
 
 package de.greluc.sc.sckillmonitor;
 
-import atlantafx.base.theme.PrimerDark;
-import atlantafx.base.theme.PrimerLight;
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import javafx.stage.FileChooser;
 import lombok.extern.log4j.Log4j2;
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import java.io.IOException;
+import java.io.File;
 
-/**
- * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
- * @since 1.0.0
- * @version 1.0.0
- */
 @Log4j2
-public class ScKillMonitorApp extends Application {
-    @Override
-    public void start(@NotNull Stage stage) {
-        try {
-            Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
-            Application.setUserAgentStylesheet(new PrimerDark().getUserAgentStylesheet());
-            FXMLLoader fxmlLoader = new FXMLLoader(ScKillMonitorApp.class.getResource("MainView.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 600, 400);
-            stage.setTitle("SC Kill Monitor");
-            stage.setScene(scene);
-            stage.setOnCloseRequest(t -> {
-                Platform.exit();
-                System.exit(0);
-            });
-            stage.show();
-        } catch (IOException ioException) {
-            log.error("Could not load main view", ioException);
-            System.exit(-1);
-        }
-    }
+public class FileHandler {
 
-    public static void main(String[] args) {
-        launch();
-    }
+  /**
+   * Opens a dialog in which the user can choose the path to the OFP file.
+   *
+   * @return {@link File} object representing the OFP file. Null when no file has been chosen.
+   */
+  public static @Nullable File showFileChooser() {
+    log.debug("Trying to choose a file!");
+    final var fileType = "*.log";
+    final var filter = new FileChooser.ExtensionFilter("log File", fileType);
+    final var chooser = new FileChooser();
+    chooser.getExtensionFilters().add(filter);
+    return chooser.showOpenDialog(null);
+  }
 }
