@@ -20,9 +20,10 @@
 
 val checkstyleVersion="10.21.2" // https://github.com/checkstyle/checkstyle
 val annotationsVersion="26.0.2" // https://mvnrepository.com/artifact/org.jetbrains/annotations https://github.com/JetBrains/java-annotations
-val junitVersion = "5.11.4"
-val controlsfxVersion = "11.2.1"
-val atlantafxVersion = "2.0.1"
+val junitVersion = "5.11.4" // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
+val mockitoVersion = "5.15.2" // https://mvnrepository.com/artifact/org.mockito/mockito-core
+val atlantafxVersion = "2.0.1" // https://mvnrepository.com/artifact/io.github.mkpaz/atlantafx-base
+val log4j2Version = "2.24.3" // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api
 
 plugins {
   id("java")
@@ -30,11 +31,11 @@ plugins {
   id("idea")
   id("jacoco")
   id("checkstyle")
-  id("io.freefair.lombok") version "8.12.1"
+  id("io.freefair.lombok") version "8.12.1" // https://plugins.gradle.org/plugin/io.freefair.lombok
   id("org.cyclonedx.bom") version "2.1.0" // https://github.com/CycloneDX/cyclonedx-gradle-plugin
-  id("dev.hydraulic.conveyor") version "1.12"
-  id("org.javamodularity.moduleplugin") version "1.8.15"
-  id("org.openjfx.javafxplugin") version "0.1.0"
+  id("dev.hydraulic.conveyor") version "1.12" // https://plugins.gradle.org/plugin/dev.hydraulic.conveyor
+  id("org.javamodularity.moduleplugin") version "1.8.15" // https://plugins.gradle.org/plugin/org.javamodularity.moduleplugin
+  id("org.openjfx.javafxplugin") version "0.1.0" // https://plugins.gradle.org/plugin/org.openjfx.javafxplugin
 }
 
 repositories {
@@ -42,16 +43,12 @@ repositories {
 }
 
 dependencies {
-  implementation("org.controlsfx:controlsfx:${controlsfxVersion}")
   implementation("org.jetbrains:annotations:$annotationsVersion")
   implementation("io.github.mkpaz:atlantafx-base:${atlantafxVersion}")
-  // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
-  implementation("org.apache.logging.log4j:log4j-core:2.24.3")
-  // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api
-  implementation("org.apache.logging.log4j:log4j-api:2.24.3")
+  implementation("org.apache.logging.log4j:log4j-core:${log4j2Version}")
+  implementation("org.apache.logging.log4j:log4j-api:${log4j2Version}")
   testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
-  // https://mvnrepository.com/artifact/org.mockito/mockito-core
-  testImplementation("org.mockito:mockito-core:5.15.2")
+  testImplementation("org.mockito:mockito-core:${mockitoVersion}")
   testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 }
 
@@ -61,18 +58,18 @@ base {
   description = "SC Kill Monitor - See who griefed you!"
 }
 
+configurations {
+  compileOnly {
+    extendsFrom(configurations.annotationProcessor.get())
+  }
+}
+
 java {
   sourceCompatibility = JavaVersion.VERSION_23
   targetCompatibility = JavaVersion.VERSION_23
   toolchain.languageVersion.set(JavaLanguageVersion.of(23))
   modularity.inferModulePath = true
   withSourcesJar()
-}
-
-configurations {
-  compileOnly {
-    extendsFrom(configurations.annotationProcessor.get())
-  }
 }
 
 tasks.withType(JavaCompile::class.java) {
@@ -85,6 +82,17 @@ idea {
     isDownloadJavadoc = true
     isDownloadSources = true
   }
+}
+
+application {
+  mainModule = "de.greluc.sc.sckillmonitor"
+  mainClass = "de.greluc.sc.sckillmonitor.ScKillMonitorApp"
+}
+
+
+javafx {
+  version = "23"
+  modules = listOf("javafx.controls", "javafx.fxml")
 }
 
 checkstyle {
@@ -106,17 +114,6 @@ tasks.javadoc {
     (this as CoreJavadocOptions).addStringOption("Xdoclint:none", "-quiet")
   }
   setDestinationDir(project.file("docs/javadoc"))
-}
-
-application {
-  mainModule = "de.greluc.sc.sckillmonitor"
-  mainClass = "de.greluc.sc.sckillmonitor.ScKillMonitorApp"
-}
-
-
-javafx {
-  version = "23"
-  modules = listOf("javafx.controls", "javafx.fxml")
 }
 
 tasks.test {
