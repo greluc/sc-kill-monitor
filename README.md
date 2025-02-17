@@ -1,7 +1,6 @@
 # SC Kill Monitor
 
 [![Static Badge](https://img.shields.io/badge/%F0%9F%92%96-%23fff?style=for-the-badge&labelColor=232323&label=Star%20Citizen)](https://robertsspaceindustries.com/)
-[![Static Badge](https://img.shields.io/badge/40k-brightgreen?style=for-the-badge&logoColor=000&label=Downloads&labelColor=232323&color=fff)](https://hanadigital.github.io/grev/?user=greluc&repo=SC-Kill-Monitor)
 
 ## Table Of Contents
 
