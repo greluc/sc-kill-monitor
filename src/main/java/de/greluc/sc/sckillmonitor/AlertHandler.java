@@ -28,6 +28,17 @@ import org.jetbrains.annotations.NotNull;
 
 import static de.greluc.sc.sckillmonitor.Constants.APP_TITLE;
 
+/**
+ * Provides utility methods to display alerts within the application.
+ * <p>
+ * The AlertHandler class contains static methods to display different types of
+ * alerts using JavaFX's Alert class. It supports alerts with configurable types,
+ * headers, and content, as well as displaying general error alerts.
+ *
+ * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
+ * @since 1.0.0
+ * @version 1.0.0
+ */
 public class AlertHandler {
 
   /**
@@ -42,20 +53,18 @@ public class AlertHandler {
    * Shows an alert. Uses the {@link Alert} class.
    *
    * @param alertType {@link Alert.AlertType} that should be used for the alert.
-   * @param headerKey I18N key for the short text with the main information.
-   * @param contentKey I18N key for the description of the alert.
+   * @param header String containing the short text with the main information.
+   * @param content String containing the description of the alert.
    */
   @Generated
-  public static void showAlert(@NotNull @NonNull Alert.AlertType alertType,
-                               @NotNull @NonNull String headerKey,
-                               @NotNull @NonNull String contentKey) {
+  public static void showAlert(@NotNull Alert.AlertType alertType,
+                               @NotNull String header,
+                               @NotNull String content) {
     var alert = new Alert(alertType);
     alert.titleProperty().set(APP_TITLE);
-    alert.headerTextProperty().set(headerKey);
-    alert.contentTextProperty().set(contentKey);
+    alert.headerTextProperty().set(header);
+    alert.contentTextProperty().set(content);
     alert.setResizable(true);
-    alert.setHeight(500);
-    alert.setWidth(500);
     alert.showAndWait();
   }
 }

@@ -19,13 +19,16 @@
  **************************************************************************************************/
 
 package de.greluc.sc.sckillmonitor.settings;
-
-import de.greluc.sc.sckillmonitor.controller.MainViewController;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
+/**
+ * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
+ * @since 1.0.0
+ * @version 1.0.0
+ */
 class SettingsDataTest {
 
   @Test

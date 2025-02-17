@@ -29,45 +29,34 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * The KillEvent record represents an event in which a player is killed in a game,
- * storing all relevant details surrounding the event.
- * <p>
- * This record is used as part of log parsing and event processing
- * to capture and represent the killing actions within the gaming environment.
- * It encapsulates critical information such as the timestamp of the event,
- * the names of the killed player and the killer, the weapon used, type of damage,
- * the in-game zone, and the specific location of the event.
- * <p>
- * Primary usage includes structured representation of kill events for further
- * processing, storage, or analysis.
- * <p>
- * Fields:
- * - timestamp: The time at which the kill event occurred.
- * - killedPlayer: The name of the player who was killed.
- * - killer: The name of the player who performed the kill.
- * - weapon: The weapon used by the killer to perform the kill.
- * - damageType: The type of damage dealt that resulted in the kill.
- * - zone: The in-game zone where the kill event took place.
- * - location: The specific location or direction related to the kill event.
- * <p>
- * Overrides:
- * - toString: Provides a string representation of the KillEvent
- * record, including all its fields.
+ * Represents an event in which a player is killed during gameplay.
  *
- * @author Lucas Greuloch (greluc, lucas.greuloch@pm.me)
- * @version 1.0.0
+ * <ul>
+ *   <li><strong>timestamp</strong>: The date and time when the kill event occurred.</li>
+ *   <li><strong>killedPlayer</strong>: The name of the player who was killed.</li>
+ *   <li><strong>killer</strong>: The name of the player, NPC, or entity that performed the kill.</li>
+ *   <li><strong>weapon</strong>: The weapon or method used to perform the kill.</li>
+ *   <li><strong>damageType</strong>: The type of damage inflicted (e.g., explosive, ballistic).</li>
+ *   <li><strong>zone</strong>: The location or area in the game where the kill occurred.</li>
+ * </ul>
+ *
+ * This record provides a detailed representation of a kill event, storing all relevant details
+ * for tracking or monitoring purposes.
+ * The {@code toString} method formats these details into a human-readable string.
+ *
+ * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
  * @since 1.0.0
+ * @version 1.0.0
  */
-@Getter
-@AllArgsConstructor
-public final class KillEvent {
-  private final ZonedDateTime timestamp;
-  private final String killedPlayer;
-  private final String killer;
-  private final String weapon;
-  private final String damageType;
-  private final String zone;
-
+public record KillEvent(ZonedDateTime timestamp, String killedPlayer, String killer, String weapon, String damageType,
+                        String zone) {
+  /**
+   * Returns a string representation of the kill event.
+   * The string includes details such as the kill date, killed player, zone, killer,
+   * weapon or method used, and the type of damage inflicted.
+   *
+   * @return a formatted string containing the details of the kill event.
+   */
   @Contract(pure = true)
   @Override
   public @NotNull String toString() {
