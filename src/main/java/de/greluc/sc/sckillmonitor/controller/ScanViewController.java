@@ -78,6 +78,7 @@ public class ScanViewController {
       case EPTU -> SettingsData.getPathEptu();
       case HOTFIX -> SettingsData.getPathHotfix();
       case TECH_PREVIEW -> SettingsData.getPathTechPreview();
+      case CUSTOM -> SettingsData.getPathCustom();
       default -> SettingsData.getPathLive();
     };
 
@@ -132,9 +133,6 @@ public class ScanViewController {
           event.ifPresent(killEvent -> {
             if (killEvent.getKilledPlayer().equals(SettingsData.getHandle())
                 && killEvent.getTimestamp().isAfter(lastTime.get())) {
-              System.out.println();
-              System.out.println(killEvent);
-
               Platform.runLater(() -> {
                 TextArea textArea = new TextArea(killEvent.toString());
                 textArea.setEditable(false);
