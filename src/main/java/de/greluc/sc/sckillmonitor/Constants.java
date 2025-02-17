@@ -23,6 +23,12 @@ package de.greluc.sc.sckillmonitor;
 import lombok.Generated;
 
 /**
+ * This class represents a collection of constant values used throughout the application.
+ * <p>
+ * It includes constants for various environment types, application metadata,
+ * and utility class-related string definitions. The class is designed to prevent
+ * instantiation as it serves only as a holder for constant values.
+ *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
  * @since 1.0.0
  * @version 1.0.0
@@ -33,6 +39,9 @@ public class Constants {
   public static final String EPTU = "EPTU";
   public static final String HOTFIX = "HOTFIX";
   public static final String TECH_PREVIEW = "TECH-PREVIEW";
+  public static final String CUSTOM = "Custom";
+
+  public static final String APP_TITLE = "SC Kill Monitor";
 
   public static final String UTILITY_CLASS = "Utility class";
 

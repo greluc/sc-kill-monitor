@@ -25,32 +25,57 @@ import de.greluc.sc.sckillmonitor.settings.SettingsHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
 
 /**
+ * MainViewController serves as the primary controller for the application's main view.
+ * It initializes and manages interactions between the UI and internal application logic.
+ * <p>
+ * This controller is responsible for handling transitions between different views such as
+ * the {@code StartView}, {@code ScanView}, and {@code SettingsView}.
+ * It also provides functionality for basic application actions like closing the application
+ * or displaying the "About" dialog.
+ * <p>
+ * It utilizes JavaFX features such as FXML, scene management, and modal windows to provide
+ * a graphical user interface. The controller also integrates with the {@link SettingsHandler} to
+ * manage user preferences and settings.
+ *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
  * @since 1.0.0
  * @version 1.0.0
  */
+@Log4j2
 public class MainViewController {
   @FXML
   private GridPane basePane;
   private GridPane startPane;
+  private GridPane scanPane;
   private final SettingsHandler settingsHandler = new SettingsHandler();
 
+  /**
+   * Initializes the controller and loads the initial application state.
+   * <p>
+   * This method is responsible for loading and configuring the "StartView.fxml" user interface.
+   * It invokes the settings handler to load application settings, initializes the main start pane,
+   * retrieves the associated controller for the start view, and establishes its connection to the
+   * main view controller. The loaded pane is added to the base UI layout.
+   * <p>
+   * In the event of a failure to load the FXML file, the method logs the error and terminates
+   * the application to prevent further execution with an incomplete UI state.
+   */
   @FXML
   protected void initialize() {
     settingsHandler.loadSettings();
     FXMLLoader fxmlLoader = new FXMLLoader(ScKillMonitorApp.class.getResource("StartView.fxml"));
     try {
       startPane = fxmlLoader.load();
-    } catch (IOException e) {
-      System.err.println("Could not load StartView.fxml"); // TODO real logging
+    } catch (IOException ioException) {
+      log.error("Could not load StartView.fxml", ioException);
       System.exit(-1);
     }
     StartViewController startViewController = fxmlLoader.getController();
@@ -59,6 +84,24 @@ public class MainViewController {
     basePane.getChildren().add(startPane);
   }
 
+  /**
+   * Handles the event triggered when the settings button is pressed in the user interface.
+   * This method initializes and displays the settings window as a modal dialog.
+   * <p>
+   * The method loads the SettingsView.fxml file to create the settings dialog.
+   * It initializes the controller for the settings view and sets required dependencies.
+   * The dialog is displayed as a resizable and non-maximized modal window.
+   * <p>
+   * If the FXML file cannot be loaded, an error is logged.
+   * <p>
+   * Exceptions:<br>
+   * - IOException: Throws and logs an error if there is an issue loading the FXML file.
+   * <p>
+   * Dependencies:<br>
+   * - FXMLLoader to load the FXML file.<br>
+   * - Stage for creating the settings window.<br>
+   * - SettingsViewController to handle settings logic.
+   */
   @FXML
   protected void onSettingsPressed() {
     try {
@@ -72,33 +115,80 @@ public class MainViewController {
       stage.setResizable(true);
       stage.initModality(Modality.APPLICATION_MODAL);
       stage.show();
-    } catch (IOException e) {
-      System.err.println("Couldn't load SettingsView.fxml");
+    } catch (IOException ioException) {
+      log.error("Couldn't load SettingsView.fxml", ioException);
     }
   }
 
+  /**
+   * Handles the action for a close button press event.
+   * This method terminates the application by invoking {@link System#exit(int)} with a status code of 0.
+   * It is annotated with {@code @FXML} to indicate that it is tied to an associated UI component in an FXML layout.
+   */
   @FXML
   protected void onClosePressed() {
     System.exit(0);
   }
 
+  /**
+   * Handles the action that occurs when the "About" button is pressed.
+   * This method is triggered by the corresponding @FXML element in the UI.
+   * It is intended to display information about the application, which may
+   * include its purpose, version details, and other relevant metadata.
+   */
   @FXML
   protected void onAboutPressed() {
     // TODO implement
   }
 
+  /**
+   * Handles the action when the start button is pressed. This method transitions
+   * the view from the start pane to the scan view pane.
+   * <p>
+   * The method removes the current startPane from the basePane, loads the
+   * ScanView.fxml file to create the scanPane, and initializes the associated
+   * controller. If loading the fxml file fails, an error is logged and the
+   * application terminates. Finally, the scanPane is positioned in the basePane.
+   * <p>
+   * This method is designed to manage the transition to the scan view while
+   * ensuring proper controller setup and error handling.
+   */
   protected void onStartPressed() {
     basePane.getChildren().remove(startPane);
     FXMLLoader fxmlLoader = new FXMLLoader(ScKillMonitorApp.class.getResource("ScanView.fxml"));
-    ScrollPane scanPane = null;
+    scanPane = null;
     try {
       scanPane = fxmlLoader.load();
-    } catch (IOException e) {
-      System.err.println("Could not load ScanView.fxml"); // TODO real logging
+    } catch (IOException ioException) {
+      log.error("Could not load ScanView.fxml", ioException);
       System.exit(-1);
     }
-    scanPane.setFitToWidth(true);
+    ScanViewController scanViewController = fxmlLoader.getController();
+    scanViewController.setMainViewController(this);
     GridPane.setConstraints(scanPane, 0, 1);
     basePane.getChildren().add(scanPane);
+  }
+
+  /**
+   * Handles the event when the stop button is pressed.
+   * <p>
+   * This method removes the current scan pane from the base pane and loads the
+   * StartView FXML file, transitioning back to the start view. It also sets the
+   * main view controller for the newly loaded start view controller. If the
+   * FXML file cannot be loaded, it logs the error and terminates the application.
+   */
+  protected void onStopPressed() {
+    basePane.getChildren().remove(scanPane);
+    FXMLLoader fxmlLoader = new FXMLLoader(ScKillMonitorApp.class.getResource("StartView.fxml"));
+    try {
+      startPane = fxmlLoader.load();
+    } catch (IOException ioException) {
+      log.error("Could not load StartView.fxml", ioException);
+      System.exit(-1);
+    }
+    StartViewController startViewController = fxmlLoader.getController();
+    startViewController.setMainViewController(this);
+    GridPane.setConstraints(startPane, 0, 1);
+    basePane.getChildren().add(startPane);
   }
 }

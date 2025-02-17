@@ -18,53 +18,53 @@
  * along with SC Kill Monitor. If not, see <http://www.gnu.org/licenses/>.                        *
  **************************************************************************************************/
 
-package de.greluc.sc.sckillmonitor.data;
+package de.greluc.sc.sckillmonitor;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import org.jetbrains.annotations.Contract;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import lombok.Generated;
+import lombok.NonNull;
 import org.jetbrains.annotations.NotNull;
 
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
+import static de.greluc.sc.sckillmonitor.Constants.APP_TITLE;
 
 /**
- * Represents an event in which a player is killed during gameplay.
- *
- * <ul>
- *   <li><strong>timestamp</strong>: The date and time when the kill event occurred.</li>
- *   <li><strong>killedPlayer</strong>: The name of the player who was killed.</li>
- *   <li><strong>killer</strong>: The name of the player, NPC, or entity that performed the kill.</li>
- *   <li><strong>weapon</strong>: The weapon or method used to perform the kill.</li>
- *   <li><strong>damageType</strong>: The type of damage inflicted (e.g., explosive, ballistic).</li>
- *   <li><strong>zone</strong>: The location or area in the game where the kill occurred.</li>
- * </ul>
- *
- * This record provides a detailed representation of a kill event, storing all relevant details
- * for tracking or monitoring purposes.
- * The {@code toString} method formats these details into a human-readable string.
+ * Provides utility methods to display alerts within the application.
+ * <p>
+ * The AlertHandler class contains static methods to display different types of
+ * alerts using JavaFX's Alert class. It supports alerts with configurable types,
+ * headers, and content, as well as displaying general error alerts.
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
  * @since 1.0.0
  * @version 1.0.0
  */
-public record KillEvent(ZonedDateTime timestamp, String killedPlayer, String killer, String weapon, String damageType,
-                        String zone) {
+public class AlertHandler {
+
   /**
-   * Returns a string representation of the kill event.
-   * The string includes details such as the kill date, killed player, zone, killer,
-   * weapon or method used, and the type of damage inflicted.
-   *
-   * @return a formatted string containing the details of the kill event.
+   * Shows a general error that doesn't specify a specific error in its message.
    */
-  @Contract(pure = true)
-  @Override
-  public @NotNull String toString() {
-    return "Kill Date = " + timestamp.format(DateTimeFormatter.ofPattern("dd.MM.yy HH:mm:ss:SSS")) + " UTC" + "\n" +
-        "Killed Player = " + killedPlayer + "\n" +
-        "Zone = " + zone + "\n" +
-        "Killer = " + killer + "\n" +
-        "Used Method/Weapon = " + weapon + "\n" +
-        "Damage Type = " + damageType;
+  @Generated
+  public static void showGeneralError() {
+    showAlert(Alert.AlertType.ERROR, "ERROR", "An error occurred while performing the desired action.");
+  }
+
+  /**
+   * Shows an alert. Uses the {@link Alert} class.
+   *
+   * @param alertType {@link Alert.AlertType} that should be used for the alert.
+   * @param header String containing the short text with the main information.
+   * @param content String containing the description of the alert.
+   */
+  @Generated
+  public static void showAlert(@NotNull Alert.AlertType alertType,
+                               @NotNull String header,
+                               @NotNull String content) {
+    var alert = new Alert(alertType);
+    alert.titleProperty().set(APP_TITLE);
+    alert.headerTextProperty().set(header);
+    alert.contentTextProperty().set(content);
+    alert.setResizable(true);
+    alert.showAndWait();
   }
 }

@@ -1,27 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  ~ SC Kill Monitor                                                                               ~
-  ~ Copyright (C) 2025-2025 SC Kill Monitor Team                                                  ~
-  ~                                                                                               ~
-  ~ This file is part of SC Kill Monitor.                                                         ~
-  ~                                                                                               ~
-  ~ SC Kill Monitor is free software: you can redistribute it and/or modify                       ~
-  ~ it under the terms of the GNU General Public License as published by                          ~
-  ~ the Free Software Foundation, either version 3 of the License, or                             ~
-  ~ (at your option) any later version.                                                           ~
-  ~                                                                                               ~
-  ~ SC Kill Monitor is distributed in the hope that it will be useful,                            ~
-  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of                                ~
-  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the                                 ~
-  ~ GNU General Public License for more details.                                                  ~
-  ~                                                                                               ~
-  ~ You should have received a copy of the GNU General Public License                             ~
-  ~ along with SC Kill Monitor. If not, see <http://www.gnu.org/licenses/>.                       ~
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-
-<bom serialNumber="urn:uuid:73526d31-90b8-492d-8e71-844a09c16950" version="1" xmlns="http://cyclonedx.org/schema/bom/1.6">
+<bom serialNumber="urn:uuid:6a03b64e-da4b-4289-8175-f7077edf4500" version="1" xmlns="http://cyclonedx.org/schema/bom/1.6">
   <metadata>
-    <timestamp>2025-02-14T12:13:43Z</timestamp>
+    <timestamp>2025-02-14T23:49:01Z</timestamp>
     <tools>
       <components>
         <component type="application">
@@ -37,7 +17,11 @@
       <version>1.0.0</version>
       <purl>pkg:maven/de.greluc.sc/sckillmonitor@1.0.0</purl>
       <modified>false</modified>
-      <externalReferences/>
+      <externalReferences>
+        <reference type="vcs">
+          <url>https://gitlab.com/flightsimtools/sc/sc-kill-monitor.git</url>
+        </reference>
+      </externalReferences>
     </component>
   </metadata>
   <components>

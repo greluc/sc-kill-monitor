@@ -18,53 +18,28 @@
  * along with SC Kill Monitor. If not, see <http://www.gnu.org/licenses/>.                        *
  **************************************************************************************************/
 
-package de.greluc.sc.sckillmonitor.data;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
+package de.greluc.sc.sckillmonitor.settings;
 
 /**
- * Represents an event in which a player is killed during gameplay.
- *
- * <ul>
- *   <li><strong>timestamp</strong>: The date and time when the kill event occurred.</li>
- *   <li><strong>killedPlayer</strong>: The name of the player who was killed.</li>
- *   <li><strong>killer</strong>: The name of the player, NPC, or entity that performed the kill.</li>
- *   <li><strong>weapon</strong>: The weapon or method used to perform the kill.</li>
- *   <li><strong>damageType</strong>: The type of damage inflicted (e.g., explosive, ballistic).</li>
- *   <li><strong>zone</strong>: The location or area in the game where the kill occurred.</li>
- * </ul>
- *
- * This record provides a detailed representation of a kill event, storing all relevant details
- * for tracking or monitoring purposes.
- * The {@code toString} method formats these details into a human-readable string.
+ * The SettingsListener interface defines a contract for classes that wish to be notified
+ * when changes occur to settings in the application. Classes implementing this interface
+ * can register themselves to listen for updates in the settings data.
+ * <p>
+ * Implementers must define the behavior for the {@code settingsChanged} method,
+ * which is invoked whenever a relevant change to the settings occurs.
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
  * @since 1.0.0
  * @version 1.0.0
  */
-public record KillEvent(ZonedDateTime timestamp, String killedPlayer, String killer, String weapon, String damageType,
-                        String zone) {
+public interface SettingsListener {
   /**
-   * Returns a string representation of the kill event.
-   * The string includes details such as the kill date, killed player, zone, killer,
-   * weapon or method used, and the type of damage inflicted.
-   *
-   * @return a formatted string containing the details of the kill event.
+   * Notifies listeners that settings have been changed.
+   * <p>
+   * This method is called to inform all registered listeners that
+   * a modification has occurred in the application settings.
+   * Implementers of the {@code SettingsListener} interface must
+   * define the behavior upon receiving this notification.
    */
-  @Contract(pure = true)
-  @Override
-  public @NotNull String toString() {
-    return "Kill Date = " + timestamp.format(DateTimeFormatter.ofPattern("dd.MM.yy HH:mm:ss:SSS")) + " UTC" + "\n" +
-        "Killed Player = " + killedPlayer + "\n" +
-        "Zone = " + zone + "\n" +
-        "Killer = " + killer + "\n" +
-        "Used Method/Weapon = " + weapon + "\n" +
-        "Damage Type = " + damageType;
-  }
+  void settingsChanged();
 }

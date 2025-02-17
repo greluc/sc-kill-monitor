@@ -18,53 +18,60 @@
  * along with SC Kill Monitor. If not, see <http://www.gnu.org/licenses/>.                        *
  **************************************************************************************************/
 
-package de.greluc.sc.sckillmonitor.data;
+package de.greluc.sc.sckillmonitor.settings;
+import org.junit.jupiter.api.Test;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
 
 /**
- * Represents an event in which a player is killed during gameplay.
- *
- * <ul>
- *   <li><strong>timestamp</strong>: The date and time when the kill event occurred.</li>
- *   <li><strong>killedPlayer</strong>: The name of the player who was killed.</li>
- *   <li><strong>killer</strong>: The name of the player, NPC, or entity that performed the kill.</li>
- *   <li><strong>weapon</strong>: The weapon or method used to perform the kill.</li>
- *   <li><strong>damageType</strong>: The type of damage inflicted (e.g., explosive, ballistic).</li>
- *   <li><strong>zone</strong>: The location or area in the game where the kill occurred.</li>
- * </ul>
- *
- * This record provides a detailed representation of a kill event, storing all relevant details
- * for tracking or monitoring purposes.
- * The {@code toString} method formats these details into a human-readable string.
- *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
  * @since 1.0.0
  * @version 1.0.0
  */
-public record KillEvent(ZonedDateTime timestamp, String killedPlayer, String killer, String weapon, String damageType,
-                        String zone) {
-  /**
-   * Returns a string representation of the kill event.
-   * The string includes details such as the kill date, killed player, zone, killer,
-   * weapon or method used, and the type of damage inflicted.
-   *
-   * @return a formatted string containing the details of the kill event.
-   */
-  @Contract(pure = true)
-  @Override
-  public @NotNull String toString() {
-    return "Kill Date = " + timestamp.format(DateTimeFormatter.ofPattern("dd.MM.yy HH:mm:ss:SSS")) + " UTC" + "\n" +
-        "Killed Player = " + killedPlayer + "\n" +
-        "Zone = " + zone + "\n" +
-        "Killer = " + killer + "\n" +
-        "Used Method/Weapon = " + weapon + "\n" +
-        "Damage Type = " + damageType;
+class SettingsDataTest {
+
+  @Test
+  void testSetSelectedChannelUpdatesValue() {
+    // Arrange
+    String newChannel = "PTU";
+
+    // Act
+    SettingsData.setSelectedChannel(newChannel);
+
+    // Assert
+    assertEquals(newChannel, SettingsData.getSelectedChannel());
+  }
+
+  @Test
+  void testSetSelectedChannelNotifiesListeners() {
+    // Arrange
+    String newChannel = "TECH-PREVIEW";
+    SettingsListener mockListener = mock(SettingsListener.class);
+    SettingsData.addListener(mockListener);
+
+    // Act
+    SettingsData.setSelectedChannel(newChannel);
+
+    // Assert
+    verify(mockListener, times(1)).settingsChanged();
+
+    // Cleanup
+    SettingsData.removeListener(mockListener);
+  }
+
+  @Test
+  void testSetSelectedChannelDoesNotNotifyRemovedListener() {
+    // Arrange
+    String newChannel = "HOTFIX";
+    SettingsListener mockListener = mock(SettingsListener.class);
+    SettingsData.addListener(mockListener);
+    SettingsData.removeListener(mockListener);
+
+    // Act
+    SettingsData.setSelectedChannel(newChannel);
+
+    // Assert
+    verify(mockListener, never()).settingsChanged();
   }
 }

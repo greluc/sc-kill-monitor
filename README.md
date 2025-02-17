@@ -1,0 +1,45 @@
+# SC Kill Monitor
+
+## Table Of Contents
+
+- [Description](#description)
+- [Current Release](#current-release)
+- [License](#license)
+- [Contribution](#contribution)
+- [Team](#team)
+
+## Description
+
+SC Kill Monitor is an application to search the Star Citizen `game.log` file for the person who killed you.
+
+**Disclaimer:** The player names determined with SC Kill Monitor must not be used for purposes that violate the Star Citizen Terms and Conditions. The log may only be used to report griefing incidents and/or stream sniping.
+
+SC Kill Monitor is an unofficial Star Citizen fan project, not affiliated with the Cloud Imperium group of companies.
+All content on this site not authored by its host or users are property of their respective owners.
+Star Citizen®, Roberts Space Industries® and Cloud Imperium® are registered trademarks of Cloud Imperium Rights LLC.
+
+## Current Release
+
+**v1.0.0**
+
+## License
+
+SC Kill Monitor is licensed under the GNU General Public License v3.0 (GPLv3).
+You can find the license text under [LICENSE](LICENSE.md).
+
+For more information about this license, please visit [https://www.gnu.org/licenses/gpl-3.0.en.html](https://www.gnu.org/licenses/gpl-3.0.en.html).
+
+## Contribution
+
+- Please read [CONTRIBUTING](CONTRIBUTING.md) if you wish to contribute to this project.
+- Please note that this project is released with a Contributor [CODE_OF_CONDUCT](CODE_OF_CONDUCT.md).
+By participating in this project, you agree to abide by its terms.
+
+## Team
+
+- Lucas Greuloch ([@greluc](https://github.com/greluc))
+- René Jansen ([@rjcncpt](https://github.com/rjcncpt))
+
+[![Made By The Community](src/main/resources/logos/MadeByTheCommunity_Black.png)](https://robertsspaceindustries.com/en/){: width="100px"}
+[![Java](src/main/resources/logos/Logo_Java.svg)](https://en.wikipedia.org/wiki/Java_(programming_language)){: width="50px"}
+[![GPLv3](src/main/resources/logos/Logo_GPLv3.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html){: width="100px"}
