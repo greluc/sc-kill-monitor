@@ -1,7 +1,6 @@
 module de.greluc.sc.sckillmonitor {
     requires javafx.controls;
     requires javafx.fxml;
-    requires org.controlsfx.controls;
     requires atlantafx.base;
     requires org.jetbrains.annotations;
     requires static lombok;
