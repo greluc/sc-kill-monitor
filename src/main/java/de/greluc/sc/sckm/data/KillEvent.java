@@ -15,10 +15,10 @@
  * GNU General Public License for more details.                                                   *
  *                                                                                                *
  * You should have received a copy of the GNU General Public License                              *
- * along with SC Kill Monitor. If not, see <http://www.gnu.org/licenses/>.                        *
+ * along with SC Kill Monitor. If not, see <https://www.gnu.org/licenses/>.                       *
  **************************************************************************************************/
 
-package de.greluc.sc.sckillmonitor.data;
+package de.greluc.sc.sckm.data;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -46,7 +46,7 @@ import java.time.format.DateTimeFormatter;
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
  * @since 1.0.0
- * @version 1.0.0
+ * @version 1.0.1
  */
 public record KillEvent(ZonedDateTime timestamp, String killedPlayer, String killer, String weapon, String damageType,
                         String zone) {

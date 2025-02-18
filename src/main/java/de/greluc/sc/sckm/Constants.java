@@ -15,50 +15,41 @@
  * GNU General Public License for more details.                                                   *
  *                                                                                                *
  * You should have received a copy of the GNU General Public License                              *
- * along with SC Kill Monitor. If not, see <http://www.gnu.org/licenses/>.                        *
+ * along with SC Kill Monitor. If not, see <https://www.gnu.org/licenses/>.                       *
  **************************************************************************************************/
 
-package de.greluc.sc.sckillmonitor;
+package de.greluc.sc.sckm;
 
-import javafx.stage.FileChooser;
-import lombok.extern.log4j.Log4j2;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.io.File;
-import java.util.Optional;
+import lombok.Generated;
 
 /**
- * This class provides various utilities for handling file operations.
+ * This class represents a collection of constant values used throughout the application.
  * <p>
- * The FileHandler class currently includes a method for opening a file chooser dialog
- * that allows the user to select a specific file, filtered by a predefined file type.
- * It utilizes JavaFX FileChooser for the user interface and logs relevant information
- * for debugging purposes.
+ * It includes constants for various environment types, application metadata,
+ * and utility class-related string definitions. The class is designed to prevent
+ * instantiation as it serves only as a holder for constant values.
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
  * @since 1.0.0
- * @version 1.0.0
+ * @version 1.0.1
  */
-@Log4j2
-public class FileHandler {
+public class Constants {
+  public static final String LIVE = "LIVE";
+  public static final String PTU = "PTU";
+  public static final String EPTU = "EPTU";
+  public static final String HOTFIX = "HOTFIX";
+  public static final String TECH_PREVIEW = "TECH-PREVIEW";
+  public static final String CUSTOM = "Custom";
+
+  public static final String APP_TITLE = "SC Kill Monitor";
+
+  public static final String UTILITY_CLASS = "Utility class";
 
   /**
-   * Displays a file chooser dialog that filters files based on a predefined extension.
-   * Specifically, it allows the user to select files with the ".log" extension.
-   * <p>
-   * The chosen file is wrapped in an {@link Optional}. If no file is selected,
-   * the returned {@link Optional} will be empty.
-   *
-   * @return an {@link Optional} containing the selected {@link File},
-   *         or an empty {@link Optional} if no file is chosen.
+   * Used to exclude the unused constructor from code coverage evaluation.
    */
-  public static @NotNull Optional<File> showFileChooser() {
-    log.debug("Trying to choose a file!");
-    final var fileType = "*.log";
-    final var filter = new FileChooser.ExtensionFilter("log File", fileType);
-    final var chooser = new FileChooser();
-    chooser.getExtensionFilters().add(filter);
-    return Optional.of(chooser.showOpenDialog(null));
+  @Generated
+  private Constants() {
+    throw new IllegalStateException(Constants.UTILITY_CLASS);
   }
 }

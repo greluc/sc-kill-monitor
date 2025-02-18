@@ -1,4 +1,14 @@
-<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+
+ <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ~ SC Kill Monitor                                                                               ~
   ~ Copyright (C) 2025-2025 SC Kill Monitor Team                                                  ~
   ~                                                                                               ~
@@ -18,19 +28,21 @@
   ~ along with SC Kill Monitor. If not, see <https://www.gnu.org/licenses/>.                      ~
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
-<code_scheme name="GoogleStyle" version="173">
-  <codeStyleSettings language="JAVA">
-    <indentOptions>
-      <option name="INDENT_SIZE" value="2" />
-      <option name="CONTINUATION_INDENT_SIZE" value="4" />
-      <option name="TAB_SIZE" value="2" />
-    </indentOptions>
-  </codeStyleSettings>
-  <codeStyleSettings language="kotlin">
-    <indentOptions>
-      <option name="INDENT_SIZE" value="2" />
-      <option name="CONTINUATION_INDENT_SIZE" value="4" />
-      <option name="TAB_SIZE" value="2" />
-    </indentOptions>
-  </codeStyleSettings>
-</code_scheme>
+<GridPane fx:id="basePane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.greluc.sc.sckm.controller.MainViewController">
+     <columnConstraints>
+         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+     </columnConstraints>
+     <rowConstraints>
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="ALWAYS" />
+     </rowConstraints>
+    <MenuBar GridPane.columnSpan="2147483647">
+        <Menu mnemonicParsing="false" text="File">
+            <MenuItem mnemonicParsing="false" onAction="#onSettingsPressed" text="Settings"/>
+            <MenuItem mnemonicParsing="false" onAction="#onClosePressed" text="Close"/>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+            <MenuItem mnemonicParsing="false" onAction="#onAboutPressed" text="About"/>
+        </Menu>
+    </MenuBar>
+ </GridPane>
