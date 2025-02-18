@@ -38,8 +38,8 @@ import java.util.Objects;
  * the application's description and setting the application's logo into an image view.
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
- * @since 1.0.0
- * @version 1.0.0
+ * @since 1.0.1
+ * @version 1.0.1
  */
 public class AboutViewController {
 
@@ -64,10 +64,6 @@ public class AboutViewController {
    * <p>
    * The image view is set up with a specific height, with its aspect ratio preserved,
    * to ensure proper display of the application's logo.
-   *
-   * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
-   * @since 1.0.0
-   * @version 1.0.0
    */
   @FXML
   protected void initialize() {

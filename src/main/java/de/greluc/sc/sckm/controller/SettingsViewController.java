@@ -52,7 +52,7 @@ import java.util.concurrent.atomic.AtomicReference;
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
  * @since 1.0.0
- * @version 1.0.0
+ * @version 1.0.1
  */
 public class SettingsViewController {
   @FXML
