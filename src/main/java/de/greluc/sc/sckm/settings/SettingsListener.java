@@ -15,12 +15,31 @@
  * GNU General Public License for more details.                                                   *
  *                                                                                                *
  * You should have received a copy of the GNU General Public License                              *
- * along with SC Kill Monitor. If not, see <http://www.gnu.org/licenses/>.                        *
+ * along with SC Kill Monitor. If not, see <https://www.gnu.org/licenses/>.                       *
  **************************************************************************************************/
 
+package de.greluc.sc.sckillmonitor.settings;
+
 /**
+ * The SettingsListener interface defines a contract for classes that wish to be notified
+ * when changes occur to settings in the application. Classes implementing this interface
+ * can register themselves to listen for updates in the settings data.
+ * <p>
+ * Implementers must define the behavior for the {@code settingsChanged} method,
+ * which is invoked whenever a relevant change to the settings occurs.
+ *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
  * @since 1.0.0
  * @version 1.0.0
  */
-package de.greluc.sc.sckillmonitor.data;
+public interface SettingsListener {
+  /**
+   * Notifies listeners that settings have been changed.
+   * <p>
+   * This method is called to inform all registered listeners that
+   * a modification has occurred in the application settings.
+   * Implementers of the {@code SettingsListener} interface must
+   * define the behavior upon receiving this notification.
+   */
+  void settingsChanged();
+}

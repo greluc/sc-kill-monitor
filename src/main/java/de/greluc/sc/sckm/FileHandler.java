@@ -15,63 +15,50 @@
  * GNU General Public License for more details.                                                   *
  *                                                                                                *
  * You should have received a copy of the GNU General Public License                              *
- * along with SC Kill Monitor. If not, see <http://www.gnu.org/licenses/>.                        *
+ * along with SC Kill Monitor. If not, see <https://www.gnu.org/licenses/>.                       *
  **************************************************************************************************/
 
-package de.greluc.sc.sckillmonitor.settings;
-import org.junit.jupiter.api.Test;
+package de.greluc.sc.sckillmonitor;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import javafx.stage.FileChooser;
+import lombok.extern.log4j.Log4j2;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.io.File;
+import java.util.Optional;
 
 /**
+ * This class provides various utilities for handling file operations.
+ * <p>
+ * The FileHandler class currently includes a method for opening a file chooser dialog
+ * that allows the user to select a specific file, filtered by a predefined file type.
+ * It utilizes JavaFX FileChooser for the user interface and logs relevant information
+ * for debugging purposes.
+ *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
  * @since 1.0.0
  * @version 1.0.0
  */
-class SettingsDataTest {
+@Log4j2
+public class FileHandler {
 
-  @Test
-  void testSetSelectedChannelUpdatesValue() {
-    // Arrange
-    String newChannel = "PTU";
-
-    // Act
-    SettingsData.setSelectedChannel(newChannel);
-
-    // Assert
-    assertEquals(newChannel, SettingsData.getSelectedChannel());
-  }
-
-  @Test
-  void testSetSelectedChannelNotifiesListeners() {
-    // Arrange
-    String newChannel = "TECH-PREVIEW";
-    SettingsListener mockListener = mock(SettingsListener.class);
-    SettingsData.addListener(mockListener);
-
-    // Act
-    SettingsData.setSelectedChannel(newChannel);
-
-    // Assert
-    verify(mockListener, times(1)).settingsChanged();
-
-    // Cleanup
-    SettingsData.removeListener(mockListener);
-  }
-
-  @Test
-  void testSetSelectedChannelDoesNotNotifyRemovedListener() {
-    // Arrange
-    String newChannel = "HOTFIX";
-    SettingsListener mockListener = mock(SettingsListener.class);
-    SettingsData.addListener(mockListener);
-    SettingsData.removeListener(mockListener);
-
-    // Act
-    SettingsData.setSelectedChannel(newChannel);
-
-    // Assert
-    verify(mockListener, never()).settingsChanged();
+  /**
+   * Displays a file chooser dialog that filters files based on a predefined extension.
+   * Specifically, it allows the user to select files with the ".log" extension.
+   * <p>
+   * The chosen file is wrapped in an {@link Optional}. If no file is selected,
+   * the returned {@link Optional} will be empty.
+   *
+   * @return an {@link Optional} containing the selected {@link File},
+   *         or an empty {@link Optional} if no file is chosen.
+   */
+  public static @NotNull Optional<File> showFileChooser() {
+    log.debug("Trying to choose a file!");
+    final var fileType = "*.log";
+    final var filter = new FileChooser.ExtensionFilter("log File", fileType);
+    final var chooser = new FileChooser();
+    chooser.getExtensionFilters().add(filter);
+    return Optional.of(chooser.showOpenDialog(null));
   }
 }
