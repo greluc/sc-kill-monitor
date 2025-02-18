@@ -64,9 +64,11 @@ public class ScKillMonitorApp extends Application {
       Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
       Application.setUserAgentStylesheet(new PrimerDark().getUserAgentStylesheet());
       FXMLLoader fxmlLoader = new FXMLLoader(ScKillMonitorApp.class.getResource("fxml/MainView.fxml"));
-      Scene scene = new Scene(fxmlLoader.load(), 600, 500);
-      stage.setTitle("SC Kill Monitor");
+      Scene scene = new Scene(fxmlLoader.load(), 700, 500);
       stage.setScene(scene);
+      stage.setMinWidth(700);
+      stage.setMinHeight(500);
+      stage.setTitle("SC Kill Monitor");
       stage.setOnCloseRequest(_ -> {
         Platform.exit();
         System.exit(0);

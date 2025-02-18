@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
- <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ~ SC Kill Monitor                                                                               ~
   ~ Copyright (C) 2025-2025 SC Kill Monitor Team                                                  ~
   ~                                                                                               ~
@@ -28,7 +27,7 @@
   ~ along with SC Kill Monitor. If not, see <https://www.gnu.org/licenses/>.                      ~
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
-<GridPane fx:id="basePane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.greluc.sc.sckm.controller.MainViewController">
+<GridPane fx:id="basePane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="500.0" minWidth="600.0" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.greluc.sc.sckm.controller.MainViewController">
      <columnConstraints>
          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
      </columnConstraints>
@@ -38,11 +37,11 @@
      </rowConstraints>
     <MenuBar GridPane.columnSpan="2147483647">
         <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" onAction="#onSettingsPressed" text="Settings"/>
-            <MenuItem mnemonicParsing="false" onAction="#onClosePressed" text="Close"/>
+            <MenuItem mnemonicParsing="false" onAction="#onSettingsPressed" text="Settings" />
+            <MenuItem mnemonicParsing="false" onAction="#onClosePressed" text="Close" />
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
-            <MenuItem mnemonicParsing="false" onAction="#onAboutPressed" text="About"/>
+            <MenuItem mnemonicParsing="false" onAction="#onAboutPressed" text="About" />
         </Menu>
     </MenuBar>
  </GridPane>
