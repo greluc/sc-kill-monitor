@@ -21,6 +21,7 @@
 package de.greluc.sc.sckm;
 
 import javafx.stage.FileChooser;
+import lombok.Generated;
 import lombok.extern.log4j.Log4j2;
 import org.jetbrains.annotations.NotNull;
 
@@ -59,5 +60,13 @@ public class FileHandler {
     final var chooser = new FileChooser();
     chooser.getExtensionFilters().add(filter);
     return Optional.of(chooser.showOpenDialog(null));
+  }
+
+  /**
+   * Used to exclude the unused constructor from code coverage evaluation.
+   */
+  @Generated
+  private FileHandler() {
+    throw new IllegalStateException(Constants.UTILITY_CLASS);
   }
 }
