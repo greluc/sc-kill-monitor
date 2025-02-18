@@ -15,7 +15,7 @@
  * GNU General Public License for more details.                                                   *
  *                                                                                                *
  * You should have received a copy of the GNU General Public License                              *
- * along with SC Kill Monitor. If not, see <https://www.gnu.org/licenses/>.                       *
+ * along with SC Kill Monitor. If not, see https://www.gnu.org/licenses/                          *
  **************************************************************************************************/
 
 package de.greluc.sc.sckm.controller;
@@ -265,8 +265,13 @@ public class ScanViewController {
       String weapon = extractValue(logLine, "using '", "'");
       String damageType = extractValue(logLine, "with damage type '", "'");
 
-      return Optional.of(new KillEvent(ZonedDateTime.parse(
-          timestamp, DateTimeFormatter.ISO_DATE_TIME), killedPlayer, killer, weapon, damageType, zone));
+      return Optional.of(new KillEvent(
+          ZonedDateTime.parse(timestamp, DateTimeFormatter.ISO_DATE_TIME),
+          killedPlayer,
+          killer,
+          weapon,
+          damageType,
+          zone));
     } catch (Exception exception) {
       log.error("Failed to parse log line: {}", logLine, exception);
       return Optional.empty();
