@@ -36,7 +36,7 @@
          <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="ALWAYS" />
      </rowConstraints>
     <MenuBar GridPane.columnSpan="2147483647">
-        <Menu mnemonicParsing="false" text="File">
+        <Menu mnemonicParsing="false" text="Options">
             <MenuItem mnemonicParsing="false" onAction="#onSettingsPressed" text="Settings" />
             <MenuItem mnemonicParsing="false" onAction="#onClosePressed" text="Close" />
         </Menu>
