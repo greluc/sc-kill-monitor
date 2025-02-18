@@ -54,7 +54,7 @@ dependencies {
 
 base {
   group = "de.greluc.sc"
-  version = "1.0.0"
+  version = "1.0.1"
   description = "SC Kill Monitor - See who griefed you!"
 }
 
@@ -85,10 +85,9 @@ idea {
 }
 
 application {
-  mainModule = "de.greluc.sc.sckillmonitor"
-  mainClass = "de.greluc.sc.sckillmonitor.ScKillMonitorApp"
+  mainModule = "de.greluc.sc.sckm"
+  mainClass = "de.greluc.sc.sckm.ScKillMonitorApp"
 }
-
 
 javafx {
   version = "23"
