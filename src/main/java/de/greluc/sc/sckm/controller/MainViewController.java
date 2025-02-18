@@ -131,14 +131,28 @@ public class MainViewController {
   }
 
   /**
-   * Handles the action that occurs when the "About" button is pressed.
-   * This method is triggered by the corresponding @FXML element in the UI.
-   * It is intended to display information about the application, which may
-   * include its purpose, version details, and other relevant metadata.
+   * Handles the event triggered when the "About" button is pressed in the application UI.
+   * <p>
+   * This method is responsible for loading the "AboutView.fxml" file, initializing and displaying
+   * a new modal Stage containing the "About" view of the application. It sets up the scene, ensures
+   * the window's resize behavior is enabled and its modality is configured as application modal.
+   * <p>
+   * In the case of an IOException, logs an error message indicating the failure to load the FXML file.
    */
   @FXML
   protected void onAboutPressed() {
-    // TODO implement
+    try {
+      FXMLLoader fxmlLoader = new FXMLLoader(ScKillMonitorApp.class.getResource("fxml/AboutView.fxml"));
+      Stage stage = new Stage();
+      Scene scene = new Scene(fxmlLoader.load());
+      stage.setScene(scene);
+      stage.setMaximized(false);
+      stage.setResizable(true);
+      stage.initModality(Modality.APPLICATION_MODAL);
+      stage.show();
+    } catch (IOException ioException) {
+      log.error("Couldn't load AboutView.fxml", ioException);
+    }
   }
 
   /**
