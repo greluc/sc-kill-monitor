@@ -23,6 +23,9 @@ package de.greluc.sc.sckm.controller;
 import de.greluc.sc.sckm.FileHandler;
 import de.greluc.sc.sckm.settings.SettingsData;
 import de.greluc.sc.sckm.settings.SettingsHandler;
+import java.io.File;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -30,20 +33,17 @@ import lombok.Generated;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
-
 /**
  * The SettingsViewController class manages the user interface for application settings.
  * It provides functionality for displaying and editing file path configurations,
  * as well as saving the changes through the SettingsHandler.
- * <p>
- * This class is designed for use with JavaFX components, leveraging FXML annotations
+ *
+ * <p>This class is designed for use with JavaFX components, leveraging FXML annotations
  * to bind UI elements and actions.
- * <p>
- * Key Features:<br>
- * - Display settings for various file paths such as LIVE, PTU, EPTU, HOTFIX, TECH PREVIEW, and CUSTOM.<br>
+ *
+ * <p>Key Features:<br>
+ * - Display settings for various file paths such as
+ * LIVE, PTU, EPTU, HOTFIX, TECH PREVIEW, and CUSTOM.<br>
  * - Allows users to select or modify file paths via a file chooser dialog.<br>
  * - Saves updated settings by persisting changes in SettingsData
  * and delegating save operations to the SettingsHandler.<br>
@@ -51,8 +51,8 @@ import java.util.concurrent.atomic.AtomicReference;
  * - Handles closing the settings window upon saving changes or user interaction.
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
- * @since 1.0.0
  * @version 1.0.1
+ * @since 1.0.0
  */
 public class SettingsViewController {
   @FXML
@@ -72,17 +72,19 @@ public class SettingsViewController {
 
   /**
    * Initializes the view components of the {@code SettingsViewController}.
-   * <p>
-   * - Sets the text of input fields with the corresponding file path values retrieved from {@link SettingsData}.
-   * <p>
-   * Specifically, it initializes the following input fields:<br>
+   *
+   * <p>- Sets the text of input fields with the corresponding
+   * file path values retrieved from {@link SettingsData}.
+   *
+   * <p>Specifically, it initializes the following input fields:<br>
    * - {@code inputPathLive} with the live environment path.<br>
    * - {@code inputPathPtu} with the Public Test Universe (PTU) path.<br>
    * - {@code inputPathEptu} with the Experimental Public Test Universe (EPTU) path.<br>
    * - {@code inputPathHotfix} with the Hotfix environment path.<br>
    * - {@code inputPathTechPreview} with the Tech Preview environment path.<br>
    * - {@code inputPathCustom} with a custom path.<br>
-   * This method ensures that the view reflects the current settings stored in the {@link SettingsData} class.
+   * This method ensures that the view reflects the current
+   * settings stored in the {@link SettingsData} class.
    */
   @FXML
   protected void initialize() {
@@ -100,8 +102,8 @@ public class SettingsViewController {
    * updates the corresponding paths in the {@link SettingsData} class,
    * and then persists these updated settings using the {@code settingsHandler}.
    * After saving the settings, the associated window is closed.
-   * <p>
-   * The following paths are updated based on the user input:<br>
+   *
+   * <p>The following paths are updated based on the user input:<br>
    * - Live environment path.<br>
    * - PTU (Public Test Universe) environment path.<br>
    * - EPTU (Experimental Public Test Universe) environment path.<br>
@@ -134,8 +136,8 @@ public class SettingsViewController {
   /**
    * Handles the event when the "Live" button is clicked in the settings view.
    * Updates the text content of the {@code inputPathLive} field to reflect a selected file path.
-   * <p>
-   * This method leverages the {@link #getPath()} method to open a file chooser dialog,
+   *
+   * <p>This method leverages the {@link #getPath()} method to open a file chooser dialog,
    * allowing the user to select a file or directory. The selected path is then displayed
    * in the {@code inputPathLive} input field.
    */
@@ -147,8 +149,8 @@ public class SettingsViewController {
   /**
    * Handles the event when the "PTU" button is clicked in the settings view.
    * Updates the text content of the {@code inputPathPtu} field with a selected file path.
-   * <p>
-   * This method utilizes the {@link #getPath()} method to display a file chooser dialog,
+   *
+   * <p>This method utilizes the {@link #getPath()} method to display a file chooser dialog,
    * allowing the user to select a file or directory. The selected path is assigned to
    * the {@code inputPathPtu} input field.
    */
@@ -160,8 +162,8 @@ public class SettingsViewController {
   /**
    * Handles the event when the "EPTU" button is clicked in the settings view.
    * Updates the text content of the {@code inputPathEptu} field with a selected file path.
-   * <p>
-   * This method utilizes the {@link #getPath()} method to display a file chooser dialog,
+   *
+   * <p>This method utilizes the {@link #getPath()} method to display a file chooser dialog,
    * allowing the user to select a file or directory. The selected path is assigned to
    * the {@code inputPathEptu} input field.
    */
@@ -173,8 +175,8 @@ public class SettingsViewController {
   /**
    * Handles the event triggered when the "Hotfix" button is clicked in the settings view.
    * Updates the text content of the {@code inputPathHotfix} field with a selected file path.
-   * <p>
-   * This method uses the {@link #getPath()} method to open a file chooser dialog,
+   *
+   * <p>This method uses the {@link #getPath()} method to open a file chooser dialog,
    * allowing the user to select a file or directory. The chosen path is then
    * displayed in the {@code inputPathHotfix} input field.
    */
@@ -186,8 +188,8 @@ public class SettingsViewController {
   /**
    * Handles the event when the "Tech Preview" button is clicked in the settings view.
    * Updates the text content of the {@code inputPathTechPreview} field with a selected file path.
-   * <p>
-   * This method uses the {@code getPath()} method to open a file chooser dialog,
+   *
+   * <p>This method uses the {@code getPath()} method to open a file chooser dialog,
    * allowing the user to select a file or directory. The selected path is then
    * assigned to the {@code inputPathTechPreview} input field.
    */
@@ -199,8 +201,8 @@ public class SettingsViewController {
   /**
    * Handles the event when the "Custom" button is clicked in the settings view.
    * Updates the text content of the {@code inputPathCustom} field with a selected file path.
-   * <p>
-   * This method utilizes the {@link #getPath()} method to display a file chooser dialog,
+   *
+   * <p>This method utilizes the {@link #getPath()} method to display a file chooser dialog,
    * allowing the user to select a file or directory. The selected path is then set
    * as the value of the {@code inputPathCustom} input field.
    */

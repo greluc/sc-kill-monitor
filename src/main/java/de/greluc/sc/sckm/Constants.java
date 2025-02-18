@@ -24,8 +24,8 @@ import lombok.Generated;
 
 /**
  * This class represents a collection of constant values used throughout the application.
- * <p>
- * It includes constants for various environment types, application metadata,
+ *
+ * <p>It includes constants for various environment types, application metadata,
  * and utility class-related string definitions. The class is designed to prevent
  * instantiation as it serves only as a holder for constant values.
  *

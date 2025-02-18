@@ -20,10 +20,17 @@
 
 package de.greluc.sc.sckm.controller;
 
+import static de.greluc.sc.sckm.Constants.CUSTOM;
+import static de.greluc.sc.sckm.Constants.EPTU;
+import static de.greluc.sc.sckm.Constants.HOTFIX;
+import static de.greluc.sc.sckm.Constants.LIVE;
+import static de.greluc.sc.sckm.Constants.PTU;
+import static de.greluc.sc.sckm.Constants.TECH_PREVIEW;
+
 import de.greluc.sc.sckm.AlertHandler;
+import de.greluc.sc.sckm.settings.SettingsData;
 import de.greluc.sc.sckm.settings.SettingsHandler;
 import de.greluc.sc.sckm.settings.SettingsListener;
-import de.greluc.sc.sckm.settings.SettingsData;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -32,18 +39,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import lombok.extern.log4j.Log4j2;
 
-import static de.greluc.sc.sckm.Constants.*;
-
 /**
  * The StartViewController class manages the user interface interactions and related logic
  * for the starting view of the application. It handles user inputs, updates UI elements
  * based on application data, and communicates with other controllers.
- * <p>
- * Implements the SettingsListener interface to respond to changes in settings data.
+ *
+ * <p>Implements the SettingsListener interface to respond to changes in settings data.
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
- * @since 1.0.0
  * @version 1.0.1
+ * @since 1.0.0
  */
 @Log4j2
 public class StartViewController implements SettingsListener {
@@ -59,13 +64,14 @@ public class StartViewController implements SettingsListener {
 
   /**
    * Initializes the controller and its associated UI components with predefined settings and data.
-   * <p>
-   * This method is executed automatically when the FXML file is loaded. It sets initial values
-   * for input fields and dropdown menus, and binds the UI components to the application settings.<br>
+   *
+   * <p>This method is executed automatically when the FXML file is loaded. It sets initial values
+   * for input fields and dropdown menus,
+   * and binds the UI components to the application settings.<br>
    * It configures:<br>
-   *  - The handle input field with the application's saved handle.<br>
-   *  - The interval input field using the saved interval value.<br>
-   *  - The channel selection dropdown with a list of predefined channels.<br>
+   * - The handle input field with the application's saved handle.<br>
+   * - The interval input field using the saved interval value.<br>
+   * - The channel selection dropdown with a list of predefined channels.<br>
    * It also sets the selected path for the application and registers the current instance
    * as a listener to settings changes.
    */
@@ -83,41 +89,48 @@ public class StartViewController implements SettingsListener {
 
   /**
    * Handles the event triggered when the "Start" button is clicked in the user interface.
-   * <p>
-   * This method performs input validation on three fields: handle, interval, and path.
+   *
+   * <p>This method performs input validation on three fields: handle, interval, and path.
    * If any of the fields are empty, an error alert is displayed and the method returns early.
    * Additionally, the method ensures the interval input is a valid integer, showing an error
    * if the value is invalid.
-   * <p>
-   * Upon successful validation:<br>
+   *
+   * <p>Upon successful validation:<br>
    * - The handle and interval values are stored using the {@code SettingsData}.<br>
-   * - The main controller's start logic is triggered using {@code mainViewController.onStartPressed()}.
-   * <p>
-   * Validation logic includes:<br>
+   * - The main controller's start logic is triggered using
+   * {@code mainViewController.onStartPressed()}.
+   *
+   * <p>Validation logic includes:<br>
    * - Checking if the handle input field is empty and logging a warning if so.<br>
    * - Checking if the interval input field is empty and logging a warning if so.<br>
    * - Checking if the selected path field is empty and logging a warning if so.<br>
    * - Parsing the interval input to an integer, handling potential {@code NumberFormatException}
-   *   to ensure a valid integer is provided.
-   * <p>
-   * Alerts are displayed to the user via {@code AlertHandler} with specific messages indicating
+   * to ensure a valid integer is provided.
+   *
+   * <p>Alerts are displayed to the user via {@code AlertHandler} with specific messages indicating
    * the cause of the issue.
    */
   @FXML
   protected void onStartButtonClicked() {
     if (inputHandle.getText().isEmpty()) {
       log.warn("Handle is empty");
-      AlertHandler.showAlert(Alert.AlertType.ERROR, "Handle is empty", "Please enter a handle");
+      AlertHandler.showAlert(Alert.AlertType.ERROR,
+          "Handle is empty",
+          "Please enter a handle");
       return;
     }
     if (inputInterval.getText().isEmpty()) {
       log.warn("Interval is empty");
-      AlertHandler.showAlert(Alert.AlertType.ERROR, "Interval is empty", "Please enter an interval");
+      AlertHandler.showAlert(Alert.AlertType.ERROR,
+          "Interval is empty",
+          "Please enter an interval");
       return;
     }
     if (selectedPathValue.getText().isEmpty()) {
       log.warn("Path is empty");
-      AlertHandler.showAlert(Alert.AlertType.ERROR, "Path is empty", "Please select a path");
+      AlertHandler.showAlert(Alert.AlertType.ERROR,
+          "Path is empty",
+          "Please select a path");
       return;
     }
 
@@ -129,19 +142,21 @@ public class StartViewController implements SettingsListener {
       mainViewController.onStartPressed();
     } catch (NumberFormatException numberFormatException) {
       log.warn("Interval is invalid");
-      AlertHandler.showAlert(Alert.AlertType.ERROR, "Interval is invalid", "Please enter a valid interval");
+      AlertHandler.showAlert(Alert.AlertType.ERROR,
+          "Interval is invalid",
+          "Please enter a valid interval");
     }
   }
 
   /**
    * Handles the selection of a channel in the channel selection dropdown.
-   * <p>
-   * This method retrieves the currently selected channel from the channel selection dropdown
+   *
+   * <p>This method retrieves the currently selected channel from the channel selection dropdown
    * and updates the application's settings to reflect the selected channel. Additionally,
    * it performs necessary updates to ensure that any dependent paths or configurations
    * are aligned with the new channel selection.
-   * <p>
-   * The method is triggered by a user action on the channel selection UI component.
+   *
+   * <p>The method is triggered by a user action on the channel selection UI component.
    */
   @FXML
   protected void onChannelSelection() {
@@ -152,13 +167,14 @@ public class StartViewController implements SettingsListener {
   /**
    * Sets the appropriate text value for the `selectedPathValue` UI element based on the currently
    * selected channel in the application settings.
-   * <p>
-   * This method evaluates the selected channel retrieved from `SettingsData.getSelectedChannel()`
+   *
+   * <p>This method evaluates the selected channel retrieved from
+   * `SettingsData.getSelectedChannel()`
    * and assigns the respective path string obtained from `SettingsData` to the text property
    * of the `selectedPathValue` label. If the selected channel does not match any predefined
    * channels, it defaults to the "Live" channel path.
-   * <p>
-   * The supported channels and their corresponding paths include:<br>
+   *
+   * <p>The supported channels and their corresponding paths include:<br>
    * - PTU: Path retrieved via `SettingsData.getPathPtu()`<br>
    * - EPTU: Path retrieved via `SettingsData.getPathEptu()`<br>
    * - HOTFIX: Path retrieved via `SettingsData.getPathHotfix()`<br>
@@ -191,8 +207,8 @@ public class StartViewController implements SettingsListener {
 
   /**
    * Sets the main controller for managing the application's primary view.
-   * <p>
-   * This method is typically used by other controllers to establish a connection
+   *
+   * <p>This method is typically used by other controllers to establish a connection
    * with the MainViewController. It allows the passed MainViewController instance
    * to maintain communication and manage state across different application views.
    *
@@ -204,13 +220,13 @@ public class StartViewController implements SettingsListener {
 
   /**
    * Handles actions required when the application's settings have been modified.
-   * <p>
-   * This method is intended to ensure that the current state of the application reflects
+   *
+   * <p>This method is intended to ensure that the current state of the application reflects
    * any changes made to the settings. Specifically, it recalculates or updates the
    * selected path based on the new configuration. It acts as a listener or trigger
    * following settings updates.
-   * <p>
-   * The method is overridden to provide a concrete implementation for managing
+   *
+   * <p>The method is overridden to provide a concrete implementation for managing
    * settings changes within the respective context of this implementation.
    */
   @Override

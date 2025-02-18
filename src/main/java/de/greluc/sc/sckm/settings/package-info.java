@@ -19,6 +19,8 @@
  **************************************************************************************************/
 
 /**
+ * Contains the logic and data around the settings.
+ *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
  * @since 1.0.0
  * @version 1.0.1

@@ -20,47 +20,51 @@
 
 package de.greluc.sc.sckm.settings;
 
+import static de.greluc.sc.sckm.Constants.LIVE;
+
 import de.greluc.sc.sckm.Constants;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Generated;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static de.greluc.sc.sckm.Constants.LIVE;
 
 /**
  * The SettingsData class serves as a centralized storage for application settings.
  * It maintains various configuration properties such as file paths, user handle,
  * scanning interval, and the selected channel. These settings are static and accessible
  * globally within the application.
- * <p>
- * This class also provides functionality to manage listeners that are notified whenever
+ *
+ * <p>This class also provides functionality to manage listeners that are notified whenever
  * a change occurs to any of the settings. Changes to settings trigger the registered
  * listeners by invoking the `settingsChanged` method on each of them.
- * <p>
- * Key Responsibilities:<br>
+ *
+ * <p>Key Responsibilities:<br>
  * - Store static application configurations like file paths, user handle, and intervals.<br>
  * - Manage and notify listeners of configuration changes.<br>
  * - Ensure thread-safe update and retrieval of settings properties using synchronized
- *   notification to listeners.
+ * notification to listeners.
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
- * @since 1.0.0
  * @version 1.0.1
+ * @since 1.0.0
  */
 public class SettingsData {
   @Getter
-  private static String pathLive = "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\LIVE\\game.log";
+  private static String pathLive =
+      "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\LIVE\\game.log";
   @Getter
-  private static String pathPtu = "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\PTU\\game.log";
+  private static String pathPtu =
+      "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\PTU\\game.log";
   @Getter
-  private static String pathEptu = "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\EPTU\\game.log";
+  private static String pathEptu =
+      "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\EPTU\\game.log";
   @Getter
-  private static String pathHotfix = "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\HOTFIX\\game.log";
+  private static String pathHotfix =
+      "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\HOTFIX\\game.log";
   @Getter
-  private static String pathTechPreview = "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\TECH-PREVIEW\\game.log";
+  private static String pathTechPreview =
+      "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\TECH-PREVIEW\\game.log";
   @Getter
   private static String pathCustom = "";
   @Getter

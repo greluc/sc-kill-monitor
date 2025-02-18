@@ -20,11 +20,10 @@
 
 package de.greluc.sc.sckm.data;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
-
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents an event in which a player is killed during gameplay.
@@ -32,21 +31,24 @@ import java.time.format.DateTimeFormatter;
  * <ul>
  *   <li><strong>timestamp</strong>: The date and time when the kill event occurred.</li>
  *   <li><strong>killedPlayer</strong>: The name of the player who was killed.</li>
- *   <li><strong>killer</strong>: The name of the player, NPC, or entity that performed the kill.</li>
+ *   <li><strong>killer</strong>: The name of the player, NPC,
+ *   or entity that performed the kill.</li>
  *   <li><strong>weapon</strong>: The weapon or method used to perform the kill.</li>
- *   <li><strong>damageType</strong>: The type of damage inflicted (e.g., explosive, ballistic).</li>
+ *   <li><strong>damageType</strong>: The type of damage inflicted
+ *   (e.g., explosive, ballistic).</li>
  *   <li><strong>zone</strong>: The location or area in the game where the kill occurred.</li>
  * </ul>
  *
- * This record provides a detailed representation of a kill event, storing all relevant details
+ * <p>This record provides a detailed representation of a kill event, storing all relevant details
  * for tracking or monitoring purposes.
  * The {@code toString} method formats these details into a human-readable string.
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
- * @since 1.0.0
  * @version 1.0.1
+ * @since 1.0.0
  */
-public record KillEvent(ZonedDateTime timestamp, String killedPlayer, String killer, String weapon, String damageType,
+public record KillEvent(ZonedDateTime timestamp, String killedPlayer, String killer, String weapon,
+                        String damageType,
                         String zone) {
   /**
    * Returns a string representation of the kill event.
@@ -58,11 +60,12 @@ public record KillEvent(ZonedDateTime timestamp, String killedPlayer, String kil
   @Contract(pure = true)
   @Override
   public @NotNull String toString() {
-    return "Kill Date = " + timestamp.format(DateTimeFormatter.ofPattern("dd.MM.yy HH:mm:ss:SSS")) + " UTC" + "\n" +
-        "Killed Player = " + killedPlayer + "\n" +
-        "Zone = " + zone + "\n" +
-        "Killer = " + killer + "\n" +
-        "Used Method/Weapon = " + weapon + "\n" +
-        "Damage Type = " + damageType;
+    return "Kill Date = " + timestamp.format(DateTimeFormatter.ofPattern("dd.MM.yy HH:mm:ss:SSS"))
+        + " UTC" + "\n"
+        + "Killed Player = " + killedPlayer + "\n"
+        + "Zone = " + zone + "\n"
+        + "Killer = " + killer + "\n"
+        + "Used Method/Weapon = " + weapon + "\n"
+        + "Damage Type = " + damageType;
   }
 }

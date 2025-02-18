@@ -20,18 +20,17 @@
 
 package de.greluc.sc.sckm;
 
+import java.io.File;
+import java.util.Optional;
 import javafx.stage.FileChooser;
 import lombok.Generated;
 import lombok.extern.log4j.Log4j2;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
-import java.util.Optional;
-
 /**
  * This class provides various utilities for handling file operations.
- * <p>
- * The FileHandler class currently includes a method for opening a file chooser dialog
+ *
+ * <p>The FileHandler class currently includes a method for opening a file chooser dialog
  * that allows the user to select a specific file, filtered by a predefined file type.
  * It utilizes JavaFX FileChooser for the user interface and logs relevant information
  * for debugging purposes.
@@ -46,8 +45,8 @@ public class FileHandler {
   /**
    * Displays a file chooser dialog that filters files based on a predefined extension.
    * Specifically, it allows the user to select files with the ".log" extension.
-   * <p>
-   * The chosen file is wrapped in an {@link Optional}. If no file is selected,
+   *
+   * <p>The chosen file is wrapped in an {@link Optional}. If no file is selected,
    * the returned {@link Optional} will be empty.
    *
    * @return an {@link Optional} containing the selected {@link File},

@@ -21,25 +21,24 @@
 package de.greluc.sc.sckm.controller;
 
 import de.greluc.sc.sckm.ScKillMonitorApp;
+import java.util.Objects;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 
-import java.util.Objects;
-
 /**
  * Controller responsible for managing the About view of the SC Kill Monitor application.
- * <p>
- * The About view provides information about the application, including its purpose,
+ *
+ * <p>The About view provides information about the application, including its purpose,
  * licensing details, and disclaimers. It also displays the application's logo
  * and additional metadata.
- * <p>
- * This controller initializes the rear view elements by populating the text area with
+ *
+ * <p>This controller initializes the rear view elements by populating the text area with
  * the application's description and setting the application's logo into an image view.
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
- * @since 1.0.1
  * @version 1.0.1
+ * @since 1.0.1
  */
 public class AboutViewController {
 
@@ -50,19 +49,20 @@ public class AboutViewController {
 
   /**
    * Initializes the About view of the SC Kill Monitor application.
-   * <p>
-   * This method populates the text area with detailed information about the application,
+   *
+   * <p>This method populates the text area with detailed information about the application,
    * including its purpose, licensing details, disclaimers, and links to relevant resources.
    * Additionally, it configures an image view to display the application's logo.
-   * <p>
-   * The displayed content includes:<br>
+   *
+   * <p>The displayed content includes:<br>
    * - A description of the application and its functionality.<br>
    * - Licensing under the GNU General Public License v3.0.<br>
    * - Links to the source code and license text.<br>
    * - A disclaimer regarding the appropriate use of the application.<br>
-   * - Acknowledgment that the project is unofficial and not affiliated with the Cloud Imperium group of companies.
-   * <p>
-   * The image view is set up with a specific height, with its aspect ratio preserved,
+   * - Acknowledgment that the project is unofficial and not affiliated with
+   * the Cloud Imperium group of companies.
+   *
+   * <p>The image view is set up with a specific height, with its aspect ratio preserved,
    * to ensure proper display of the application's logo.
    */
   @FXML
@@ -96,7 +96,9 @@ public class AboutViewController {
             You should have received a copy of the GNU General Public License
             along with SC Kill Monitor. If not, see <https://www.gnu.org/licenses/>."""
     );
-    imageViewLogoSc.setImage(new javafx.scene.image.Image(Objects.requireNonNull(ScKillMonitorApp.class.getResourceAsStream("logo/MadeByTheCommunity_Black.png"))));
+    imageViewLogoSc.setImage(new javafx.scene.image.Image(
+        Objects.requireNonNull(
+            ScKillMonitorApp.class.getResourceAsStream("logo/MadeByTheCommunity_Black.png"))));
     imageViewLogoSc.setPreserveRatio(true);
     imageViewLogoSc.setFitHeight(100);
   }
