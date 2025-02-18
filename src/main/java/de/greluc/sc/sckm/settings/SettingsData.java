@@ -18,7 +18,7 @@
  * along with SC Kill Monitor. If not, see <https://www.gnu.org/licenses/>.                       *
  **************************************************************************************************/
 
-package de.greluc.sc.sckillmonitor.settings;
+package de.greluc.sc.sckm.settings;
 
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
@@ -26,7 +26,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import static de.greluc.sc.sckillmonitor.Constants.LIVE;
+import static de.greluc.sc.sckm.Constants.LIVE;
 
 /**
  * The SettingsData class serves as a centralized storage for application settings.

@@ -18,7 +18,7 @@
  * along with SC Kill Monitor. If not, see <https://www.gnu.org/licenses/>.                       *
  **************************************************************************************************/
 
-package de.greluc.sc.sckillmonitor.settings;
+package de.greluc.sc.sckm.settings;
 
 import lombok.extern.log4j.Log4j2;
 

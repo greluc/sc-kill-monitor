@@ -18,10 +18,10 @@
  * along with SC Kill Monitor. If not, see <https://www.gnu.org/licenses/>.                       *
  **************************************************************************************************/
 
-package de.greluc.sc.sckillmonitor.controller;
+package de.greluc.sc.sckm.controller;
 
-import de.greluc.sc.sckillmonitor.ScKillMonitorApp;
-import de.greluc.sc.sckillmonitor.settings.SettingsHandler;
+import de.greluc.sc.sckm.ScKillMonitorApp;
+import de.greluc.sc.sckm.settings.SettingsHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -71,7 +71,7 @@ public class MainViewController {
   @FXML
   protected void initialize() {
     settingsHandler.loadSettings();
-    FXMLLoader fxmlLoader = new FXMLLoader(ScKillMonitorApp.class.getResource("StartView.fxml"));
+    FXMLLoader fxmlLoader = new FXMLLoader(ScKillMonitorApp.class.getResource("fxml/StartView.fxml"));
     try {
       startPane = fxmlLoader.load();
     } catch (IOException ioException) {
@@ -105,7 +105,7 @@ public class MainViewController {
   @FXML
   protected void onSettingsPressed() {
     try {
-      FXMLLoader fxmlLoader = new FXMLLoader(ScKillMonitorApp.class.getResource("SettingsView.fxml"));
+      FXMLLoader fxmlLoader = new FXMLLoader(ScKillMonitorApp.class.getResource("fxml/SettingsView.fxml"));
       Stage stage = new Stage();
       Scene scene = new Scene(fxmlLoader.load());
       SettingsViewController settingsViewController = fxmlLoader.getController();
@@ -155,7 +155,7 @@ public class MainViewController {
    */
   protected void onStartPressed() {
     basePane.getChildren().remove(startPane);
-    FXMLLoader fxmlLoader = new FXMLLoader(ScKillMonitorApp.class.getResource("ScanView.fxml"));
+    FXMLLoader fxmlLoader = new FXMLLoader(ScKillMonitorApp.class.getResource("fxml/ScanView.fxml"));
     scanPane = null;
     try {
       scanPane = fxmlLoader.load();
@@ -179,7 +179,7 @@ public class MainViewController {
    */
   protected void onStopPressed() {
     basePane.getChildren().remove(scanPane);
-    FXMLLoader fxmlLoader = new FXMLLoader(ScKillMonitorApp.class.getResource("StartView.fxml"));
+    FXMLLoader fxmlLoader = new FXMLLoader(ScKillMonitorApp.class.getResource("fxml/StartView.fxml"));
     try {
       startPane = fxmlLoader.load();
     } catch (IOException ioException) {

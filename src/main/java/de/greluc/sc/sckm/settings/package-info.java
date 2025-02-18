@@ -23,4 +23,4 @@
  * @since 1.0.0
  * @version 1.0.0
  */
-package de.greluc.sc.sckillmonitor.controller;
+package de.greluc.sc.sckm.settings;

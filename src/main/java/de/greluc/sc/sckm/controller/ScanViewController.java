@@ -18,10 +18,10 @@
  * along with SC Kill Monitor. If not, see <https://www.gnu.org/licenses/>.                       *
  **************************************************************************************************/
 
-package de.greluc.sc.sckillmonitor.controller;
+package de.greluc.sc.sckm.controller;
 
-import de.greluc.sc.sckillmonitor.data.KillEvent;
-import de.greluc.sc.sckillmonitor.settings.SettingsData;
+import de.greluc.sc.sckm.data.KillEvent;
+import de.greluc.sc.sckm.settings.SettingsData;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
@@ -39,10 +39,9 @@ import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicReference;
 
-import static de.greluc.sc.sckillmonitor.Constants.*;
-import static de.greluc.sc.sckillmonitor.Constants.TECH_PREVIEW;
+import static de.greluc.sc.sckm.Constants.*;
+import static de.greluc.sc.sckm.Constants.TECH_PREVIEW;
 
 /**
  * The ScanViewController class handles the scanning of game logs for specific events

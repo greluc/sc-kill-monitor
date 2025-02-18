@@ -18,11 +18,11 @@
  * along with SC Kill Monitor. If not, see <https://www.gnu.org/licenses/>.                       *
  **************************************************************************************************/
 
-package de.greluc.sc.sckillmonitor.controller;
+package de.greluc.sc.sckm.controller;
 
-import de.greluc.sc.sckillmonitor.FileHandler;
-import de.greluc.sc.sckillmonitor.settings.SettingsData;
-import de.greluc.sc.sckillmonitor.settings.SettingsHandler;
+import de.greluc.sc.sckm.FileHandler;
+import de.greluc.sc.sckm.settings.SettingsData;
+import de.greluc.sc.sckm.settings.SettingsHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;

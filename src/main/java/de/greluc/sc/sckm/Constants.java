@@ -18,7 +18,7 @@
  * along with SC Kill Monitor. If not, see <https://www.gnu.org/licenses/>.                       *
  **************************************************************************************************/
 
-package de.greluc.sc.sckillmonitor;
+package de.greluc.sc.sckm;
 
 import lombok.Generated;
 

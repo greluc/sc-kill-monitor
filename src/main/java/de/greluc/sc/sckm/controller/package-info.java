@@ -23,4 +23,4 @@
  * @since 1.0.0
  * @version 1.0.0
  */
-package de.greluc.sc.sckillmonitor.data;
+package de.greluc.sc.sckm.controller;

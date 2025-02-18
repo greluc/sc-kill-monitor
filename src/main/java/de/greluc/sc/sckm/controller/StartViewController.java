@@ -18,11 +18,12 @@
  * along with SC Kill Monitor. If not, see <https://www.gnu.org/licenses/>.                       *
  **************************************************************************************************/
 
-package de.greluc.sc.sckillmonitor.controller;
+package de.greluc.sc.sckm.controller;
 
-import de.greluc.sc.sckillmonitor.AlertHandler;
-import de.greluc.sc.sckillmonitor.settings.SettingsListener;
-import de.greluc.sc.sckillmonitor.settings.SettingsData;
+import de.greluc.sc.sckm.AlertHandler;
+import de.greluc.sc.sckm.settings.SettingsHandler;
+import de.greluc.sc.sckm.settings.SettingsListener;
+import de.greluc.sc.sckm.settings.SettingsData;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -31,9 +32,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import lombok.extern.log4j.Log4j2;
 
-import java.text.ParseException;
-
-import static de.greluc.sc.sckillmonitor.Constants.*;
+import static de.greluc.sc.sckm.Constants.*;
 
 /**
  * The StartViewController class manages the user interface interactions and related logic

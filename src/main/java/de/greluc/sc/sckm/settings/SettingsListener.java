@@ -18,7 +18,7 @@
  * along with SC Kill Monitor. If not, see <https://www.gnu.org/licenses/>.                       *
  **************************************************************************************************/
 
-package de.greluc.sc.sckillmonitor.settings;
+package de.greluc.sc.sckm.settings;
 
 /**
  * The SettingsListener interface defines a contract for classes that wish to be notified

@@ -18,7 +18,7 @@
  * along with SC Kill Monitor. If not, see <https://www.gnu.org/licenses/>.                       *
  **************************************************************************************************/
 
-package de.greluc.sc.sckillmonitor;
+package de.greluc.sc.sckm;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -26,7 +26,7 @@ import lombok.Generated;
 import lombok.NonNull;
 import org.jetbrains.annotations.NotNull;
 
-import static de.greluc.sc.sckillmonitor.Constants.APP_TITLE;
+import static de.greluc.sc.sckm.Constants.APP_TITLE;
 
 /**
  * Provides utility methods to display alerts within the application.
