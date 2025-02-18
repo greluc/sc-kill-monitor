@@ -19,15 +19,28 @@
  **************************************************************************************************/
 
 package de.greluc.sc.sckm.settings;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
+import org.junit.jupiter.api.Test;
 
 /**
+ * The SettingsDataTest class contains unit tests for verifying the behavior of the SettingsData class.
+ * These tests are designed to confirm correct functionality and expected behavior when modifying
+ * the selected channel and interacting with listeners.
+ *
+ * <p>Key functionalities tested include:<br>
+ * - Updating the selected channel property.<br>
+ * - Ensuring listeners are notified on updates.<br>
+ * - Verifying that removed listeners are not notified.
+ *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
- * @since 1.0.0
  * @version 1.0.1
+ * @since 1.0.0
  */
 class SettingsDataTest {
 
