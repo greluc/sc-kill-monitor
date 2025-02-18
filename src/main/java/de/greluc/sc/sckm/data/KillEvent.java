@@ -20,8 +20,6 @@
 
 package de.greluc.sc.sckm.data;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 

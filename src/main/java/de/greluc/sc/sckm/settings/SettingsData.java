@@ -20,6 +20,8 @@
 
 package de.greluc.sc.sckm.settings;
 
+import de.greluc.sc.sckm.Constants;
+import lombok.Generated;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
@@ -190,5 +192,13 @@ public class SettingsData {
    */
   public static void removeListener(@NotNull SettingsListener listener) {
     listeners.remove(listener);
+  }
+
+  /**
+   * Used to exclude the unused constructor from code coverage evaluation.
+   */
+  @Generated
+  private SettingsData() {
+    throw new IllegalStateException(Constants.UTILITY_CLASS);
   }
 }
