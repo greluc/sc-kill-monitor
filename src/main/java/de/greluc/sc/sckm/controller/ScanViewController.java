@@ -15,15 +15,16 @@
  * GNU General Public License for more details.                                                   *
  *                                                                                                *
  * You should have received a copy of the GNU General Public License                              *
- * along with SC Kill Monitor. If not, see <http://www.gnu.org/licenses/>.                        *
+ * along with SC Kill Monitor. If not, see <https://www.gnu.org/licenses/>.                       *
  **************************************************************************************************/
 
-package de.greluc.sc.sckillmonitor.controller;
+package de.greluc.sc.sckm.controller;
 
-import de.greluc.sc.sckillmonitor.data.KillEvent;
-import de.greluc.sc.sckillmonitor.settings.SettingsData;
+import de.greluc.sc.sckm.data.KillEvent;
+import de.greluc.sc.sckm.settings.SettingsData;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
@@ -35,14 +36,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicReference;
 
-import static de.greluc.sc.sckillmonitor.Constants.*;
-import static de.greluc.sc.sckillmonitor.Constants.TECH_PREVIEW;
+import static de.greluc.sc.sckm.Constants.*;
+import static de.greluc.sc.sckm.Constants.TECH_PREVIEW;
 
 /**
  * The ScanViewController class handles the scanning of game logs for specific events
@@ -65,7 +65,7 @@ import static de.greluc.sc.sckillmonitor.Constants.TECH_PREVIEW;
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
  * @since 1.0.0
- * @version 1.0.0
+ * @version 1.0.1
  */
 @Log4j2
 public class ScanViewController {
@@ -114,28 +114,28 @@ public class ScanViewController {
   }
 
   /**
-   * Initiates a continuous scanning process for extracting specific events from a log file.
+   * Starts the log scanning process to monitor kill events.
    * <p>
-   * This method determines the appropriate log file path based on the selected channel
-   * setting. It validates the selected log file path and the handle to ensure they are
-   * properly configured before proceeding. If either is invalid, the application logs
-   * errors and terminates execution.
+   * This method continuously scans a specified log file for kill events, extracts
+   * relevant data, and updates the user interface with the extracted information.
+   * It operates in an endless loop unless interrupted or terminated due to critical
+   * errors, such as a missing log file path or user handle.
    * <p>
-   * The scanning process runs in an infinite loop, periodically extracting kill events
-   * from the specified log file. It utilizes an {@code AtomicReference} to track the
-   * timestamp of the last processed event, ensuring chronological integrity when extracting
-   * data. If an error occurs while reading the log file, a warning is logged.
+   * The selected log file path is determined based on the user's channel configuration,
+   * with fallback logic to ensure a valid path is retrieved. If no valid path or user
+   * handle is provided, the application logs an error and terminates.
    * <p>
-   * A delay between successive scans is enforced using the configured interval. The
-   * loop can be interrupted by external signals, at which point the scanning process
-   * gracefully terminates.
+   * Key functionalities include:<br>
+   * - Determining the log file path based on the selected channel configuration.<br>
+   * - Validating the log file path and user handle for non-null and non-empty values.<br>
+   * - Extracting kill events from the log file and updating the user interface.<br>
+   * - Periodically rescanning the log file at an interval defined in the settings.
    * <p>
-   * Logging is performed throughout to provide context on the scanning process, including
-   * the selected handle, channel, and log file path.
+   * Errors during log file access or scanning are logged for troubleshooting purposes.
+   * The scanning process relies on `Platform.runLater` to update the JavaFX user interface
+   * thread with processed kill event data.
    * <p>
-   * Throws:<br>
-   * - Terminates the application if the log file path or the handle is not specified.<br>
-   * - Handles interruptions during sleep by terminating the scanning loop.
+   * If the scanning thread is interrupted, it logs the interruption and exits the loop.
    */
   public void startScan() {
     String selectedPathValue = switch (SettingsData.getSelectedChannel()) {
@@ -161,10 +161,13 @@ public class ScanViewController {
     log.debug("Using the selected channel: {}", SettingsData.getSelectedChannel());
     log.debug("Using the selected log file path: {}", selectedPathValue);
 
-    AtomicReference<ZonedDateTime> lastTime = new AtomicReference<>(ZonedDateTime.now().minusYears(1));
     while (true) {
       try {
-        extractKillEvents(selectedPathValue, lastTime);
+        List<KillEvent> killEvents = extractKillEvents(selectedPathValue);
+        Platform.runLater(() -> {
+          textPane.getChildren().clear();
+          killEvents.forEach(killEvent -> textPane.getChildren().add(getKillEventPane(killEvent)));
+        });
         log.debug("Finished extracting kill events from log file: {}", selectedPathValue);
       } catch (IOException ioException) {
         log.error("Failed to read the log file: {}", selectedPathValue, ioException);
@@ -181,43 +184,56 @@ public class ScanViewController {
   }
 
   /**
-   * Extracts and processes kill events from the specified log file. Detects entries
-   * containing player deaths, parses them as kill events, and updates the user interface
-   * with relevant information if the events meet specific criteria.
+   * Extracts a list of kill events from a log file. This method reads a log file line by line,
+   * detects entries related to actor deaths, and parses the relevant information into
+   * {@link KillEvent} objects. The extracted kill events are filtered and sorted
+   * based on their timestamp in descending order.
    *
-   * @param logFilePath The file path of the log file to be read. Must not be null.
-   * @param lastTime    An atomic reference to the most recent timestamp of a processed
-   *                    kill event. This is used to filter events and update it to the
-   *                    latest processed timestamp. Must not be null.
-   * @throws IOException If an error occurs while reading the log file.
+   * @param logFilePath the path to the log file to be processed, must not be null.
+   * @return a list of {@link KillEvent} objects extracted from the log file, sorted by timestamp
+   *         in descending order, never returns null.
+   * @throws IOException if an I/O error occurs during reading the log file.
    */
-  private void extractKillEvents(@NotNull String logFilePath, @NotNull AtomicReference<ZonedDateTime> lastTime) throws IOException {
+  private @NotNull List<KillEvent> extractKillEvents(@NotNull String logFilePath) throws IOException {
     try (BufferedReader reader = new BufferedReader(new FileReader(logFilePath))) {
       String line;
+      List<KillEvent> killEvents = new ArrayList<>();
       while ((line = reader.readLine()) != null) {
         if (line.contains("<Actor Death>")) {
           Optional<KillEvent> event = parseKillEvent(line);
           event.ifPresent(killEvent -> {
-            if (killEvent.killedPlayer().equals(SettingsData.getHandle())
-                && killEvent.timestamp().isAfter(lastTime.get())) {
-              Platform.runLater(() -> {
-                TextArea textArea = new TextArea(killEvent.toString());
-                textArea.setEditable(false);
-                textArea.setMinHeight(150);
-                textArea.setMaxHeight(150);
-                textArea.prefWidthProperty().bind(textPane.widthProperty());
-
-                textPane.getChildren().add(textArea);
-              });
-
+            if (killEvent.killedPlayer().equals(SettingsData.getHandle())) {
+              killEvents.addFirst(killEvent);
               log.info("New kill event detected:\n{}", killEvent);
-
-              lastTime.set(killEvent.timestamp());
             }
           });
         }
       }
+      killEvents.sort(Comparator.comparing(KillEvent::timestamp, Comparator.reverseOrder()));
+      return killEvents;
     }
+  }
+
+  /**
+   * Creates a VBox containing a non-editable TextArea that displays information
+   * about the specified KillEvent. The VBox adjusts its width dynamically
+   * according to the width of its container.
+   *
+   * @param killEvent the KillEvent object whose details are to be displayed in the TextArea
+   * @return a VBox containing the TextArea displaying the details of the KillEvent
+   */
+  private @NotNull VBox getKillEventPane(@NotNull KillEvent killEvent) {
+    TextArea textArea = new TextArea(killEvent.toString());
+    textArea.setEditable(false);
+    textArea.setMinHeight(150);
+    textArea.setMaxHeight(150);
+
+    VBox wrapper = new VBox(textArea);
+    wrapper.prefWidthProperty().bind(textPane.widthProperty());
+    textArea.prefWidthProperty().bind(wrapper.widthProperty());
+
+    VBox.setMargin(textArea, new Insets(5, 10, 0, 0)); // Top, Right, Bottom, Left
+    return wrapper;
   }
 
   /**

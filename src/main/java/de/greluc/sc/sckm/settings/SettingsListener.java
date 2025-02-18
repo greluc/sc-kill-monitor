@@ -15,41 +15,31 @@
  * GNU General Public License for more details.                                                   *
  *                                                                                                *
  * You should have received a copy of the GNU General Public License                              *
- * along with SC Kill Monitor. If not, see <http://www.gnu.org/licenses/>.                        *
+ * along with SC Kill Monitor. If not, see <https://www.gnu.org/licenses/>.                       *
  **************************************************************************************************/
 
-package de.greluc.sc.sckillmonitor;
-
-import lombok.Generated;
+package de.greluc.sc.sckm.settings;
 
 /**
- * This class represents a collection of constant values used throughout the application.
+ * The SettingsListener interface defines a contract for classes that wish to be notified
+ * when changes occur to settings in the application. Classes implementing this interface
+ * can register themselves to listen for updates in the settings data.
  * <p>
- * It includes constants for various environment types, application metadata,
- * and utility class-related string definitions. The class is designed to prevent
- * instantiation as it serves only as a holder for constant values.
+ * Implementers must define the behavior for the {@code settingsChanged} method,
+ * which is invoked whenever a relevant change to the settings occurs.
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
  * @since 1.0.0
- * @version 1.0.0
+ * @version 1.0.1
  */
-public class Constants {
-  public static final String LIVE = "LIVE";
-  public static final String PTU = "PTU";
-  public static final String EPTU = "EPTU";
-  public static final String HOTFIX = "HOTFIX";
-  public static final String TECH_PREVIEW = "TECH-PREVIEW";
-  public static final String CUSTOM = "Custom";
-
-  public static final String APP_TITLE = "SC Kill Monitor";
-
-  public static final String UTILITY_CLASS = "Utility class";
-
+public interface SettingsListener {
   /**
-   * Used to exclude the unused constructor from code coverage evaluation.
+   * Notifies listeners that settings have been changed.
+   * <p>
+   * This method is called to inform all registered listeners that
+   * a modification has occurred in the application settings.
+   * Implementers of the {@code SettingsListener} interface must
+   * define the behavior upon receiving this notification.
    */
-  @Generated
-  private Constants() {
-    throw new IllegalStateException(Constants.UTILITY_CLASS);
-  }
+  void settingsChanged();
 }

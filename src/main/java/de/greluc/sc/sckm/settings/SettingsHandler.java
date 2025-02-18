@@ -15,15 +15,17 @@
  * GNU General Public License for more details.                                                   *
  *                                                                                                *
  * You should have received a copy of the GNU General Public License                              *
- * along with SC Kill Monitor. If not, see <http://www.gnu.org/licenses/>.                        *
+ * along with SC Kill Monitor. If not, see <https://www.gnu.org/licenses/>.                       *
  **************************************************************************************************/
 
-package de.greluc.sc.sckillmonitor.settings;
+package de.greluc.sc.sckm.settings;
 
 import lombok.extern.log4j.Log4j2;
 
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
+
+import static de.greluc.sc.sckm.Constants.*;
 
 /**
  * Handles the persistence and retrieval of user-specific settings for the application.
@@ -40,7 +42,7 @@ import java.util.prefs.Preferences;
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
  * @since 1.0.0
- * @version 1.0.0
+ * @version 1.0.1
  */
 @Log4j2
 public class SettingsHandler {
@@ -62,18 +64,16 @@ public class SettingsHandler {
    * If an error occurs during the persistence operation, a log entry will
    * be created with the corresponding error message and stack trace.
    *
-   * @throws BackingStoreException if an error occurs while flushing the preferences
-   *         to the persistent store. This exception is logged and not propagated further.
    */
   public void saveSettings() {
-    preferences.put("PATH_LIVE", SettingsData.getPathLive());
-    preferences.put("PATH_PTU", SettingsData.getPathPtu());
-    preferences.put("PATH_EPTU", SettingsData.getPathEptu());
-    preferences.put("PATH_HOTFIX", SettingsData.getPathHotfix());
-    preferences.put("PATH_TECH_PREVIEW", SettingsData.getPathTechPreview());
-    preferences.put("PATH_CUSTOM", SettingsData.getPathCustom());
-    preferences.put("PLAYER_HANDLE", SettingsData.getHandle());
-    preferences.putInt("SCAN_INTERVAL_SECONDS", SettingsData.getInterval());
+    preferences.put(SETTINGS_PATH_LIVE, SettingsData.getPathLive());
+    preferences.put(SETTINGS_PATH_PTU, SettingsData.getPathPtu());
+    preferences.put(SETTINGS_PATH_EPTU, SettingsData.getPathEptu());
+    preferences.put(SETTINGS_PATH_HOTFIX, SettingsData.getPathHotfix());
+    preferences.put(SETTINGS_PATH_TECH_PREVIEW, SettingsData.getPathTechPreview());
+    preferences.put(SETTINGS_PATH_CUSTOM, SettingsData.getPathCustom());
+    preferences.put(SETTINGS_PLAYER_HANDLE, SettingsData.getHandle());
+    preferences.putInt(SETTINGS_SCAN_INTERVAL_SECONDS, SettingsData.getInterval());
     try {
       preferences.flush();
     } catch (BackingStoreException exception) {
@@ -116,13 +116,13 @@ public class SettingsHandler {
     } catch (BackingStoreException e) {
       log.error("Couldn't load the preferences from the persistent store! Using defaults.", e);
     }
-    SettingsData.setPathLive(preferences.get("PATH_LIVE", "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\LIVE\\game.log"));
-    SettingsData.setPathPtu(preferences.get("PATH_EPTU", "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\EPTU\\game.log"));
-    SettingsData.setPathEptu(preferences.get("PATH_EPTU", "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\EPTU\\game.log"));
-    SettingsData.setPathHotfix(preferences.get("PATH_HOTFIX", "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\HOTFIX\\game.log"));
-    SettingsData.setPathTechPreview(preferences.get("PATH_TECH_PREVIEW", "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\TECH-PREVIEW\\game.log"));
-    SettingsData.setPathCustom(preferences.get("PATH_CUSTOM", ""));
-    SettingsData.setHandle(preferences.get("PLAYER_HANDLE", ""));
-    SettingsData.setInterval(Integer.parseInt(preferences.get("SCAN_INTERVAL_SECONDS", "1")));
+    SettingsData.setPathLive(preferences.get(SETTINGS_PATH_LIVE, "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\LIVE\\game.log"));
+    SettingsData.setPathPtu(preferences.get(SETTINGS_PATH_PTU, "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\EPTU\\game.log"));
+    SettingsData.setPathEptu(preferences.get(SETTINGS_PATH_EPTU, "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\EPTU\\game.log"));
+    SettingsData.setPathHotfix(preferences.get(SETTINGS_PATH_HOTFIX, "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\HOTFIX\\game.log"));
+    SettingsData.setPathTechPreview(preferences.get(SETTINGS_PATH_TECH_PREVIEW, "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\TECH-PREVIEW\\game.log"));
+    SettingsData.setPathCustom(preferences.get(SETTINGS_PATH_CUSTOM, ""));
+    SettingsData.setHandle(preferences.get(SETTINGS_PLAYER_HANDLE, ""));
+    SettingsData.setInterval(Integer.parseInt(preferences.get(SETTINGS_SCAN_INTERVAL_SECONDS, "1")));
   }
 }

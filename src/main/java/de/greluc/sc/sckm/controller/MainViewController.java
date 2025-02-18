@@ -15,13 +15,13 @@
  * GNU General Public License for more details.                                                   *
  *                                                                                                *
  * You should have received a copy of the GNU General Public License                              *
- * along with SC Kill Monitor. If not, see <http://www.gnu.org/licenses/>.                        *
+ * along with SC Kill Monitor. If not, see <https://www.gnu.org/licenses/>.                       *
  **************************************************************************************************/
 
-package de.greluc.sc.sckillmonitor.controller;
+package de.greluc.sc.sckm.controller;
 
-import de.greluc.sc.sckillmonitor.ScKillMonitorApp;
-import de.greluc.sc.sckillmonitor.settings.SettingsHandler;
+import de.greluc.sc.sckm.ScKillMonitorApp;
+import de.greluc.sc.sckm.settings.SettingsHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -47,7 +47,7 @@ import java.io.IOException;
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
  * @since 1.0.0
- * @version 1.0.0
+ * @version 1.0.1
  */
 @Log4j2
 public class MainViewController {
@@ -71,7 +71,7 @@ public class MainViewController {
   @FXML
   protected void initialize() {
     settingsHandler.loadSettings();
-    FXMLLoader fxmlLoader = new FXMLLoader(ScKillMonitorApp.class.getResource("StartView.fxml"));
+    FXMLLoader fxmlLoader = new FXMLLoader(ScKillMonitorApp.class.getResource("fxml/StartView.fxml"));
     try {
       startPane = fxmlLoader.load();
     } catch (IOException ioException) {
@@ -105,7 +105,7 @@ public class MainViewController {
   @FXML
   protected void onSettingsPressed() {
     try {
-      FXMLLoader fxmlLoader = new FXMLLoader(ScKillMonitorApp.class.getResource("SettingsView.fxml"));
+      FXMLLoader fxmlLoader = new FXMLLoader(ScKillMonitorApp.class.getResource("fxml/SettingsView.fxml"));
       Stage stage = new Stage();
       Scene scene = new Scene(fxmlLoader.load());
       SettingsViewController settingsViewController = fxmlLoader.getController();
@@ -131,14 +131,28 @@ public class MainViewController {
   }
 
   /**
-   * Handles the action that occurs when the "About" button is pressed.
-   * This method is triggered by the corresponding @FXML element in the UI.
-   * It is intended to display information about the application, which may
-   * include its purpose, version details, and other relevant metadata.
+   * Handles the event triggered when the "About" button is pressed in the application UI.
+   * <p>
+   * This method is responsible for loading the "AboutView.fxml" file, initializing and displaying
+   * a new modal Stage containing the "About" view of the application. It sets up the scene, ensures
+   * the window's resize behavior is enabled and its modality is configured as application modal.
+   * <p>
+   * In the case of an IOException, logs an error message indicating the failure to load the FXML file.
    */
   @FXML
   protected void onAboutPressed() {
-    // TODO implement
+    try {
+      FXMLLoader fxmlLoader = new FXMLLoader(ScKillMonitorApp.class.getResource("fxml/AboutView.fxml"));
+      Stage stage = new Stage();
+      Scene scene = new Scene(fxmlLoader.load());
+      stage.setScene(scene);
+      stage.setMaximized(false);
+      stage.setResizable(true);
+      stage.initModality(Modality.APPLICATION_MODAL);
+      stage.show();
+    } catch (IOException ioException) {
+      log.error("Couldn't load AboutView.fxml", ioException);
+    }
   }
 
   /**
@@ -155,7 +169,7 @@ public class MainViewController {
    */
   protected void onStartPressed() {
     basePane.getChildren().remove(startPane);
-    FXMLLoader fxmlLoader = new FXMLLoader(ScKillMonitorApp.class.getResource("ScanView.fxml"));
+    FXMLLoader fxmlLoader = new FXMLLoader(ScKillMonitorApp.class.getResource("fxml/ScanView.fxml"));
     scanPane = null;
     try {
       scanPane = fxmlLoader.load();
@@ -179,7 +193,7 @@ public class MainViewController {
    */
   protected void onStopPressed() {
     basePane.getChildren().remove(scanPane);
-    FXMLLoader fxmlLoader = new FXMLLoader(ScKillMonitorApp.class.getResource("StartView.fxml"));
+    FXMLLoader fxmlLoader = new FXMLLoader(ScKillMonitorApp.class.getResource("fxml/StartView.fxml"));
     try {
       startPane = fxmlLoader.load();
     } catch (IOException ioException) {

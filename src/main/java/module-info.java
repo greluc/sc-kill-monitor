@@ -1,4 +1,4 @@
-module de.greluc.sc.sckillmonitor {
+module de.greluc.sc.sckm {
     requires javafx.controls;
     requires javafx.fxml;
     requires atlantafx.base;
@@ -7,12 +7,12 @@ module de.greluc.sc.sckillmonitor {
     requires java.prefs;
     requires org.apache.logging.log4j;
 
-    opens de.greluc.sc.sckillmonitor to javafx.fxml;
-    exports de.greluc.sc.sckillmonitor;
-    exports de.greluc.sc.sckillmonitor.controller;
-    opens de.greluc.sc.sckillmonitor.controller to javafx.fxml;
-    exports de.greluc.sc.sckillmonitor.data;
-    opens de.greluc.sc.sckillmonitor.data to javafx.fxml;
-    exports de.greluc.sc.sckillmonitor.settings;
-    opens de.greluc.sc.sckillmonitor.settings to javafx.fxml;
+    opens de.greluc.sc.sckm to javafx.fxml;
+    exports de.greluc.sc.sckm;
+    exports de.greluc.sc.sckm.controller;
+    opens de.greluc.sc.sckm.controller to javafx.fxml;
+    exports de.greluc.sc.sckm.data;
+    opens de.greluc.sc.sckm.data to javafx.fxml;
+    exports de.greluc.sc.sckm.settings;
+    opens de.greluc.sc.sckm.settings to javafx.fxml;
 }

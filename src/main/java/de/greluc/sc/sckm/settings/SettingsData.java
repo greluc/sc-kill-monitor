@@ -15,18 +15,20 @@
  * GNU General Public License for more details.                                                   *
  *                                                                                                *
  * You should have received a copy of the GNU General Public License                              *
- * along with SC Kill Monitor. If not, see <http://www.gnu.org/licenses/>.                        *
+ * along with SC Kill Monitor. If not, see <https://www.gnu.org/licenses/>.                       *
  **************************************************************************************************/
 
-package de.greluc.sc.sckillmonitor.settings;
+package de.greluc.sc.sckm.settings;
 
+import de.greluc.sc.sckm.Constants;
+import lombok.Generated;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static de.greluc.sc.sckillmonitor.Constants.LIVE;
+import static de.greluc.sc.sckm.Constants.LIVE;
 
 /**
  * The SettingsData class serves as a centralized storage for application settings.
@@ -46,7 +48,7 @@ import static de.greluc.sc.sckillmonitor.Constants.LIVE;
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
  * @since 1.0.0
- * @version 1.0.0
+ * @version 1.0.1
  */
 public class SettingsData {
   @Getter
@@ -190,5 +192,13 @@ public class SettingsData {
    */
   public static void removeListener(@NotNull SettingsListener listener) {
     listeners.remove(listener);
+  }
+
+  /**
+   * Used to exclude the unused constructor from code coverage evaluation.
+   */
+  @Generated
+  private SettingsData() {
+    throw new IllegalStateException(Constants.UTILITY_CLASS);
   }
 }
