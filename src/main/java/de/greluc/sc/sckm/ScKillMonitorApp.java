@@ -71,10 +71,16 @@ public class ScKillMonitorApp extends Application {
       stage.setMinWidth(700);
       stage.setMinHeight(500);
       stage.setTitle("SC Kill Monitor");
-      stage.setOnCloseRequest(ignored -> {
-        Platform.exit();
-        System.exit(0);
-      });
+      stage
+          .getIcons()
+          .add(
+              new javafx.scene.image.Image(
+                  String.valueOf(ScKillMonitorApp.class.getResource("logos/SC-Kill-Monitor.png"))));
+      stage.setOnCloseRequest(
+          ignored -> {
+            Platform.exit();
+            System.exit(0);
+          });
       stage.show();
     } catch (IOException ioException) {
       log.error("Could not load main view", ioException);

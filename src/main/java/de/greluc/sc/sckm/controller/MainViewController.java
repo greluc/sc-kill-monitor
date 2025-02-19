@@ -115,6 +115,11 @@ public class MainViewController {
       stage.setMaximized(false);
       stage.setResizable(true);
       stage.initModality(Modality.APPLICATION_MODAL);
+      stage
+          .getIcons()
+          .add(
+              new javafx.scene.image.Image(
+                  String.valueOf(ScKillMonitorApp.class.getResource("logos/SC-Kill-Monitor.png"))));
       stage.show();
     } catch (IOException ioException) {
       log.error("Couldn't load SettingsView.fxml", ioException);
@@ -155,6 +160,11 @@ public class MainViewController {
       stage.setMaximized(false);
       stage.setResizable(true);
       stage.initModality(Modality.APPLICATION_MODAL);
+      stage
+          .getIcons()
+          .add(
+              new javafx.scene.image.Image(
+                  String.valueOf(ScKillMonitorApp.class.getResource("logos/SC-Kill-Monitor.png"))));
       stage.show();
     } catch (IOException ioException) {
       log.error("Couldn't load AboutView.fxml", ioException);
