@@ -34,17 +34,16 @@ import java.util.prefs.Preferences;
 import lombok.extern.log4j.Log4j2;
 
 /**
- * Handles the persistence and retrieval of user-specific settings for the application.
- * Provides methods to save the current settings to a persistent storage and load them
- * back when needed.
+ * Handles the persistence and retrieval of user-specific settings for the application. Provides
+ * methods to save the current settings to a persistent storage and load them back when needed.
  *
  * <p>This class utilizes the `java.util.prefs.Preferences` API to save and retrieve application
- * settings. The preferences are associated with the current user and are stored in a
- * persistent storage backend provided by the JVM.
+ * settings. The preferences are associated with the current user and are stored in a persistent
+ * storage backend provided by the JVM.
  *
  * <p>The settings managed by this class include various file paths, user handle, and scan interval.
- * These settings are initially retrieved from the `SettingsData` class and can also be
- * updated in `SettingsData` when loaded from persistent storage.
+ * These settings are initially retrieved from the `SettingsData` class and can also be updated in
+ * `SettingsData` when loaded from persistent storage.
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
  * @version 1.0.1
@@ -55,20 +54,20 @@ public class SettingsHandler {
   private final Preferences preferences = Preferences.userRoot().node(this.getClass().getName());
 
   /**
-   * Saves the current settings to persistent storage using the Preferences API.
-   * The settings are retrieved from the {@code SettingsData} class and written
-   * to the preferences node associated with the current user.
+   * Saves the current settings to persistent storage using the Preferences API. The settings are
+   * retrieved from the {@code SettingsData} class and written to the preferences node associated
+   * with the current user.
    *
    * <p>The following settings are saved:<br>
    * - Paths for different application configurations.<br>
    * - The user handle.<br>
    * - Scan interval in seconds.
    *
-   * <p>After saving the settings to the Preferences API, an attempt is made to
-   * persist the preferences to the underlying storage.
+   * <p>After saving the settings to the Preferences API, an attempt is made to persist the
+   * preferences to the underlying storage.
    *
-   * <p>If an error occurs during the persistence operation, a log entry will
-   * be created with the corresponding error message and stack trace.
+   * <p>If an error occurs during the persistence operation, a log entry will be created with the
+   * corresponding error message and stack trace.
    */
   public void saveSettings() {
     preferences.put(SETTINGS_PATH_LIVE, SettingsData.getPathLive());
@@ -87,14 +86,12 @@ public class SettingsHandler {
   }
 
   /**
-   * Loads and applies user preferences stored in a persistent storage.
-   * If the preferences cannot be synchronized due to a BackingStoreException,
-   * default values will be used for all settings.
+   * Loads and applies user preferences stored in a persistent storage. If the preferences cannot be
+   * synchronized due to a BackingStoreException, default values will be used for all settings.
    *
-   * <p>This method retrieves specific configuration values for the application's
-   * file paths, user handle, and scanning interval from the preferences store.
-   * The loaded settings are applied to the static fields of the SettingsData
-   * class using its setter methods.
+   * <p>This method retrieves specific configuration values for the application's file paths, user
+   * handle, and scanning interval from the preferences store. The loaded settings are applied to
+   * the static fields of the SettingsData class using its setter methods.
    *
    * <p>Preferences retrieved:<br>
    * - PATH_LIVE: File path to the game log for the LIVE version.<br>
@@ -106,14 +103,12 @@ public class SettingsHandler {
    * - PLAYER_HANDLE: Player's handle or username.<br>
    * - SCAN_INTERVAL_SECONDS: Time interval, in seconds, used for scanning.
    *
-   * <p>If any of the retrieved preference values are not found, default values
-   * are used:<br>
+   * <p>If any of the retrieved preference values are not found, default values are used:<br>
    * - File paths default to typical installation directories.<br>
    * - PLAYER_HANDLE defaults to an empty string.<br>
    * - SCAN_INTERVAL_SECONDS defaults to 1 second.
    *
-   * <p>Logs an error message if the preferences cannot be loaded and defaults
-   * are applied.
+   * <p>Logs an error message if the preferences cannot be loaded and defaults are applied.
    */
   public void loadSettings() {
     try {
@@ -121,19 +116,29 @@ public class SettingsHandler {
     } catch (BackingStoreException e) {
       log.error("Couldn't load the preferences from the persistent store! Using defaults.", e);
     }
-    SettingsData.setPathLive(preferences.get(SETTINGS_PATH_LIVE,
-        "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\LIVE\\game.log"));
-    SettingsData.setPathPtu(preferences.get(SETTINGS_PATH_PTU,
-        "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\EPTU\\game.log"));
-    SettingsData.setPathEptu(preferences.get(SETTINGS_PATH_EPTU,
-        "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\EPTU\\game.log"));
-    SettingsData.setPathHotfix(preferences.get(SETTINGS_PATH_HOTFIX,
-        "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\HOTFIX\\game.log"));
-    SettingsData.setPathTechPreview(preferences.get(SETTINGS_PATH_TECH_PREVIEW,
-        "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\TECH-PREVIEW\\game.log"));
+    SettingsData.setPathLive(
+        preferences.get(
+            SETTINGS_PATH_LIVE,
+            "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\LIVE\\game.log"));
+    SettingsData.setPathPtu(
+        preferences.get(
+            SETTINGS_PATH_PTU,
+            "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\EPTU\\game.log"));
+    SettingsData.setPathEptu(
+        preferences.get(
+            SETTINGS_PATH_EPTU,
+            "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\EPTU\\game.log"));
+    SettingsData.setPathHotfix(
+        preferences.get(
+            SETTINGS_PATH_HOTFIX,
+            "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\HOTFIX\\game.log"));
+    SettingsData.setPathTechPreview(
+        preferences.get(
+            SETTINGS_PATH_TECH_PREVIEW,
+            "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\TECH-PREVIEW\\game.log"));
     SettingsData.setPathCustom(preferences.get(SETTINGS_PATH_CUSTOM, ""));
     SettingsData.setHandle(preferences.get(SETTINGS_PLAYER_HANDLE, ""));
-    SettingsData.setInterval(Integer.parseInt(
-        preferences.get(SETTINGS_SCAN_INTERVAL_SECONDS, "1")));
+    SettingsData.setInterval(
+        Integer.parseInt(preferences.get(SETTINGS_SCAN_INTERVAL_SECONDS, "1")));
   }
 }

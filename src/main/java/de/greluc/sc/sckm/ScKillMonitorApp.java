@@ -34,12 +34,12 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Main application class for the SC Kill Monitor.
  *
- * <p>This class is responsible for initializing and launching the JavaFX application. It sets
- * the user interface styles and loads the main view. It also handles application lifecycle
- * events such as closing the application.
+ * <p>This class is responsible for initializing and launching the JavaFX application. It sets the
+ * user interface styles and loads the main view. It also handles application lifecycle events such
+ * as closing the application.
  *
- * <p>The application window displays the main graphical user interface with a default
- * width of 600 and a height of 500.
+ * <p>The application window displays the main graphical user interface with a default width of 600
+ * and a height of 500.
  *
  * <p>The application exits completely when the user closes the main window.
  *
@@ -51,21 +51,32 @@ import org.jetbrains.annotations.NotNull;
 public class ScKillMonitorApp extends Application {
 
   /**
-   * The main entry point for the JavaFX application. This method is called after the application
-   * has been initialized. It sets up the primary stage, applies user interface styles, loads
-   * the main view, and configures the application behavior upon closing.
+   * The main entry point of the application.
    *
-   * @param stage the primary stage for this application,
-   *              onto which the application scene can be set.
-   *              The primary stage will be shown after the start method completes.
+   * <p>This method is responsible for launching the JavaFX application. It invokes the `launch`
+   * method provided by the `Application` class, which initializes and starts the JavaFX lifecycle.
+   *
+   * @param args Command-line arguments passed to the application.
+   */
+  public static void main(String[] args) {
+    launch();
+  }
+
+  /**
+   * The main entry point for the JavaFX application. This method is called after the application
+   * has been initialized. It sets up the primary stage, applies user interface styles, loads the
+   * main view, and configures the application behavior upon closing.
+   *
+   * @param stage the primary stage for this application, onto which the application scene can be
+   *     set. The primary stage will be shown after the start method completes.
    */
   @Override
   public void start(@NotNull Stage stage) {
     try {
       Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
       Application.setUserAgentStylesheet(new PrimerDark().getUserAgentStylesheet());
-      FXMLLoader fxmlLoader = new FXMLLoader(
-          ScKillMonitorApp.class.getResource("fxml/MainView.fxml"));
+      FXMLLoader fxmlLoader =
+          new FXMLLoader(ScKillMonitorApp.class.getResource("fxml/MainView.fxml"));
       Scene scene = new Scene(fxmlLoader.load(), 700, 500);
       stage.setScene(scene);
       stage.setMinWidth(700);
@@ -86,18 +97,5 @@ public class ScKillMonitorApp extends Application {
       log.error("Could not load main view", ioException);
       System.exit(-1);
     }
-  }
-
-  /**
-   * The main entry point of the application.
-   *
-   * <p>This method is responsible for launching the JavaFX application.
-   * It invokes the `launch` method provided by the `Application` class,
-   * which initializes and starts the JavaFX lifecycle.
-   *
-   * @param args Command-line arguments passed to the application.
-   */
-  public static void main(String[] args) {
-    launch();
   }
 }

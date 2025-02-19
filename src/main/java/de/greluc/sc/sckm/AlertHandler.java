@@ -29,9 +29,9 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Provides utility methods to display alerts within the application.
  *
- * <p>The AlertHandler class contains static methods to display different types of
- * alerts using JavaFX's Alert class. It supports alerts with configurable types,
- * headers, and content, as well as displaying general error alerts.
+ * <p>The AlertHandler class contains static methods to display different types of alerts using
+ * JavaFX's Alert class. It supports alerts with configurable types, headers, and content, as well
+ * as displaying general error alerts.
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
  * @version 1.0.1
@@ -39,27 +39,23 @@ import org.jetbrains.annotations.NotNull;
  */
 public class AlertHandler {
 
-  /**
-   * Shows a general error that doesn't specify a specific error in its message.
-   */
+  /** Shows a general error that doesn't specify a specific error in its message. */
   @Generated
   public static void showGeneralError() {
-    showAlert(Alert.AlertType.ERROR,
-        "ERROR",
-        "An error occurred while performing the desired action.");
+    showAlert(
+        Alert.AlertType.ERROR, "ERROR", "An error occurred while performing the desired action.");
   }
 
   /**
    * Shows an alert. Uses the {@link Alert} class.
    *
    * @param alertType {@link Alert.AlertType} that should be used for the alert.
-   * @param header    String containing the short text with the main information.
-   * @param content   String containing the description of the alert.
+   * @param header String containing the short text with the main information.
+   * @param content String containing the description of the alert.
    */
   @Generated
-  public static void showAlert(@NotNull Alert.AlertType alertType,
-                               @NotNull String header,
-                               @NotNull String content) {
+  public static void showAlert(
+      @NotNull Alert.AlertType alertType, @NotNull String header, @NotNull String content) {
     var alert = new Alert(alertType);
     alert.titleProperty().set(APP_TITLE);
     alert.headerTextProperty().set(header);

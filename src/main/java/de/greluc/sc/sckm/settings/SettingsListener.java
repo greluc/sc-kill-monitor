@@ -21,12 +21,12 @@
 package de.greluc.sc.sckm.settings;
 
 /**
- * The SettingsListener interface defines a contract for classes that wish to be notified
- * when changes occur to settings in the application. Classes implementing this interface
- * can register themselves to listen for updates in the settings data.
+ * The SettingsListener interface defines a contract for classes that wish to be notified when
+ * changes occur to settings in the application. Classes implementing this interface can register
+ * themselves to listen for updates in the settings data.
  *
- * <p>Implementers must define the behavior for the {@code settingsChanged} method,
- * which is invoked whenever a relevant change to the settings occurs.
+ * <p>Implementers must define the behavior for the {@code settingsChanged} method, which is invoked
+ * whenever a relevant change to the settings occurs.
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
  * @since 1.0.0
@@ -36,10 +36,9 @@ public interface SettingsListener {
   /**
    * Notifies listeners that settings have been changed.
    *
-   * <p>This method is called to inform all registered listeners that
-   * a modification has occurred in the application settings.
-   * Implementers of the {@code SettingsListener} interface must
-   * define the behavior upon receiving this notification.
+   * <p>This method is called to inform all registered listeners that a modification has occurred in
+   * the application settings. Implementers of the {@code SettingsListener} interface must define
+   * the behavior upon receiving this notification.
    */
   void settingsChanged();
 }
