@@ -1,6 +1,6 @@
 # Changelog
 
-## [vx.x.x](https://github.com/greluc/SC-Kill-Monitor/releases/tag/vx.x.x)
+## [v1.1.0](https://github.com/greluc/SC-Kill-Monitor/releases/tag/v1.1.0)
 
 - BUG: Fix a Null Pointer Exception (NPE) when the file chooser is closed without having selected a file.
 - FEATURE: Write the kill events to an own human-readable file.
