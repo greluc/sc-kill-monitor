@@ -20,18 +20,18 @@
 
 package de.greluc.sc.sckm;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import de.greluc.sc.sckm.data.KillEvent;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Optional;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import javafx.stage.FileChooser;
 import lombok.Generated;
 import lombok.extern.log4j.Log4j2;
 import org.jetbrains.annotations.NotNull;
-import de.greluc.sc.sckm.data.KillEvent;
 
 /**
  * This class provides various utilities for handling file operations.
@@ -42,7 +42,7 @@ import de.greluc.sc.sckm.data.KillEvent;
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
  * @since 1.0.0
- * @version 1.0.1
+ * @version 1.1.0
  */
 @Log4j2
 public class FileHandler {
@@ -72,6 +72,14 @@ public class FileHandler {
     return Optional.ofNullable(chooser.showOpenDialog(null));
   }
   
+  /**
+   * Writes information about a KillEvent to a log file in JSON format. The log file name is 
+   * determined by appending the provided file suffix to a predefined file name pattern.
+   *
+   * @param killEvent The KillEvent object containing details about the kill event to be logged.
+   * @param fileSuffix The suffix to append to the log file name, typically used to differentiate
+   *                   between different log files or contexts.
+   */
   public static void writeKillEventToFile(@NotNull KillEvent killEvent, @NotNull String fileSuffix) {
     log.debug("Appending KillEvent to file in JSON format.");
     ObjectMapper objectMapper = new ObjectMapper();

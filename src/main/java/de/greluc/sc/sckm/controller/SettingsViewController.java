@@ -51,7 +51,7 @@ import org.jetbrains.annotations.NotNull;
  * - Handles closing the settings window upon saving changes or user interaction.
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
- * @version 1.0.1
+ * @version 1.1.0
  * @since 1.0.0
  */
 public class SettingsViewController {

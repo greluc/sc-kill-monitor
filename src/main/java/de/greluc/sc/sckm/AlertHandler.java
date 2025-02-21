@@ -34,7 +34,7 @@ import org.jetbrains.annotations.NotNull;
  * as displaying general error alerts.
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
- * @version 1.0.1
+ * @version 1.1.0
  * @since 1.0.0
  */
 public class AlertHandler {

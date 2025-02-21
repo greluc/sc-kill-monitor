@@ -39,7 +39,7 @@ import org.junit.jupiter.api.Test;
  * - Verifying that removed listeners are not notified.
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
- * @version 1.0.1
+ * @version 1.1.0
  * @since 1.0.0
  */
 class SettingsDataTest {

@@ -44,7 +44,7 @@ import org.jetbrains.annotations.NotNull;
  * <p>The application exits completely when the user closes the main window.
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
- * @version 1.0.1
+ * @version 1.1.0
  * @since 1.0.0
  */
 @Log4j2

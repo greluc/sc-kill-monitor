@@ -47,7 +47,7 @@ import lombok.extern.log4j.Log4j2;
  * <p>Implements the SettingsListener interface to respond to changes in settings data.
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
- * @version 1.0.1
+ * @version 1.1.0
  * @since 1.0.0
  */
 @Log4j2

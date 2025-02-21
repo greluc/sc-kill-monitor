@@ -46,7 +46,7 @@ import lombok.extern.log4j.Log4j2;
  * `SettingsData` when loaded from persistent storage.
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
- * @version 1.0.1
+ * @version 1.1.0
  * @since 1.0.0
  */
 @Log4j2
