@@ -54,11 +54,9 @@
      <Label text="Welcome to SC Kill Monitor!" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="1" />
      <Button onAction="#onStartButtonClicked" style="-fx-background-color: #00766b;" GridPane.columnIndex="1" GridPane.rowIndex="8">
       <graphic>
-         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@../icons/outline/player-play.png" />
-            </image>
-         </ImageView>
+          <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+              <Image url="@../icons/player-play_white.png"/>
+          </ImageView>
       </graphic></Button>
    <Label text="Select Channel:" GridPane.columnIndex="1" GridPane.rowIndex="3">
       <GridPane.margin>
