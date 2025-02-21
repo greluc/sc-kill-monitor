@@ -63,6 +63,6 @@ public class FileHandler {
     final var filter = new FileChooser.ExtensionFilter("log File", fileType);
     final var chooser = new FileChooser();
     chooser.getExtensionFilters().add(filter);
-    return Optional.of(chooser.showOpenDialog(null));
+    return Optional.ofNullable(chooser.showOpenDialog(null));
   }
 }

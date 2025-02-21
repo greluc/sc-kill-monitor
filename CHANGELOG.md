@@ -2,6 +2,7 @@
 
 ## [vx.x.x](https://github.com/greluc/SC-Kill-Monitor/releases/tag/vx.x.x)
 
+- BUG: Fix a Null Pointer Exception (NPE) when the file choser is closed without having selected a file.
 - FEATURE: Add application icon.
 - FEATURE: Add clear button to path settings.
 - CHORE: Change start and stop scan button to icons.
