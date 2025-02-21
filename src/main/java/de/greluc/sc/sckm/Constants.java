@@ -15,7 +15,7 @@
  * GNU General Public License for more details.                                                   *
  *                                                                                                *
  * You should have received a copy of the GNU General Public License                              *
- * along with SC Kill Monitor. If not, see <https://www.gnu.org/licenses/>.                       *
+ * along with SC Kill Monitor. If not, see https://www.gnu.org/licenses/                          *
  **************************************************************************************************/
 
 package de.greluc.sc.sckm;
@@ -24,14 +24,14 @@ import lombok.Generated;
 
 /**
  * This class represents a collection of constant values used throughout the application.
- * <p>
- * It includes constants for various environment types, application metadata,
- * and utility class-related string definitions. The class is designed to prevent
- * instantiation as it serves only as a holder for constant values.
+ *
+ * <p>It includes constants for various environment types, application metadata, and utility
+ * class-related string definitions. The class is designed to prevent instantiation as it serves
+ * only as a holder for constant values.
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
  * @since 1.0.0
- * @version 1.0.1
+ * @version 1.1.0
  */
 public class Constants {
   public static final String LIVE = "LIVE";
@@ -54,9 +54,7 @@ public class Constants {
 
   public static final String UTILITY_CLASS = "Utility class";
 
-  /**
-   * Used to exclude the unused constructor from code coverage evaluation.
-   */
+  /** Used to exclude the unused constructor from code coverage evaluation. */
   @Generated
   private Constants() {
     throw new IllegalStateException(Constants.UTILITY_CLASS);

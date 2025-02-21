@@ -15,19 +15,32 @@
  * GNU General Public License for more details.                                                   *
  *                                                                                                *
  * You should have received a copy of the GNU General Public License                              *
- * along with SC Kill Monitor. If not, see <https://www.gnu.org/licenses/>.                       *
+ * along with SC Kill Monitor. If not, see https://www.gnu.org/licenses/                          *
  **************************************************************************************************/
 
 package de.greluc.sc.sckm.settings;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
+import org.junit.jupiter.api.Test;
 
 /**
+ * The SettingsDataTest class contains unit tests for verifying the behavior of the SettingsData class.
+ * These tests are designed to confirm correct functionality and expected behavior when modifying
+ * the selected channel and interacting with listeners.
+ *
+ * <p>Key functionalities tested include:<br>
+ * - Updating the selected channel property.<br>
+ * - Ensuring listeners are notified on updates.<br>
+ * - Verifying that removed listeners are not notified.
+ *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
+ * @version 1.1.0
  * @since 1.0.0
- * @version 1.0.1
  */
 class SettingsDataTest {
 

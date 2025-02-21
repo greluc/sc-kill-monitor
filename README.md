@@ -5,14 +5,14 @@
 ## Table Of Contents
 
 - [Description](#description)
-- [Installation](#installation)
+- [Documentation](#documentation)
 - [License](#license)
 - [Contribution](#contribution)
 - [Team](#team)
 
 ## Description
 
-SC Kill Monitor is an application to search the Star Citizen `game.log` file for the person who killed you.
+SC Kill Monitor is an application to search the Star Citizen ``game.log`` file for the person who killed you.
 
 **Disclaimer:** The SC Kill Monitor app may only be used to report potential griefings or stream snipings. Use of the identified player names for purposes that violate the Star Citizen Terms and Conditions is prohibited. The responsibility for compliant use lies with the user.
 
@@ -20,9 +20,9 @@ SC Kill Monitor is an unofficial Star Citizen fan project, not affiliated with t
 All content on this site not authored by its host or users are property of their respective owners.
 Star Citizen®, Roberts Space Industries® and Cloud Imperium® are registered trademarks of Cloud Imperium Rights LLC.
 
-## Installation
+## Documentation
 
-Please read the [installation documentation](https://github.com/greluc/SC-Kill-Monitor/wiki/Installation-Manual) in the wiki.
+Please refer to the [installation manual](https://github.com/greluc/SC-Kill-Monitor/wiki/Installation-Manual) and the [operating manual](https://github.com/greluc/SC-Kill-Monitor/wiki/Operating-Manual) in the wiki for more instructions.
 
 ## License
 
@@ -44,7 +44,7 @@ By participating in this project, you agree to abide by its terms.
 - René Jansen ([@rjcncpt](https://github.com/rjcncpt))
 
 <div style="display: flex; align-items: center; gap: 10px;">
-  <a href="https://robertsspaceindustries.com/en/"><img src="src/main/resources/de/greluc/sc/sckm/logo/MadeByTheCommunity_Black.png" alt="Made By The Community" style="height: 200px;"></a>
+  <a href="https://robertsspaceindustries.com/en/"><img src="src/main/resources/de/greluc/sc/sckm/logos/MadeByTheCommunity_Black.png" alt="Made By The Community" style="height: 200px;"></a>
   <a href="https://en.wikipedia.org/wiki/Java_(programming_language)"><img src="src/main/resources/logos/Logo_Java.svg" alt="Java" style="height: 200px;"></a>
   <a href="https://www.gnu.org/licenses/gpl-3.0.en.html"><img src="src/main/resources/logos/Logo_GPLv3.svg" alt="GPLv3" style="height: 200px;"></a>
 </div>

@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   ~ SC Kill Monitor                                                                               ~
@@ -21,10 +28,10 @@
   ~ GNU General Public License for more details.                                                  ~
   ~                                                                                               ~
   ~ You should have received a copy of the GNU General Public License                             ~
-  ~ along with SC Kill Monitor. If not, see <https://www.gnu.org/licenses/>.                      ~
+  ~ along with SC Kill Monitor. If not, see https://www.gnu.org/licenses/                         ~
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
-<GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.greluc.sc.sckm.controller.StartViewController">
+<GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.greluc.sc.sckm.controller.StartViewController">
      <columnConstraints>
       <ColumnConstraints hgrow="NEVER" maxWidth="10.0" minWidth="10.0" prefWidth="10.0" />
          <ColumnConstraints hgrow="NEVER" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
@@ -45,7 +52,12 @@
       <RowConstraints maxHeight="10.0" minHeight="10.0" prefHeight="10.0" vgrow="NEVER" />
      </rowConstraints>
      <Label text="Welcome to SC Kill Monitor!" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="1" />
-     <Button onAction="#onStartButtonClicked" style="-fx-background-color: #00766b;" text="Start Kill Logging" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+     <Button onAction="#onStartButtonClicked" style="-fx-background-color: #00766b;" GridPane.columnIndex="1" GridPane.rowIndex="8">
+      <graphic>
+          <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+              <Image url="@../icons/player-play_white.png"/>
+          </ImageView>
+      </graphic></Button>
    <Label text="Select Channel:" GridPane.columnIndex="1" GridPane.rowIndex="3">
       <GridPane.margin>
          <Insets right="10.0" />
