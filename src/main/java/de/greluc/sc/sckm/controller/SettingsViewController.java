@@ -201,6 +201,41 @@ public class SettingsViewController {
     inputPathCustom.setText(getPath());
   }
 
+  @FXML
+  private void onLiveClear() {
+    inputPathLive.setText("");
+  }
+
+  @FXML
+  private void onPtuClear() {
+    inputPathPtu.setText("");
+  }
+
+
+  @FXML
+  private void onEptuClear() {
+    inputPathEptu.setText("");
+  }
+
+
+  @FXML
+  private void onHotfixClear() {
+    inputPathHotfix.setText("");
+  }
+
+
+  @FXML
+  private void onTechPreviewClear() {
+    inputPathTechPreview.setText("");
+  }
+
+
+  @FXML
+  private void onCustomClear() {
+    inputPathCustom.setText("");
+  }
+
+
   /**
    * Opens a file chooser dialog, allowing the user to select a file or directory, and retrieves the
    * absolute path of the selected file. If no file is selected, an empty string is returned.
