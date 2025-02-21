@@ -22,7 +22,7 @@ Star Citizen®, Roberts Space Industries® and Cloud Imperium® are registered t
 
 ## Documentation
 
-Please read the [installation manual](https://github.com/greluc/SC-Kill-Monitor/wiki/Installation-Manual) and the [operating manual](https://github.com/greluc/SC-Kill-Monitor/wiki/Operating-Manual) in the wiki.
+Please refer to the [installation manual](https://github.com/greluc/SC-Kill-Monitor/wiki/Installation-Manual) and the [operating manual](https://github.com/greluc/SC-Kill-Monitor/wiki/Operating-Manual) in the wiki for more instructions.
 
 ## License
 
