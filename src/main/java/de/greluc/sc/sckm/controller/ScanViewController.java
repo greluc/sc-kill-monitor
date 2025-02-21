@@ -25,6 +25,7 @@ import static de.greluc.sc.sckm.Constants.EPTU;
 import static de.greluc.sc.sckm.Constants.HOTFIX;
 import static de.greluc.sc.sckm.Constants.PTU;
 import static de.greluc.sc.sckm.Constants.TECH_PREVIEW;
+import static de.greluc.sc.sckm.FileHandler.*;
 
 import de.greluc.sc.sckm.data.KillEvent;
 import de.greluc.sc.sckm.settings.SettingsData;
@@ -75,6 +76,7 @@ public class ScanViewController {
   @FXML private VBox textPane;
   @FXML private ScrollPane scrollPane;
   private MainViewController mainViewController;
+  private ZonedDateTime scanStartTime;
 
   /**
    * Initializes the controller after its root element has been completely processed.
@@ -137,6 +139,7 @@ public class ScanViewController {
    * <p>If the scanning thread is interrupted, it logs the interruption and exits the loop.
    */
   public void startScan() {
+    scanStartTime = ZonedDateTime.now();
     String selectedPathValue =
         switch (SettingsData.getSelectedChannel()) {
           case PTU -> SettingsData.getPathPtu();
@@ -161,9 +164,10 @@ public class ScanViewController {
     log.debug("Using the selected channel: {}", SettingsData.getSelectedChannel());
     log.debug("Using the selected log file path: {}", selectedPathValue);
 
+    List<KillEvent> killEvents = new ArrayList<>();
     while (true) {
       try {
-        List<KillEvent> killEvents = extractKillEvents(selectedPathValue);
+        extractKillEvents(killEvents, selectedPathValue);
         Platform.runLater(
             () -> {
               textPane.getChildren().clear();
@@ -191,30 +195,28 @@ public class ScanViewController {
    * KillEvent} objects. The extracted kill events are filtered and sorted based on their timestamp
    * in descending order.
    *
-   * @param logFilePath the path to the log file to be processed, must not be null.
-   * @return a list of {@link KillEvent} objects extracted from the log file, sorted by timestamp in
-   *     descending order, never returns null.
+   * @param inputFilePath the path to the log file to be processed, must not be null.
    * @throws IOException if an I/O error occurs during reading the log file.
    */
-  private @NotNull List<KillEvent> extractKillEvents(@NotNull String logFilePath)
+  private void extractKillEvents(@NotNull List<KillEvent> killEvents, @NotNull String inputFilePath)
       throws IOException {
-    try (BufferedReader reader = new BufferedReader(new FileReader(logFilePath))) {
+    try (BufferedReader reader = new BufferedReader(new FileReader(inputFilePath))) {
       String line;
-      List<KillEvent> killEvents = new ArrayList<>();
       while ((line = reader.readLine()) != null) {
         if (line.contains("<Actor Death>")) {
           Optional<KillEvent> event = parseKillEvent(line);
           event.ifPresent(
               killEvent -> {
-                if (killEvent.killedPlayer().equals(SettingsData.getHandle())) {
+                if (killEvent.killedPlayer().equals(SettingsData.getHandle()) && !killEvents.contains(killEvent)) {
                   killEvents.addFirst(killEvent);
-                  log.info("New kill event detected:\n{}", killEvent);
+                  log.info("New kill event detected");
+                  log.debug("Kill Event:\n{}", killEvent);
+                  writeKillEventToFile(killEvent, scanStartTime.format(DateTimeFormatter.ofPattern("yyMMdd-HHmmss")));
                 }
               });
         }
       }
       killEvents.sort(Comparator.comparing(KillEvent::timestamp, Comparator.reverseOrder()));
-      return killEvents;
     }
   }
 
@@ -254,7 +256,6 @@ public class ScanViewController {
    */
   private @NotNull Optional<KillEvent> parseKillEvent(@NotNull String logLine) {
     try {
-      // Example log line parsing
       String timestamp = logLine.substring(logLine.indexOf('<') + 1, logLine.indexOf('>'));
       String killedPlayer = extractValue(logLine, "CActor::Kill: '", "'");
       String zone = extractValue(logLine, "in zone '", "'");

@@ -6,8 +6,10 @@ module de.greluc.sc.sckm {
     requires static lombok;
     requires java.prefs;
     requires org.apache.logging.log4j;
+    requires com.fasterxml.jackson.databind;
+  requires com.fasterxml.jackson.datatype.jsr310;
 
-    opens de.greluc.sc.sckm to javafx.fxml;
+  opens de.greluc.sc.sckm to javafx.fxml;
     exports de.greluc.sc.sckm;
     exports de.greluc.sc.sckm.controller;
     opens de.greluc.sc.sckm.controller to javafx.fxml;

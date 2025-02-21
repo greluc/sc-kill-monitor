@@ -22,8 +22,9 @@ val checkstyleVersion="10.21.2" // https://github.com/checkstyle/checkstyle
 val annotationsVersion="26.0.2" // https://mvnrepository.com/artifact/org.jetbrains/annotations https://github.com/JetBrains/java-annotations
 val junitVersion = "5.11.4" // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
 val mockitoVersion = "5.15.2" // https://mvnrepository.com/artifact/org.mockito/mockito-core
-val atlantafxVersion = "2.0.1" // https://mvnrepository.com/artifact/io.github.mkpaz/atlantafx-base
+val atlantaFxVersion = "2.0.1" // https://mvnrepository.com/artifact/io.github.mkpaz/atlantafx-base
 val log4j2Version = "2.24.3" // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api
+val jacksonVersion = "2.18.2" // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
 
 plugins {
   id("java")
@@ -44,9 +45,11 @@ repositories {
 
 dependencies {
   implementation("org.jetbrains:annotations:$annotationsVersion")
-  implementation("io.github.mkpaz:atlantafx-base:${atlantafxVersion}")
+  implementation("io.github.mkpaz:atlantafx-base:${atlantaFxVersion}")
   implementation("org.apache.logging.log4j:log4j-core:${log4j2Version}")
   implementation("org.apache.logging.log4j:log4j-api:${log4j2Version}")
+  implementation("com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}")
+  implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonVersion}")
   testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
   testImplementation("org.mockito:mockito-core:${mockitoVersion}")
   testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")

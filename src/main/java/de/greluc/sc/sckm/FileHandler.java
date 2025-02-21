@@ -20,12 +20,18 @@
 
 package de.greluc.sc.sckm;
 
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Optional;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import javafx.stage.FileChooser;
 import lombok.Generated;
 import lombok.extern.log4j.Log4j2;
 import org.jetbrains.annotations.NotNull;
+import de.greluc.sc.sckm.data.KillEvent;
 
 /**
  * This class provides various utilities for handling file operations.
@@ -64,5 +70,22 @@ public class FileHandler {
     final var chooser = new FileChooser();
     chooser.getExtensionFilters().add(filter);
     return Optional.ofNullable(chooser.showOpenDialog(null));
+  }
+  
+  public static void writeKillEventToFile(@NotNull KillEvent killEvent, @NotNull String fileSuffix) {
+    log.debug("Appending KillEvent to file in JSON format.");
+    ObjectMapper objectMapper = new ObjectMapper();
+    objectMapper.registerModule(new JavaTimeModule());
+    objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+    objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+    
+    File file = new File(String.format("logs/kill-events_%s.log", fileSuffix));
+    try (FileWriter writer = new FileWriter(file, true)) {
+      String json = objectMapper.writeValueAsString(killEvent);
+      writer.write(json + System.lineSeparator());
+      log.info("KillEvent successfully written to file: {}", file.getAbsolutePath());
+    } catch (IOException e) {
+      log.error("Error while writing KillEvent to file", e);
+    }
   }
 }
