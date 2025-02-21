@@ -5,14 +5,14 @@
 ## Table Of Contents
 
 - [Description](#description)
-- [Installation](#installation)
+- [Documentation](#documentation)
 - [License](#license)
 - [Contribution](#contribution)
 - [Team](#team)
 
 ## Description
 
-SC Kill Monitor is an application to search the Star Citizen `game.log` file for the person who killed you.
+SC Kill Monitor is an application to search the Star Citizen ``game.log`` file for the person who killed you.
 
 **Disclaimer:** The SC Kill Monitor app may only be used to report potential griefings or stream snipings. Use of the identified player names for purposes that violate the Star Citizen Terms and Conditions is prohibited. The responsibility for compliant use lies with the user.
 
