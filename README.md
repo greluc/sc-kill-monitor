@@ -19,6 +19,10 @@ SC Kill Monitor is an unofficial Star Citizen fan project, not affiliated with t
 All content on this site not authored by its host or users are property of their respective owners.
 Star Citizen®, Roberts Space Industries® and Cloud Imperium® are registered trademarks of Cloud Imperium Rights LLC.
 
+## Installation
+
+Please read the [installation documentation](https://github.com/greluc/SC-Kill-Monitor/wiki/Installation) in the wiki.
+
 ## License
 
 SC Kill Monitor is licensed under the GNU General Public License v3.0 (GPLv3).
