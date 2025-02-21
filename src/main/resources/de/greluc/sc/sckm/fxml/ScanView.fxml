@@ -2,6 +2,8 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -41,5 +43,12 @@
    <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" vbarPolicy="ALWAYS" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
       <VBox fx:id="textPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="0.0" />
    </ScrollPane>
-   <Button mnemonicParsing="false" onAction="#onStopPressed" style="-fx-background-color: #76000b;" text="Stop Kill Logging" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+   <Button mnemonicParsing="false" onAction="#onStopPressed" style="-fx-background-color: #76000b;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <graphic>
+         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../icons/outline/player-pause.png" />
+            </image>
+         </ImageView>
+      </graphic></Button>
 </GridPane>

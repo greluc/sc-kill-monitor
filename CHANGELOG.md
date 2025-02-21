@@ -3,6 +3,8 @@
 ## [vx.x.x](https://github.com/greluc/SC-Kill-Monitor/releases/tag/vx.x.x)
 
 - FEATURE: Add application icon.
+- FEATURE: Add clear button to path settings.
+- FEATURE: Change start and stop scan button to icons.
 - DOCUMENTATION: Add installation documentation.
 
 ## [v1.0.1](https://github.com/greluc/SC-Kill-Monitor/releases/tag/v1.0.1)
