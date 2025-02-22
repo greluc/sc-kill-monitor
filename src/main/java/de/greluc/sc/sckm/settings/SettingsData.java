@@ -36,39 +36,49 @@ import org.jetbrains.annotations.NotNull;
  *
  * <p>This class also provides functionality to manage listeners that are notified whenever a change
  * occurs to any of the settings. Changes to settings trigger the registered listeners by invoking
- * the `settingsChanged` method on each of them.
+ * the {@code settingsChanged} method on each of them.
  *
- * <p>Key Responsibilities:<br>
- * - Store static application configurations like file paths, user handle, and intervals.<br>
- * - Manage and notify listeners of configuration changes.<br>
- * - Ensure thread-safe update and retrieval of settings properties using synchronized notification
- * to listeners.
+ * <p>Key Responsibilities:
+ *
+ * <ul>
+ *   <li>Store static application configurations like file paths, user handle, and intervals.
+ *   <li>Manage and notify listeners of configuration changes.
+ *   <li>Ensure thread-safe update and retrieval of settings properties using synchronized
+ *       notification to listeners.
+ * </ul>
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
- * @version 1.1.0
+ * @version 1.2.0
  * @since 1.0.0
  */
 public class SettingsData {
   private static final List<SettingsListener> listeners = new ArrayList<>();
+
   @Getter
   private static String pathLive =
       "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\LIVE\\game.log";
+
   @Getter
   private static String pathPtu =
       "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\PTU\\game.log";
+
   @Getter
   private static String pathEptu =
       "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\EPTU\\game.log";
+
   @Getter
   private static String pathHotfix =
       "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\HOTFIX\\game.log";
+
   @Getter
   private static String pathTechPreview =
       "C:\\Program Files\\Roberts Space Industries\\StarCitizen\\TECH-PREVIEW\\game.log";
+
   @Getter private static String pathCustom = "";
   @Getter private static String handle = "";
   @Getter private static int interval = 1;
   @Getter private static String selectedChannel = LIVE;
+  @Getter private static boolean isShowAll = false;
 
   /** Used to exclude the unused constructor from code coverage evaluation. */
   @Generated
@@ -170,6 +180,11 @@ public class SettingsData {
    */
   public static void setSelectedChannel(@NotNull String selectedChannel) {
     SettingsData.selectedChannel = selectedChannel;
+    listeners.forEach(SettingsListener::settingsChanged);
+  }
+
+  public static void setShowAll(boolean isShowAll) {
+    SettingsData.isShowAll = isShowAll;
     listeners.forEach(SettingsListener::settingsChanged);
   }
 

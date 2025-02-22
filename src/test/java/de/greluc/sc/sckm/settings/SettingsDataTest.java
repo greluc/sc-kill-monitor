@@ -29,17 +29,20 @@ import static org.mockito.Mockito.verify;
 import org.junit.jupiter.api.Test;
 
 /**
- * The SettingsDataTest class contains unit tests for verifying the behavior of the SettingsData class.
- * These tests are designed to confirm correct functionality and expected behavior when modifying
- * the selected channel and interacting with listeners.
+ * The SettingsDataTest class contains unit tests for verifying the behavior of the SettingsData
+ * class. These tests are designed to confirm correct functionality and expected behavior when
+ * modifying the selected channel and interacting with listeners.
  *
- * <p>Key functionalities tested include:<br>
- * - Updating the selected channel property.<br>
- * - Ensuring listeners are notified on updates.<br>
- * - Verifying that removed listeners are not notified.
+ * <p>Key functionalities tested include:
+ *
+ * <ul>
+ *   <li>Updating the selected channel property.
+ *   <li>Ensuring listeners are notified on updates.
+ *   <li>Verifying that removed listeners are not notified.
+ * </ul>
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
- * @version 1.1.0
+ * @version 1.2.0
  * @since 1.0.0
  */
 class SettingsDataTest {

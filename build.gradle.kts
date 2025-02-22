@@ -25,6 +25,7 @@ val mockitoVersion = "5.15.2" // https://mvnrepository.com/artifact/org.mockito/
 val atlantaFxVersion = "2.0.1" // https://mvnrepository.com/artifact/io.github.mkpaz/atlantafx-base
 val log4j2Version = "2.24.3" // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api
 val jacksonVersion = "2.18.2" // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+val mockitoAgent = configurations.create("mockitoAgent")
 
 plugins {
   id("java")
@@ -50,14 +51,15 @@ dependencies {
   implementation("org.apache.logging.log4j:log4j-api:${log4j2Version}")
   implementation("com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}")
   implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonVersion}")
-  testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
   testImplementation("org.mockito:mockito-core:${mockitoVersion}")
+  mockitoAgent("org.mockito:mockito-core:${mockitoVersion}") { isTransitive = false }
+  testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
   testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 }
 
 base {
   group = "de.greluc.sc"
-  version = "1.1.0"
+  version = "1.2.0"
   description = "SC Kill Monitor - See who griefed you!"
 }
 
@@ -131,3 +133,10 @@ tasks.jacocoTestReport {
     html.required.set(true)
   }
 }
+
+tasks {
+  test {
+    jvmArgs("-javaagent:${mockitoAgent.asPath}")
+  }
+}
+

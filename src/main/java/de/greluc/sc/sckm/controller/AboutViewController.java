@@ -36,7 +36,7 @@ import javafx.scene.image.ImageView;
  * application's description and setting the application's logos into an image view.
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
- * @version 1.1.0
+ * @version 1.2.0
  * @since 1.0.1
  */
 public class AboutViewController {
@@ -51,13 +51,16 @@ public class AboutViewController {
    * including its purpose, licensing details, disclaimers, and links to relevant resources.
    * Additionally, it configures an image view to display the application's logos.
    *
-   * <p>The displayed content includes:<br>
-   * - A description of the application and its functionality.<br>
-   * - Licensing under the GNU General Public License v3.0.<br>
-   * - Links to the source code and license text.<br>
-   * - A disclaimer regarding the appropriate use of the application.<br>
-   * - Acknowledgment that the project is unofficial and not affiliated with the Cloud Imperium
-   * group of companies.
+   * <p>The displayed content includes:
+   *
+   * <ul>
+   *   <li>A description of the application and its functionality.
+   *   <li>Licensing under the GNU General Public License v3.0.
+   *   <li>Links to the source code and license text.
+   *   <li>A disclaimer regarding the appropriate use of the application.
+   *   <li>Acknowledgment that the project is unofficial and not affiliated with the Cloud Imperium
+   *       group of companies.
+   * </ul>
    *
    * <p>The image view is set up with a specific height, with its aspect ratio preserved, to ensure
    * proper display of the application's logos.

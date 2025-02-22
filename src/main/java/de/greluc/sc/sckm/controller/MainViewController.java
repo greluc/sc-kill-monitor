@@ -44,7 +44,7 @@ import lombok.extern.log4j.Log4j2;
  * manage user preferences and settings.
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
- * @version 1.1.0
+ * @version 1.2.0
  * @since 1.0.0
  */
 @Log4j2
@@ -92,13 +92,19 @@ public class MainViewController {
    *
    * <p>If the FXML file cannot be loaded, an error is logged.
    *
-   * <p>Exceptions:<br>
-   * - IOException: Throws and logs an error if there is an issue loading the FXML file.
+   * <p>Exceptions:
    *
-   * <p>Dependencies:<br>
-   * - FXMLLoader to load the FXML file.<br>
-   * - Stage for creating the settings window.<br>
-   * - SettingsViewController to handle settings logic.
+   * <ul>
+   *   <li>IOException: Throws and logs an error if there is an issue loading the FXML file.
+   * </ul>
+   *
+   * <p>Dependencies:
+   *
+   * <ul>
+   *   <li>FXMLLoader to load the FXML file.
+   *   <li>Stage for creating the settings window.
+   *   <li>SettingsViewController to handle settings logic.
+   * </ul>
    */
   @FXML
   protected void onSettingsPressed() {

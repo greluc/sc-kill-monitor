@@ -41,17 +41,20 @@ import org.jetbrains.annotations.NotNull;
  * <p>This class is designed for use with JavaFX components, leveraging FXML annotations to bind UI
  * elements and actions.
  *
- * <p>Key Features:<br>
- * - Display settings for various file paths such as LIVE, PTU, EPTU, HOTFIX, TECH PREVIEW, and
- * CUSTOM.<br>
- * - Allows users to select or modify file paths via a file chooser dialog.<br>
- * - Saves updated settings by persisting changes in SettingsData and delegating save operations to
- * the SettingsHandler.<br>
- * - Supports dynamic updates to the settings interface based on user input.<br>
- * - Handles closing the settings window upon saving changes or user interaction.
+ * <p>Key Features:
+ *
+ * <ul>
+ *   <li>Display settings for various file paths such as LIVE, PTU, EPTU, HOTFIX, TECH PREVIEW, and
+ *       CUSTOM.
+ *   <li>Allows users to select or modify file paths via a file chooser dialog.
+ *   <li>Saves updated settings by persisting changes in SettingsData and delegating save operations
+ *       to the SettingsHandler.
+ *   <li>Supports dynamic updates to the settings interface based on user input.
+ *   <li>Handles closing the settings window upon saving changes or user interaction.
+ * </ul>
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
- * @version 1.1.0
+ * @version 1.2.0
  * @since 1.0.0
  */
 public class SettingsViewController {
@@ -69,13 +72,17 @@ public class SettingsViewController {
    * <p>- Sets the text of input fields with the corresponding file path values retrieved from
    * {@link SettingsData}.
    *
-   * <p>Specifically, it initializes the following input fields:<br>
-   * - {@code inputPathLive} with the live environment path.<br>
-   * - {@code inputPathPtu} with the Public Test Universe (PTU) path.<br>
-   * - {@code inputPathEptu} with the Experimental Public Test Universe (EPTU) path.<br>
-   * - {@code inputPathHotfix} with the Hotfix environment path.<br>
-   * - {@code inputPathTechPreview} with the Tech Preview environment path.<br>
-   * - {@code inputPathCustom} with a custom path.<br>
+   * <p>Specifically, it initializes the following input fields:
+   *
+   * <ul>
+   *   <li>{@code inputPathLive} with the live environment path.
+   *   <li>{@code inputPathPtu} with the Public Test Universe (PTU) path.
+   *   <li>{@code inputPathEptu} with the Experimental Public Test Universe (EPTU) path.
+   *   <li>{@code inputPathHotfix} with the Hotfix environment path.
+   *   <li>{@code inputPathTechPreview} with the Tech Preview environment path.
+   *   <li>{@code inputPathCustom} with a custom path.
+   * </ul>
+   *
    * This method ensures that the view reflects the current settings stored in the {@link
    * SettingsData} class.
    */
@@ -95,13 +102,16 @@ public class SettingsViewController {
    * persists these updated settings using the {@code settingsHandler}. After saving the settings,
    * the associated window is closed.
    *
-   * <p>The following paths are updated based on the user input:<br>
-   * - Live environment path.<br>
-   * - PTU (Public Test Universe) environment path.<br>
-   * - EPTU (Experimental Public Test Universe) environment path.<br>
-   * - Hotfix environment path.<br>
-   * - Tech Preview environment path.<br>
-   * - Custom path.
+   * <p>The following paths are updated based on the user input:
+   *
+   * <ul>
+   *   <li>Live environment path.<br>
+   *   <li>PTU (Public Test Universe) environment path.<br>
+   *   <li>EPTU (Experimental Public Test Universe) environment path.<br>
+   *   <li>Hotfix environment path.<br>
+   *   <li>Tech Preview environment path.<br>
+   *   <li>Custom path.
+   * </ul>
    */
   @FXML
   protected void onSave() {
@@ -201,40 +211,77 @@ public class SettingsViewController {
     inputPathCustom.setText(getPath());
   }
 
+  /**
+   * Clears the text content of the {@code inputPathLive} field.
+   *
+   * <p>This method is triggered when the "Clear" action is performed for the live environment path
+   * input. It resets the text of the {@code inputPathLive} field to an empty string, ensuring no
+   * value is displayed in the corresponding input field.
+   */
   @FXML
   private void onLiveClear() {
     inputPathLive.setText("");
   }
 
+  /**
+   * Clears the text content of the {@code inputPathPtu} field.
+   *
+   * <p>This method is triggered when the "Clear" action is performed for the PTU (Public Test
+   * Universe) environment path input. It resets the text of the {@code inputPathPtu} field to an
+   * empty string, ensuring no value is displayed in the corresponding input field.
+   */
   @FXML
   private void onPtuClear() {
     inputPathPtu.setText("");
   }
 
-
+  /**
+   * Clears the text content of the {@code inputPathEptu} field.
+   *
+   * <p>This method is triggered when the "Clear" action is performed for the Experimental Public
+   * Test Universe (EPTU) environment path input. It resets the text of the {@code inputPathEptu}
+   * field to an empty string, ensuring no value is displayed in the corresponding input field.
+   */
   @FXML
   private void onEptuClear() {
     inputPathEptu.setText("");
   }
 
-
+  /**
+   * Clears the text content of the {@code inputPathHotfix} field.
+   *
+   * <p>This method is triggered when the "Clear" action is performed for the Hotfix environment
+   * path input. It resets the text of the {@code inputPathHotfix} field to an empty string,
+   * ensuring no value is displayed in the corresponding input field.
+   */
   @FXML
   private void onHotfixClear() {
     inputPathHotfix.setText("");
   }
 
-
+  /**
+   * Clears the text content of the {@code inputPathTechPreview} field.
+   *
+   * <p>This method is triggered when the "Clear" action is performed for the Tech Preview
+   * environment path input. It resets the text of the {@code inputPathTechPreview} field to an
+   * empty string, ensuring no value is displayed in the corresponding input field.
+   */
   @FXML
   private void onTechPreviewClear() {
     inputPathTechPreview.setText("");
   }
 
-
+  /**
+   * Clears the text content of the {@code inputPathCustom} field.
+   *
+   * <p>This method is triggered when the "Clear" action is performed for the custom environment
+   * path input. It resets the text of the {@code inputPathCustom} field to an empty string,
+   * ensuring no value is displayed in the corresponding input field.
+   */
   @FXML
   private void onCustomClear() {
     inputPathCustom.setText("");
   }
-
 
   /**
    * Opens a file chooser dialog, allowing the user to select a file or directory, and retrieves the
