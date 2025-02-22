@@ -1,10 +1,10 @@
 {
   "bomFormat" : "CycloneDX",
   "specVersion" : "1.6",
-  "serialNumber" : "urn:uuid:960983ff-f0cb-4fbf-a5cc-fcf260518538",
+  "serialNumber" : "urn:uuid:a4a4f734-6147-46af-a616-96ae33d35d4f",
   "version" : 1,
   "metadata" : {
-    "timestamp" : "2025-02-22T14:47:08Z",
+    "timestamp" : "2025-02-22T19:37:23Z",
     "tools" : {
       "components" : [
         {
@@ -3502,7 +3502,7 @@
       "properties" : [
         {
           "name" : "cdx:maven:package:test",
-          "value" : "true"
+          "value" : "false"
         }
       ]
     },

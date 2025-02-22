@@ -19,9 +19,9 @@
   ~ along with SC Kill Monitor. If not, see https://www.gnu.org/licenses/                         ~
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
-<bom serialNumber="urn:uuid:960983ff-f0cb-4fbf-a5cc-fcf260518538" version="1" xmlns="http://cyclonedx.org/schema/bom/1.6">
+<bom serialNumber="urn:uuid:a4a4f734-6147-46af-a616-96ae33d35d4f" version="1" xmlns="http://cyclonedx.org/schema/bom/1.6">
   <metadata>
-    <timestamp>2025-02-22T14:47:08Z</timestamp>
+    <timestamp>2025-02-22T19:37:23Z</timestamp>
     <tools>
       <components>
         <component type="application">
@@ -1698,7 +1698,7 @@ of Jackson components maintained by FasterXML.com</description>
         </reference>
       </externalReferences>
       <properties>
-        <property name="cdx:maven:package:test">true</property>
+        <property name="cdx:maven:package:test">false</property>
       </properties>
     </component>
     <component type="library" bom-ref="pkg:maven/org.objenesis/objenesis@3.3?type=jar">
