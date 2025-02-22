@@ -1,5 +1,11 @@
 # Changelog
 
+## [v1.2.0](https://github.com/greluc/SC-Kill-Monitor/releases/tag/v1.2.0)
+
+- FEATURE: Add a toggle to show all kills or only kill committed by other players.
+  - #27 
+- CHORE: Update dependencies.
+
 ## [v1.1.0](https://github.com/greluc/SC-Kill-Monitor/releases/tag/v1.1.0)
 
 - BUG: Fix a Null Pointer Exception (NPE) when the file chooser is closed without having selected a file.
