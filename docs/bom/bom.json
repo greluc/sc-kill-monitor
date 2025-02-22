@@ -1,10 +1,10 @@
 {
   "bomFormat" : "CycloneDX",
   "specVersion" : "1.6",
-  "serialNumber" : "urn:uuid:74bc0ba1-8873-4a20-9d9d-16432d005f03",
+  "serialNumber" : "urn:uuid:960983ff-f0cb-4fbf-a5cc-fcf260518538",
   "version" : 1,
   "metadata" : {
-    "timestamp" : "2025-02-21T20:33:05Z",
+    "timestamp" : "2025-02-22T14:47:08Z",
     "tools" : {
       "components" : [
         {
@@ -18,11 +18,11 @@
     },
     "component" : {
       "type" : "library",
-      "bom-ref" : "pkg:maven/de.greluc.sc/sckillmonitor@1.1.0",
+      "bom-ref" : "pkg:maven/de.greluc.sc/sckillmonitor@1.2.0",
       "group" : "de.greluc.sc",
       "name" : "sckillmonitor",
-      "version" : "1.1.0",
-      "purl" : "pkg:maven/de.greluc.sc/sckillmonitor@1.1.0",
+      "version" : "1.2.0",
+      "purl" : "pkg:maven/de.greluc.sc/sckillmonitor@1.2.0",
       "modified" : false,
       "externalReferences" : [
         {
@@ -4448,7 +4448,7 @@
       "dependsOn" : [ ]
     },
     {
-      "ref" : "pkg:maven/de.greluc.sc/sckillmonitor@1.1.0",
+      "ref" : "pkg:maven/de.greluc.sc/sckillmonitor@1.2.0",
       "dependsOn" : [
         "pkg:maven/io.github.mkpaz/atlantafx-base@2.0.1?type=jar",
         "pkg:maven/org.openjfx/javafx-fxml@23?type=jar",
