@@ -30,14 +30,14 @@ package de.greluc.sc.sckm.settings;
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
  * @since 1.0.0
- * @version 1.1.0
+ * @version 1.2.0
  */
 public interface SettingsListener {
   /**
    * Notifies listeners that settings have been changed.
    *
    * <p>This method is called to inform all registered listeners that a modification has occurred in
-   * the application settings. Implementers of the {@code SettingsListener} interface must define
+   * the application settings. Implementers of the {@link SettingsListener} interface must define
    * the behavior upon receiving this notification.
    */
   void settingsChanged();

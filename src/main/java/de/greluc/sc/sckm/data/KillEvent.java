@@ -42,7 +42,7 @@ import org.jetbrains.annotations.NotNull;
  * human-readable string.
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
- * @version 1.1.0
+ * @version 1.2.0
  * @since 1.0.0
  */
 public record KillEvent(

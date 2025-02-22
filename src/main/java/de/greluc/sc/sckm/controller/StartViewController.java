@@ -47,7 +47,7 @@ import lombok.extern.log4j.Log4j2;
  * <p>Implements the SettingsListener interface to respond to changes in settings data.
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
- * @version 1.1.0
+ * @version 1.2.0
  * @since 1.0.0
  */
 @Log4j2
@@ -63,11 +63,15 @@ public class StartViewController implements SettingsListener {
    *
    * <p>This method is executed automatically when the FXML file is loaded. It sets initial values
    * for input fields and dropdown menus, and binds the UI components to the application settings.
-   * <br>
-   * It configures:<br>
-   * - The handle input field with the application's saved handle.<br>
-   * - The interval input field using the saved interval value.<br>
-   * - The channel selection dropdown with a list of predefined channels.<br>
+   *
+   * <p>It configures:
+   *
+   * <ul>
+   *   <li>The handle input field with the application's saved handle.
+   *   <li>The interval input field using the saved interval value.
+   *   <li>The channel selection dropdown with a list of predefined channels.
+   * </ul>
+   *
    * It also sets the selected path for the application and registers the current instance as a
    * listener to settings changes.
    */
@@ -80,6 +84,7 @@ public class StartViewController implements SettingsListener {
     channelSelection.getSelectionModel().select(SettingsData.getSelectedChannel());
     setSelectedPath();
     SettingsData.addListener(this);
+    log.info("Initialized StartViewController");
   }
 
   /**
@@ -90,17 +95,23 @@ public class StartViewController implements SettingsListener {
    * the method ensures the interval input is a valid integer, showing an error if the value is
    * invalid.
    *
-   * <p>Upon successful validation:<br>
-   * - The handle and interval values are stored using the {@code SettingsData}.<br>
-   * - The main controller's start logic is triggered using {@code
-   * mainViewController.onStartPressed()}.
+   * <p>Upon successful validation:
    *
-   * <p>Validation logic includes:<br>
-   * - Checking if the handle input field is empty and logging a warning if so.<br>
-   * - Checking if the interval input field is empty and logging a warning if so.<br>
-   * - Checking if the selected path field is empty and logging a warning if so.<br>
-   * - Parsing the interval input to an integer, handling potential {@code NumberFormatException} to
-   * ensure a valid integer is provided.
+   * <ul>
+   *   <li>The handle and interval values are stored using the {@code SettingsData}.
+   *   <li>The main controller's start logic is triggered using {@code
+   *       mainViewController.onStartPressed()}.
+   * </ul>
+   *
+   * <p>Validation logic includes:
+   *
+   * <ul>
+   *   <li>Checking if the handle input field is empty and logging a warning if so.
+   *   <li>Checking if the interval input field is empty and logging a warning if so.
+   *   <li>Checking if the selected path field is empty and logging a warning if so.
+   *   <li>Parsing the interval input to an integer, handling potential {@code
+   *       NumberFormatException} to ensure a valid integer is provided.
+   * </ul>
    *
    * <p>Alerts are displayed to the user via {@code AlertHandler} with specific messages indicating
    * the cause of the issue.
@@ -154,21 +165,24 @@ public class StartViewController implements SettingsListener {
   }
 
   /**
-   * Sets the appropriate text value for the `selectedPathValue` UI element based on the currently
-   * selected channel in the application settings.
+   * Sets the appropriate text value for the {@code selectedPathValue} UI element based on the
+   * currently selected channel in the application settings.
    *
-   * <p>This method evaluates the selected channel retrieved from
-   * `SettingsData.getSelectedChannel()` and assigns the respective path string obtained from
-   * `SettingsData` to the text property of the `selectedPathValue` label. If the selected channel
-   * does not match any predefined channels, it defaults to the "Live" channel path.
+   * <p>This method evaluates the selected channel retrieved from {@code
+   * SettingsData.getSelectedChannel()} and assigns the respective path string obtained from {@code
+   * SettingsData} to the text property of the {@code selectedPathValue} label. If the selected
+   * channel does not match any predefined channels, it defaults to the "Live" channel path.
    *
-   * <p>The supported channels and their corresponding paths include:<br>
-   * - PTU: Path retrieved via `SettingsData.getPathPtu()`<br>
-   * - EPTU: Path retrieved via `SettingsData.getPathEptu()`<br>
-   * - HOTFIX: Path retrieved via `SettingsData.getPathHotfix()`<br>
-   * - TECH_PREVIEW: Path retrieved via `SettingsData.getPathTechPreview()`<br>
-   * - CUSTOM: Path retrieved via `SettingsData.getPathCustom()`<br>
-   * - Default: Path retrieved via `SettingsData.getPathLive()`
+   * <p>The supported channels and their corresponding paths include:
+   *
+   * <ul>
+   *   <li>PTU: Path retrieved via {@code SettingsData.getPathPtu()}
+   *   <li>EPTU: Path retrieved via {@code SettingsData.getPathEptu()}
+   *   <li>HOTFIX: Path retrieved via {@code SettingsData.getPathHotfix()}
+   *   <li>TECH_PREVIEW: Path retrieved via {@code SettingsData.getPathTechPreview()}
+   *   <li>CUSTOM: Path retrieved via {@code SettingsData.getPathCustom()}
+   *   <li>Default: Path retrieved via {@code SettingsData.getPathLive()}
+   * </ul>
    */
   private void setSelectedPath() {
     switch (SettingsData.getSelectedChannel()) {

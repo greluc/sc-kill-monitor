@@ -30,6 +30,7 @@ import static de.greluc.sc.sckm.FileHandler.*;
 import de.greluc.sc.sckm.data.KillEvent;
 import de.greluc.sc.sckm.settings.SettingsData;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.ZonedDateTime;
@@ -44,6 +45,7 @@ import java.util.concurrent.TimeUnit;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
@@ -67,14 +69,16 @@ import org.jetbrains.annotations.NotNull;
  * terminated by user action, leading to cleanup and state management.
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
- * @version 1.1.0
+ * @version 1.2.0
  * @since 1.0.0
  */
 @Log4j2
 public class ScanViewController {
   private final ExecutorService executorService = Executors.newSingleThreadExecutor();
+  private final List<KillEvent> killEvents = new ArrayList<>();
   @FXML private VBox textPane;
   @FXML private ScrollPane scrollPane;
+  @FXML private CheckBox cbShowAll;
   private MainViewController mainViewController;
   private ZonedDateTime scanStartTime;
 
@@ -85,10 +89,13 @@ public class ScanViewController {
    * specific properties of the user interface components and starts the initial task submission to
    * the executor service.
    *
-   * <p>Actions performed by this method include:<br>
-   * - Configuring the text pane to enable wrapping of its contents.<br>
-   * - Adjusting the scroll pane configuration to fit its height and width dynamically.<br>
-   * - Submitting the `startScan` task to the {@code executorService}.
+   * <p>Actions performed by this method include:
+   *
+   * <ul>
+   *   <li>Configuring the text pane to enable wrapping of its contents.
+   *   <li>Adjusting the scroll pane configuration to fit its height and width dynamically.
+   *   <li>Submitting the `startScan` task to the {@code executorService}.
+   * </ul>
    */
   @FXML
   protected void initialize() {
@@ -96,6 +103,7 @@ public class ScanViewController {
     scrollPane.setFitToHeight(true);
     scrollPane.setFitToWidth(true);
     executorService.submit(this::startScan);
+    cbShowAll.setSelected(SettingsData.isShowAll());
   }
 
   /**
@@ -114,6 +122,12 @@ public class ScanViewController {
     mainViewController.onStopPressed();
   }
 
+  @FXML
+  protected void onShowAllClicked() {
+    SettingsData.setShowAll(cbShowAll.isSelected());
+    displayKillEvents();
+  }
+
   /**
    * Starts the log scanning process to monitor kill events.
    *
@@ -126,11 +140,14 @@ public class ScanViewController {
    * fallback logic to ensure a valid path is retrieved. If no valid path or user handle is
    * provided, the application logs an error and terminates.
    *
-   * <p>Key functionalities include:<br>
-   * - Determining the log file path based on the selected channel configuration.<br>
-   * - Validating the log file path and user handle for non-null and non-empty values.<br>
-   * - Extracting kill events from the log file and updating the user interface.<br>
-   * - Periodically rescanning the log file at an interval defined in the settings.
+   * <p>Key functionalities include:
+   *
+   * <ul>
+   *   <li>Determining the log file path based on the selected channel configuration.
+   *   <li>Validating the log file path and user handle for non-null and non-empty values.
+   *   <li>Extracting kill events from the log file and updating the user interface.
+   *   <li>Periodically rescanning the log file at an interval defined in the settings.
+   * </ul>
    *
    * <p>Errors during log file access or scanning are logged for troubleshooting purposes. The
    * scanning process relies on `Platform.runLater` to update the JavaFX user interface thread with
@@ -163,17 +180,10 @@ public class ScanViewController {
     log.debug("Using the selected handle: {}", SettingsData.getHandle());
     log.debug("Using the selected channel: {}", SettingsData.getSelectedChannel());
     log.debug("Using the selected log file path: {}", selectedPathValue);
-
-    List<KillEvent> killEvents = new ArrayList<>();
     while (true) {
       try {
-        extractKillEvents(killEvents, selectedPathValue);
-        Platform.runLater(
-            () -> {
-              textPane.getChildren().clear();
-              killEvents.forEach(
-                  killEvent -> textPane.getChildren().add(getKillEventPane(killEvent)));
-            });
+        extractKillEvents(selectedPathValue);
+        displayKillEvents();
         log.debug("Finished extracting kill events from log file: {}", selectedPathValue);
       } catch (IOException ioException) {
         log.error("Failed to read the log file: {}", selectedPathValue, ioException);
@@ -190,6 +200,48 @@ public class ScanViewController {
   }
 
   /**
+   * Displays a list of kill events dynamically within the application's user interface. This method
+   * executes on the JavaFX Application Thread using the Platform.runLater mechanism to ensure
+   * thread safety when updating the user interface.
+   *
+   * <p>The method clears the existing content of the textPane, then iterates through the list of
+   * kill events and determines which events should be displayed based on specific conditions. If a
+   * kill event meets the criteria, it is processed and added to the textPane for display.
+   *
+   * <p>Conditions for displaying kill events:
+   *
+   * <ul>
+   *   <li>If the killer in the kill event matches the handle retrieved from SettingsData.
+   *   <li>If the killer's name contains certain predefined keywords such as "unknown", "aimodule",
+   *       or "pu_human".
+   *   <li>If SettingsData.isShowAll() is true, the event is displayed regardless of other
+   *       conditions.
+   * </ul>
+   *
+   * <p>The method integrates with the getKillEventPane helper function to generate the appropriate
+   * UI components for each kill event.
+   */
+  private void displayKillEvents() {
+    Platform.runLater(
+        () -> {
+          textPane.getChildren().clear();
+          killEvents.forEach(
+              killEvent -> {
+                if (killEvent.killer().equals(SettingsData.getHandle())
+                    || killEvent.killer().toLowerCase().contains("unknown")
+                    || killEvent.killer().toLowerCase().contains("aimodule")
+                    || killEvent.killer().toLowerCase().contains("pu_human")) {
+                  if (SettingsData.isShowAll()) {
+                    textPane.getChildren().add(getKillEventPane(killEvent));
+                  }
+                } else {
+                  textPane.getChildren().add(getKillEventPane(killEvent));
+                }
+              });
+        });
+  }
+
+  /**
    * Extracts a list of kill events from a log file. This method reads a log file line by line,
    * detects entries related to actor deaths, and parses the relevant information into {@link
    * KillEvent} objects. The extracted kill events are filtered and sorted based on their timestamp
@@ -198,8 +250,7 @@ public class ScanViewController {
    * @param inputFilePath the path to the log file to be processed, must not be null.
    * @throws IOException if an I/O error occurs during reading the log file.
    */
-  private void extractKillEvents(@NotNull List<KillEvent> killEvents, @NotNull String inputFilePath)
-      throws IOException {
+  private void extractKillEvents(@NotNull String inputFilePath) throws IOException {
     try (BufferedReader reader = new BufferedReader(new FileReader(inputFilePath))) {
       String line;
       while ((line = reader.readLine()) != null) {
@@ -207,16 +258,21 @@ public class ScanViewController {
           Optional<KillEvent> event = parseKillEvent(line);
           event.ifPresent(
               killEvent -> {
-                if (killEvent.killedPlayer().equals(SettingsData.getHandle()) && !killEvents.contains(killEvent)) {
+                if (killEvent.killedPlayer().equals(SettingsData.getHandle())
+                    && !killEvents.contains(killEvent)) {
                   killEvents.addFirst(killEvent);
                   log.info("New kill event detected");
                   log.debug("Kill Event:\n{}", killEvent);
-                  writeKillEventToFile(killEvent, scanStartTime.format(DateTimeFormatter.ofPattern("yyMMdd-HHmmss")));
+                  writeKillEventToFile(
+                      killEvent,
+                      scanStartTime.format(DateTimeFormatter.ofPattern("yyMMdd-HHmmss")));
                 }
               });
         }
       }
       killEvents.sort(Comparator.comparing(KillEvent::timestamp, Comparator.reverseOrder()));
+    } catch (FileNotFoundException fileNotFoundException) {
+      log.error("Failed to find the specified log file: {}", inputFilePath, fileNotFoundException);
     }
   }
 
