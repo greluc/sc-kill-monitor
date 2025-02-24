@@ -27,6 +27,7 @@ import static de.greluc.sc.sckm.Constants.PTU;
 import static de.greluc.sc.sckm.Constants.TECH_PREVIEW;
 import static de.greluc.sc.sckm.FileHandler.*;
 
+import de.greluc.sc.sckm.AlertHandler;
 import de.greluc.sc.sckm.data.KillEvent;
 import de.greluc.sc.sckm.settings.SettingsData;
 import java.io.BufferedReader;
@@ -45,6 +46,7 @@ import java.util.concurrent.TimeUnit;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
@@ -161,14 +163,16 @@ public class ScanViewController {
         };
 
     if (selectedPathValue == null || selectedPathValue.isEmpty()) {
-      log.error("No log file path specified!");
-      log.error("Check your input!");
-      System.exit(-1);
+      log.error("No log file path specified. Check your input.");
+      AlertHandler.showAlert(Alert.AlertType.ERROR, "No log file path specified.", "No log file path specified. Check your input.");
+      onStopPressed();
+      return;
     }
     if (SettingsData.getHandle() == null || SettingsData.getHandle().isEmpty()) {
-      log.error("No handle specified!");
-      log.error("Check your input!");
-      System.exit(-1);
+      log.error("No handle specified. Check your input.");
+      AlertHandler.showAlert(Alert.AlertType.ERROR, "No handle specified.", "No log file path specified. Check your input.");
+      onStopPressed();
+      return;
     }
     log.debug("Using the selected handle: {}", SettingsData.getHandle());
     log.debug("Using the selected channel: {}", SettingsData.getSelectedChannel());
