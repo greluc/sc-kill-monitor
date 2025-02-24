@@ -230,7 +230,9 @@ public class ScanViewController {
                 if (killEvent.killer().equals(SettingsData.getHandle())
                     || killEvent.killer().toLowerCase().contains("unknown")
                     || killEvent.killer().toLowerCase().contains("aimodule")
-                    || killEvent.killer().toLowerCase().contains("pu_human")) {
+                    || killEvent.killer().toLowerCase().contains("pu_")
+                    || killEvent.killer().toLowerCase().contains("npc_")
+                    || killEvent.killer().toLowerCase().contains("kopion_")) {
                   if (SettingsData.isShowAll()) {
                     textPane.getChildren().add(getKillEventPane(killEvent));
                   }
