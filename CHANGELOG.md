@@ -1,5 +1,11 @@
 # Changelog
 
+## [v1.2.1](https://github.com/greluc/SC-Kill-Monitor/releases/tag/v1.2.1)
+
+- BUG: Make kill event data selectable again.
+- FEATURE: Update default scan intervall to be 60 seconds.
+- CHORE: Update dependencies.
+
 ## [v1.2.0](https://github.com/greluc/SC-Kill-Monitor/releases/tag/v1.2.0)
 
 - FEATURE: Add a toggle to show all kills or only kills committed by other players.
