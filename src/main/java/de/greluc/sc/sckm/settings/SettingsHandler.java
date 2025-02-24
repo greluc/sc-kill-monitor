@@ -150,7 +150,7 @@ public class SettingsHandler {
     SettingsData.setPathCustom(preferences.get(SETTINGS_PATH_CUSTOM, ""));
     SettingsData.setHandle(preferences.get(SETTINGS_PLAYER_HANDLE, ""));
     SettingsData.setInterval(
-        Integer.parseInt(preferences.get(SETTINGS_SCAN_INTERVAL_SECONDS, "1")));
+        Integer.parseInt(preferences.get(SETTINGS_SCAN_INTERVAL_SECONDS, "60")));
     SettingsData.setShowAll(preferences.getBoolean(SETTINGS_SHOW_ALL, false));
   }
 }

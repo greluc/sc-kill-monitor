@@ -76,7 +76,7 @@ public class SettingsData {
 
   @Getter private static String pathCustom = "";
   @Getter private static String handle = "";
-  @Getter private static int interval = 1;
+  @Getter private static int interval = 60;
   @Getter private static String selectedChannel = LIVE;
   @Getter private static boolean isShowAll = false;
 
