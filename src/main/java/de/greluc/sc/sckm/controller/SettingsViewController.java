@@ -66,9 +66,9 @@ public class SettingsViewController {
   @Setter private SettingsHandler settingsHandler;
 
   /**
-   * Initializes the view components of the {@code SettingsViewController}.
+   * Initializes the view components of the {@link  SettingsViewController}.
    *
-   * <p>- Sets the text of input fields with the corresponding file path values retrieved from
+   * <p>Sets the text of input fields with the corresponding file path values retrieved from
    * {@link SettingsData}.
    *
    * <p>Specifically, it initializes the following input fields:
@@ -82,7 +82,7 @@ public class SettingsViewController {
    *   <li>{@code inputPathCustom} with a custom path.
    * </ul>
    *
-   * This method ensures that the view reflects the current settings stored in the {@link
+   * <p>This method ensures that the view reflects the current settings stored in the {@link
    * SettingsData} class.
    */
   @FXML
