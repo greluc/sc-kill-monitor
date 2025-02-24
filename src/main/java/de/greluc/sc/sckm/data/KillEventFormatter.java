@@ -20,31 +20,57 @@
 
 package de.greluc.sc.sckm.data;
 
-import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 /**
- * Represents an event in which a player is killed during gameplay.
+ * The KillEventFormatter class provides a utility method for formatting kill events into
+ * human-readable string representations. This class is primarily used to format the details of a
+ * {@link KillEvent} record into a structured string for display or logging purposes.
+ *
+ * <p>The formatted string includes the following details from the kill event:
  *
  * <ul>
- *   <li><strong>timestamp</strong>: The date and time when the kill event occurred.
- *   <li><strong>killedPlayer</strong>: The name of the player who was killed.
- *   <li><strong>killer</strong>: The name of the player, NPC, or entity that performed the kill.
- *   <li><strong>weapon</strong>: The weapon or method used to perform the kill.
- *   <li><strong>damageType</strong>: The type of damage inflicted (e.g., explosive, ballistic).
- *   <li><strong>zone</strong>: The location or area in the game where the kill occurred.
+ *   <li>Timestamp of the event in the format "dd.MM.yy HH:mm:ss:SSS UTC".
+ *   <li>Name of the killed player.
+ *   <li>Zone or location in the game where the event occurred.
+ *   <li>Name of the killer (player, NPC, or other entity).
+ *   <li>Weapon or method used to perform the kill.
+ *   <li>Type of damage inflicted (e.g., explosive, ballistic).
  * </ul>
- *
- * <p>This record provides a detailed representation of a kill event, storing all relevant details
- * for tracking or monitoring purposes.
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
  * @version 1.2.1
- * @since 1.0.0
+ * @since 1.2.1
  */
-public record KillEvent(
-    ZonedDateTime timestamp,
-    String killedPlayer,
-    String killer,
-    String weapon,
-    String damageType,
-    String zone) {}
+public class KillEventFormatter {
+  /**
+   * Formats the details of a KillEvent into a human-readable string representation.
+   *
+   * @param killEvent the KillEvent object containing information about a specific kill event
+   * @return a string representation of the KillEvent with details such as timestamp, killed player,
+   *     killer, weapon used, damage type, and zone
+   */
+  @Contract(pure = true)
+  public static @NotNull String format(@NotNull KillEvent killEvent) {
+    return "Kill Date = "
+        + killEvent.timestamp().format(DateTimeFormatter.ofPattern("dd.MM.yy HH:mm:ss:SSS"))
+        + " UTC"
+        + "\n"
+        + "Killed Player = "
+        + killEvent.killedPlayer()
+        + "\n"
+        + "Zone = "
+        + killEvent.zone()
+        + "\n"
+        + "Killer = "
+        + killEvent.killer()
+        + "\n"
+        + "Used Method/Weapon = "
+        + killEvent.weapon()
+        + "\n"
+        + "Damage Type = "
+        + killEvent.damageType();
+  }
+}

@@ -29,6 +29,7 @@ import static de.greluc.sc.sckm.FileHandler.*;
 
 import de.greluc.sc.sckm.AlertHandler;
 import de.greluc.sc.sckm.data.KillEvent;
+import de.greluc.sc.sckm.data.KillEventFormatter;
 import de.greluc.sc.sckm.settings.SettingsData;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -285,7 +286,7 @@ public class ScanViewController {
    * @return a VBox containing the TextArea displaying the details of the KillEvent
    */
   private @NotNull VBox getKillEventPane(@NotNull KillEvent killEvent) {
-    TextArea textArea = new TextArea(killEvent.toString());
+    TextArea textArea = new TextArea(KillEventFormatter.format(killEvent));
     textArea.setEditable(false);
     textArea.setMinHeight(150);
     textArea.setMaxHeight(150);
