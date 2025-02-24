@@ -58,16 +58,6 @@ import org.jetbrains.annotations.NotNull;
  * scanning operations and coordinating with the MainViewController to handle UI transitions and
  * user interactions.
  *
- * <p>Responsibilities: - Initialize UI components and configure their properties. - Start and
- * manage a background scanning process in a separate thread. - Parse log files to extract relevant
- * events and update the UI. - Handle user interactions like stopping the scan. - Coordinate with
- * the MainViewController for managing state changes.
- *
- * <p>Workflow: - Upon initialization, the scan is started in a background thread. - Log files are
- * monitored to detect kill events, using the settings provided by the application. - Detected
- * events are processed and displayed in the UI via JavaFX updates. - The scan operation can be
- * terminated by user action, leading to cleanup and state management.
- *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
  * @version 1.2.0
  * @since 1.0.0
@@ -226,25 +216,26 @@ public class ScanViewController {
    */
   private void displayKillEvents() {
     Platform.runLater(
-        () -> killEvents.forEach(
-            killEvent -> {
-              if (!evaluatedKillEvents.contains(killEvent)) {
-                if (killEvent.killer().equals(SettingsData.getHandle())
-                    || killEvent.killer().toLowerCase().contains("unknown")
-                    || killEvent.killer().toLowerCase().contains("aimodule")
-                    || killEvent.killer().toLowerCase().contains("pu_")
-                    || killEvent.killer().toLowerCase().contains("npc_")
-                    || killEvent.killer().toLowerCase().contains("kopion_")) {
-                  if (SettingsData.isShowAll()) {
-                    textPane.getChildren().add(getKillEventPane(killEvent));
-                    evaluatedKillEvents.add(killEvent);
+        () ->
+            killEvents.forEach(
+                killEvent -> {
+                  if (!evaluatedKillEvents.contains(killEvent)) {
+                    if (killEvent.killer().equals(SettingsData.getHandle())
+                        || killEvent.killer().toLowerCase().contains("unknown")
+                        || killEvent.killer().toLowerCase().contains("aimodule")
+                        || killEvent.killer().toLowerCase().contains("pu_")
+                        || killEvent.killer().toLowerCase().contains("npc_")
+                        || killEvent.killer().toLowerCase().contains("kopion_")) {
+                      if (SettingsData.isShowAll()) {
+                        textPane.getChildren().add(getKillEventPane(killEvent));
+                        evaluatedKillEvents.add(killEvent);
+                      }
+                    } else {
+                      textPane.getChildren().add(getKillEventPane(killEvent));
+                      evaluatedKillEvents.add(killEvent);
+                    }
                   }
-                } else {
-                  textPane.getChildren().add(getKillEventPane(killEvent));
-                  evaluatedKillEvents.add(killEvent);
-                }
-              }
-            }));
+                }));
   }
 
   /**
