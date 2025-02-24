@@ -30,6 +30,7 @@ import java.time.ZonedDateTime;
  *   <li><strong>killedPlayer</strong>: The name of the player who was killed.
  *   <li><strong>killer</strong>: The name of the player, NPC, or entity that performed the kill.
  *   <li><strong>weapon</strong>: The weapon or method used to perform the kill.
+ *   <li><strong>weaponClass</strong>: The class of the weapon or method used to perform the kill.
  *   <li><strong>damageType</strong>: The type of damage inflicted (e.g., explosive, ballistic).
  *   <li><strong>zone</strong>: The location or area in the game where the kill occurred.
  * </ul>
@@ -46,5 +47,6 @@ public record KillEvent(
     String killedPlayer,
     String killer,
     String weapon,
+    String weaponClass,
     String damageType,
     String zone) {}

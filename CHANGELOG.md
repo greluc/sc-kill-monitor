@@ -2,7 +2,8 @@
 
 ## [v1.2.1](https://github.com/greluc/SC-Kill-Monitor/releases/tag/v1.2.1)
 
-- BUG: Make kill event data selectable again.
+- BUG: Make ``KillEvent`` data selectable again.
+- FEATURE: Add class type to ``KillEvent``.
 - FEATURE: Update default scan intervall to be 60 seconds.
 - CHORE: Update dependencies.
 

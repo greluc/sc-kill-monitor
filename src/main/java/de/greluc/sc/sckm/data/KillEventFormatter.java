@@ -70,6 +70,9 @@ public class KillEventFormatter {
         + "Used Method/Weapon = "
         + killEvent.weapon()
         + "\n"
+        + "Class = "
+        + killEvent.weaponClass()
+        + "\n"
         + "Damage Type = "
         + killEvent.damageType();
   }

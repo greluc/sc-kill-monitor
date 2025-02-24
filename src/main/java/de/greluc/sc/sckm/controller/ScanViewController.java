@@ -278,8 +278,8 @@ public class ScanViewController {
   private @NotNull VBox getKillEventPane(@NotNull KillEvent killEvent) {
     TextArea textArea = new TextArea(KillEventFormatter.format(killEvent));
     textArea.setEditable(false);
-    textArea.setMinHeight(150);
-    textArea.setMaxHeight(150);
+    textArea.setMinHeight(160);
+    textArea.setMaxHeight(160);
 
     VBox wrapper = new VBox(textArea);
     wrapper.prefWidthProperty().bind(textPane.widthProperty());
@@ -309,6 +309,7 @@ public class ScanViewController {
       String zone = extractValue(logLine, "in zone '", "'");
       String killer = extractValue(logLine, "killed by '", "'");
       String weapon = extractValue(logLine, "using '", "'");
+      String weaponClass = extractValue(logLine, "[Class ", "]");
       String damageType = extractValue(logLine, "with damage type '", "'");
 
       return Optional.of(
@@ -317,6 +318,7 @@ public class ScanViewController {
               killedPlayer,
               killer,
               weapon,
+              weaponClass,
               damageType,
               zone));
     } catch (Exception exception) {
