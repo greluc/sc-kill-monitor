@@ -76,6 +76,7 @@ import org.jetbrains.annotations.NotNull;
 public class ScanViewController {
   private final ExecutorService executorService = Executors.newSingleThreadExecutor();
   private final List<KillEvent> killEvents = new ArrayList<>();
+  private final List<KillEvent> evaluatedKillEvents = new ArrayList<>();
   @FXML private VBox textPane;
   @FXML private ScrollPane scrollPane;
   @FXML private CheckBox cbShowAll;
@@ -125,6 +126,8 @@ public class ScanViewController {
   @FXML
   protected void onShowAllClicked() {
     SettingsData.setShowAll(cbShowAll.isSelected());
+    evaluatedKillEvents.clear();
+    textPane.getChildren().clear();
     displayKillEvents();
   }
 
@@ -223,10 +226,9 @@ public class ScanViewController {
    */
   private void displayKillEvents() {
     Platform.runLater(
-        () -> {
-          textPane.getChildren().clear();
-          killEvents.forEach(
-              killEvent -> {
+        () -> killEvents.forEach(
+            killEvent -> {
+              if (!evaluatedKillEvents.contains(killEvent)) {
                 if (killEvent.killer().equals(SettingsData.getHandle())
                     || killEvent.killer().toLowerCase().contains("unknown")
                     || killEvent.killer().toLowerCase().contains("aimodule")
@@ -235,12 +237,14 @@ public class ScanViewController {
                     || killEvent.killer().toLowerCase().contains("kopion_")) {
                   if (SettingsData.isShowAll()) {
                     textPane.getChildren().add(getKillEventPane(killEvent));
+                    evaluatedKillEvents.add(killEvent);
                   }
                 } else {
                   textPane.getChildren().add(getKillEventPane(killEvent));
+                  evaluatedKillEvents.add(killEvent);
                 }
-              });
-        });
+              }
+            }));
   }
 
   /**
