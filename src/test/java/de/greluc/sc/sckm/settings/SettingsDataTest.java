@@ -42,7 +42,7 @@ import org.junit.jupiter.api.Test;
  * </ul>
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
- * @version 1.2.0
+ * @version 1.2.1
  * @since 1.0.0
  */
 class SettingsDataTest {
