@@ -284,16 +284,14 @@ public class SettingsViewController {
   }
 
   /**
-   * Opens a file chooser dialog, allowing the user to select a file or directory, and retrieves the
-   * absolute path of the selected file. If no file is selected, an empty string is returned.
+   * Opens a file chooser dialog to allow the user to select a file or directory and retrieves the
+   * absolute path of the selected item.
    *
-   * @return a non-null string representing the absolute path of the selected file, or an empty
-   *     string if no file is chosen.
+   * @return the absolute path of the selected file or directory as a non-null string. If no selection
+   * is made, returns an empty string.
    */
   private @NotNull String getPath() {
     Optional<File> fileContainer = FileHandler.showFileChooser();
-    AtomicReference<String> path = new AtomicReference<>("");
-    fileContainer.ifPresent(file -> path.set(file.getAbsolutePath()));
-    return path.get();
+    return fileContainer.map(File::getAbsolutePath).orElse("");
   }
 }
