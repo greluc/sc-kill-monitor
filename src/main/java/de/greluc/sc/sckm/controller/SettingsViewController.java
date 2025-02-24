@@ -25,7 +25,6 @@ import de.greluc.sc.sckm.settings.SettingsData;
 import de.greluc.sc.sckm.settings.SettingsHandler;
 import java.io.File;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -287,8 +286,8 @@ public class SettingsViewController {
    * Opens a file chooser dialog to allow the user to select a file or directory and retrieves the
    * absolute path of the selected item.
    *
-   * @return the absolute path of the selected file or directory as a non-null string. If no selection
-   * is made, returns an empty string.
+   * @return the absolute path of the selected file or directory as a non-null string. If no
+   *     selection is made, returns an empty string.
    */
   private @NotNull String getPath() {
     Optional<File> fileContainer = FileHandler.showFileChooser();
