@@ -61,6 +61,6 @@ public class AlertHandler {
     alert.headerTextProperty().set(header);
     alert.contentTextProperty().set(content);
     alert.setResizable(true);
-    alert.showAndWait();
+    alert.show();
   }
 }

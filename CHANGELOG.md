@@ -3,6 +3,8 @@
 ## [v1.2.1](https://github.com/greluc/SC-Kill-Monitor/releases/tag/v1.2.1)
 
 - BUG: Make ``KillEvent`` data selectable again.
+- BUG: Show Alert and return to ``StartView`` when the selected log file can not be found or read.
+- FEATURE: Add an option to settings to select if the ``KillEvent`` should be written to a file.
 - FEATURE: Add class type to ``KillEvent``.
 - FEATURE: Update default scan intervall to be 60 seconds.
 - CHORE: Update dependencies.

@@ -22,9 +22,9 @@ package de.greluc.sc.sckm.data;
 
 import static de.greluc.sc.sckm.FileHandler.writeKillEventToFile;
 
+import de.greluc.sc.sckm.AlertHandler;
 import de.greluc.sc.sckm.settings.SettingsData;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.ZonedDateTime;
@@ -32,14 +32,16 @@ import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
 import lombok.extern.log4j.Log4j2;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * The KillEventExtractor class is responsible for extracting and processing kill events
- * from game log files. These events are represented by {@link KillEvent} objects
- * containing detailed information about each kill event such as timestamp, killer, killed player,
- * weapon used, and location.
+ * The KillEventExtractor class is responsible for extracting and processing kill events from game
+ * log files. These events are represented by {@link KillEvent} objects containing detailed
+ * information about each kill event such as timestamp, killer, killed player, weapon used, and
+ * location.
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
  * @version 1.2.1
@@ -49,17 +51,24 @@ import org.jetbrains.annotations.NotNull;
 public class KillEventExtractor {
 
   /**
-   * Extracts kill events from a specified log file and adds them to the provided list of kill events.
-   * The method processes the log file line by line, identifies kill events marked with {@code <Actor Death>},
-   * validates the events, and adds unique kill events to the list. Newly detected kill events are also
-   * logged and written to a file.
+   * Extracts kill events from a specified log file and populates the provided list with unique kill
+   * events relevant to the monitored player. The method scans the log file line by line, identifies
+   * lines containing a specific marker {@code <Actor Death>}, parses them into {@link KillEvent} objects,
+   * and adds the events to the list if they meet defined conditions.
    *
-   * @param killEvents a list of KillEvent objects where the extracted and validated kill events will be added
-   * @param inputFilePath the file path of the log file to be read for extracting kill events
-   * @param scanStartTime the timestamp when the scan started, used for creating filenames for writing events to a file
-   * @throws IOException if an I/O error occurs while accessing or reading the log file
+   * <p>Kill events are sorted in reverse chronological order based on their timestamps after
+   * processing. Additionally, newly detected kill events may be logged and written to a file
+   * with a timestamp derived from the scan's start time.
+   *
+   * @param killEvents the list to populate with unique kill events; cannot be null
+   * @param inputFilePath the file path of the log file to scan; cannot be null
+   * @param scanStartTime the start time of the scan, used for logging and file naming; cannot be null
+   * @throws IOException if reading the specified log file fails
    */
-  public static void extractKillEvents(@NotNull List<KillEvent> killEvents, @NotNull String inputFilePath, @NotNull ZonedDateTime scanStartTime) throws IOException {
+  public static void extractKillEvents(
+      @NotNull List<KillEvent> killEvents,
+      @NotNull String inputFilePath,
+      @NotNull ZonedDateTime scanStartTime) throws IOException {
     try (BufferedReader reader = new BufferedReader(new FileReader(inputFilePath))) {
       String line;
       while ((line = reader.readLine()) != null) {
@@ -80,8 +89,16 @@ public class KillEventExtractor {
         }
       }
       killEvents.sort(Comparator.comparing(KillEvent::timestamp, Comparator.reverseOrder()));
-    } catch (FileNotFoundException fileNotFoundException) {
-      log.error("Failed to find the specified log file: {}", inputFilePath, fileNotFoundException);
+    } catch (IOException ioException) {
+      Platform.runLater(
+          () ->
+              AlertHandler.showAlert(
+                  Alert.AlertType.ERROR,
+                  "Failed to read log file",
+                  "Please check if the file exists and the path is set correctly."));
+      log.error("Failed to find the specified log file: {}", inputFilePath);
+      log.trace("Stacktrace:", ioException);
+      throw ioException;
     }
   }
 
@@ -118,7 +135,8 @@ public class KillEventExtractor {
               damageType,
               zone));
     } catch (Exception exception) {
-      log.error("Failed to parse log line: {}", logLine, exception);
+      log.error("Failed to parse log line: {}", logLine);
+      log.trace("Stacktrace:", exception);
       return Optional.empty();
     }
   }
@@ -144,4 +162,5 @@ public class KillEventExtractor {
       return "";
     }
     return text.substring(startIndex, endIndex);
-  }}
+  }
+}

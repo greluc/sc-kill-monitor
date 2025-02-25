@@ -27,6 +27,7 @@ import static de.greluc.sc.sckm.Constants.PTU;
 import static de.greluc.sc.sckm.Constants.TECH_PREVIEW;
 import static de.greluc.sc.sckm.data.KillEventExtractor.extractKillEvents;
 
+import de.greluc.sc.sckm.AlertHandler;
 import de.greluc.sc.sckm.data.KillEvent;
 import de.greluc.sc.sckm.data.KillEventFormatter;
 import de.greluc.sc.sckm.settings.SettingsData;
@@ -40,6 +41,7 @@ import java.util.concurrent.TimeUnit;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
@@ -52,18 +54,21 @@ import org.jetbrains.annotations.NotNull;
  *
  * <p>The {@code ScanViewController} is responsible for scanning log files, processing kill events,
  * and updating the user interface accordingly. It supports features such as:
+ *
  * <ul>
- *   <li>Continuous scanning of log files based on user settings.</li>
- *   <li>Interactive controls for starting, stopping, and filtering displayed kill events.</li>
- *   <li>Thread-safe updates to the user interface using JavaFX's {@code Platform.runLater} mechanism.</li>
+ *   <li>Continuous scanning of log files based on user settings.
+ *   <li>Interactive controls for starting, stopping, and filtering displayed kill events.
+ *   <li>Thread-safe updates to the user interface using JavaFX's {@code Platform.runLater}
+ *       mechanism.
  * </ul>
  *
- * <p>This class utilizes a single-threaded ExecutorService for background scanning operations
- * and ensures proper shutdown and resource cleanup when needed. The controller also integrates
- * with the primary application view via the {@link MainViewController}.
+ * <p>This class utilizes a single-threaded ExecutorService for background scanning operations and
+ * ensures proper shutdown and resource cleanup when needed. The controller also integrates with the
+ * primary application view via the {@link MainViewController}.
  *
  * <p>To properly initialize and use this controller, ensure that it is linked to an FXML layout
- * file and the required dependencies (e.g., JavaFX annotations and Log4j2) are included in the project.
+ * file and the required dependencies (e.g., JavaFX annotations and Log4j2) are included in the
+ * project.
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
  * @version 1.2.1
@@ -82,8 +87,9 @@ public class ScanViewController {
   /**
    * Initializes the UI components and prepares the application state.
    *
-   * <p>This method is automatically called when the associated FXML file is loaded. It performs
-   * the following tasks:
+   * <p>This method is automatically called when the associated FXML file is loaded. It performs the
+   * following tasks:
+   *
    * <ul>
    *   <li>Configures the {@code textPane} to fill the width of its container.
    *   <li>Sets the {@code scrollPane} to adjust its dimensions to fit both height and width.
@@ -143,32 +149,33 @@ public class ScanViewController {
   }
 
   /**
-   * Starts a continuous scan process for capturing and processing kill events from log files
-   * based on the selected channel configuration.
+   * Starts a continuous scan process for capturing and processing kill events from log files based
+   * on the selected channel configuration.
    *
-   * <p>This method determines the appropriate log file path based on the selected channel
-   * (e.g., PTU, EPTU, HOTFIX, TECH_PREVIEW, CUSTOM, or default LIVE channel) and initializes
-   * a scanning process to repeatedly extract and display kill events. The interval for each
-   * scan iteration is determined using the configured interval value from {@link SettingsData}.
+   * <p>This method determines the appropriate log file path based on the selected channel (e.g.,
+   * PTU, EPTU, HOTFIX, TECH_PREVIEW, CUSTOM, or default LIVE channel) and initializes a scanning
+   * process to repeatedly extract and display kill events. The interval for each scan iteration is
+   * determined using the configured interval value from {@link SettingsData}.
    *
-   * <p>The scanning process logs diagnostic and informational messages, including details
-   * about the selected handle, interval, channel, and log file path. In case of file read
-   * errors or interruptions, the method handles exceptions gracefully, ensuring proper
-   * logging and cleanup.
+   * <p>The scanning process logs diagnostic and informational messages, including details about the
+   * selected handle, interval, channel, and log file path. In case of file read errors or
+   * interruptions, the method handles exceptions gracefully, ensuring proper logging and cleanup.
    *
-   * <p>The scan runs indefinitely until interrupted (e.g., by an external thread), at which
-   * point the thread is terminated cleanly.
+   * <p>The scan runs indefinitely until interrupted (e.g., by an external thread), at which point
+   * the thread is terminated cleanly.
    *
    * <p>Details:
+   *
    * <ul>
    *   <li>Log messages are recorded at various stages, including scan start, extraction completion,
-   *       and GUI update completion.</li>
-   *   <li>Kill events are extracted and displayed in each scan iteration.</li>
-   *   <li>Handles exceptions for I/O errors during file read and interruptions during sleep.</li>
+   *       and GUI update completion.
+   *   <li>Kill events are extracted and displayed in each scan iteration.
+   *   <li>Handles exceptions for I/O errors during file read and interruptions during sleep.
    * </ul>
    *
-   * <p><strong>Note:</strong> Ensure that {@link SettingsData} is properly configured before invoking
-   * this method, as it relies on the settings like selected channel, interval, handle, and log file paths.
+   * <p><strong>Note:</strong> Ensure that {@link SettingsData} is properly configured before
+   * invoking this method, as it relies on the settings like selected channel, interval, handle, and
+   * log file paths.
    *
    * @throws RuntimeException if any unexpected error occurs during scanning.
    */
@@ -191,14 +198,15 @@ public class ScanViewController {
     ZonedDateTime scanStartTime = ZonedDateTime.now();
 
     while (true) {
-      try {
+      try{
         extractKillEvents(killEvents, selectedPathValue, scanStartTime);
-        log.debug("Finished extracting kill events");
-        displayKillEvents();
-        log.debug("Finished updating the GUI with kill events");
       } catch (IOException ioException) {
-        log.error("Failed to read the log file: {}", selectedPathValue, ioException);
+        Platform.runLater(this::onStopPressed);
+        return;
       }
+      log.debug("Finished extracting kill events");
+      displayKillEvents();
+      log.debug("Finished updating the GUI with kill events");
 
       try {
         TimeUnit.SECONDS.sleep(SettingsData.getInterval());
@@ -211,25 +219,25 @@ public class ScanViewController {
   }
 
   /**
-   * Displays the kill events in the user interface while ensuring that each kill event
-   * is displayed only once. The method filters and adds the kill events to the text pane
-   * based on specific conditions and user settings.
+   * Displays the kill events in the user interface while ensuring that each kill event is displayed
+   * only once. The method filters and adds the kill events to the text pane based on specific
+   * conditions and user settings.
    *
-   * <p>The kill events are processed on the JavaFX application thread using the
-   * {@code Platform.runLater} method. This ensures that the UI updates occur on the
-   * correct thread. Each kill event is checked against a list of already evaluated events
-   * to prevent duplication.
+   * <p>The kill events are processed on the JavaFX application thread using the {@code
+   * Platform.runLater} method. This ensures that the UI updates occur on the correct thread. Each
+   * kill event is checked against a list of already evaluated events to prevent duplication.
    *
    * <p>Kill events are displayed if:
+   *
    * <ul>
-   *   <li>The killer field matches the user's handle.</li>
-   *   <li>The killer's name includes certain predefined substrings (e.g., "unknown",
-   *       "aimodule", "pu_", "npc_", "kopion_").</li>
-   *   <li>The user settings permit displaying all kill events.</li>
+   *   <li>The killer field matches the user's handle.
+   *   <li>The killer's name includes certain predefined substrings (e.g., "unknown", "aimodule",
+   *       "pu_", "npc_", "kopion_").
+   *   <li>The user settings permit displaying all kill events.
    * </ul>
    *
-   * <p>When a kill event meets the display criteria, it is added to the UI and marked as
-   * evaluated by adding it to the collection of processed events.
+   * <p>When a kill event meets the display criteria, it is added to the UI and marked as evaluated
+   * by adding it to the collection of processed events.
    */
   private void displayKillEvents() {
     Platform.runLater(
@@ -259,7 +267,8 @@ public class ScanViewController {
    * Creates and returns a VBox containing a non-editable TextArea, which displays the formatted
    * details of the provided KillEvent object.
    *
-   * @param killEvent the KillEvent containing data to be displayed in the TextArea; must not be null.
+   * @param killEvent the KillEvent containing data to be displayed in the TextArea; must not be
+   *     null.
    * @return a VBox containing the formatted KillEvent display; never null.
    */
   private @NotNull VBox getKillEventPane(@NotNull KillEvent killEvent) {
