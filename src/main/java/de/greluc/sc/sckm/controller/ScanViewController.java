@@ -48,10 +48,22 @@ import lombok.extern.log4j.Log4j2;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * The ScanViewController class handles the scanning of game logs for specific events and updates
- * the user interface with the detected events. It is responsible for managing background tasks for
- * scanning operations and coordinating with the MainViewController to handle UI transitions and
- * user interactions.
+ * Controller class for managing the scan view in the application.
+ *
+ * <p>The {@code ScanViewController} is responsible for scanning log files, processing kill events,
+ * and updating the user interface accordingly. It supports features such as:
+ * <ul>
+ *   <li>Continuous scanning of log files based on user settings.</li>
+ *   <li>Interactive controls for starting, stopping, and filtering displayed kill events.</li>
+ *   <li>Thread-safe updates to the user interface using JavaFX's {@code Platform.runLater} mechanism.</li>
+ * </ul>
+ *
+ * <p>This class utilizes a single-threaded ExecutorService for background scanning operations
+ * and ensures proper shutdown and resource cleanup when needed. The controller also integrates
+ * with the primary application view via the {@link MainViewController}.
+ *
+ * <p>To properly initialize and use this controller, ensure that it is linked to an FXML layout
+ * file and the required dependencies (e.g., JavaFX annotations and Log4j2) are included in the project.
  *
  * @author Lucas Greuloch (greluc, lucas.greuloch@protonmail.com)
  * @version 1.2.1
@@ -68,18 +80,15 @@ public class ScanViewController {
   private MainViewController mainViewController;
 
   /**
-   * Initializes the controller after its root element has been completely processed.
+   * Initializes the UI components and prepares the application state.
    *
-   * <p>This method is automatically called when the associated FXML file is loaded. It configures
-   * specific properties of the user interface components and starts the initial task submission to
-   * the executor service.
-   *
-   * <p>Actions performed by this method include:
-   *
+   * <p>This method is automatically called when the associated FXML file is loaded. It performs
+   * the following tasks:
    * <ul>
-   *   <li>Configuring the text pane to enable wrapping of its contents.
-   *   <li>Adjusting the scroll pane configuration to fit its height and width dynamically.
-   *   <li>Submitting the `startScan` task to the {@code executorService}.
+   *   <li>Configures the {@code textPane} to fill the width of its container.
+   *   <li>Sets the {@code scrollPane} to adjust its dimensions to fit both height and width.
+   *   <li>Submits the {@link #startScan()} method to the {@code executorService} for execution.
+   *   <li>Synchronizes the {@code cbShowAll} checkbox with the persisted {@code SettingsData}.
    * </ul>
    */
   @FXML
@@ -134,25 +143,34 @@ public class ScanViewController {
   }
 
   /**
-   * Initiates a continuous scanning process to extract and display kill events from a specific log
-   * file path based on the current channel selection, interval, and handle settings.
+   * Starts a continuous scan process for capturing and processing kill events from log files
+   * based on the selected channel configuration.
    *
-   * <p>The method performs the following steps:
+   * <p>This method determines the appropriate log file path based on the selected channel
+   * (e.g., PTU, EPTU, HOTFIX, TECH_PREVIEW, CUSTOM, or default LIVE channel) and initializes
+   * a scanning process to repeatedly extract and display kill events. The interval for each
+   * scan iteration is determined using the configured interval value from {@link SettingsData}.
    *
+   * <p>The scanning process logs diagnostic and informational messages, including details
+   * about the selected handle, interval, channel, and log file path. In case of file read
+   * errors or interruptions, the method handles exceptions gracefully, ensuring proper
+   * logging and cleanup.
+   *
+   * <p>The scan runs indefinitely until interrupted (e.g., by an external thread), at which
+   * point the thread is terminated cleanly.
+   *
+   * <p>Details:
    * <ul>
-   *   <li>Determines the log file path to monitor based on the currently selected channel.
-   *   <li>Logs information about the scanning configuration, including the handle, interval,
-   *       selected channel, and log file path.
-   *   <li>Enters an infinite loop to repeatedly perform the scanning operation at specified
-   *       intervals.
-   *   <li>Attempts to extract kill events from the specified log file and updates the GUI with
-   *       extracted data.
-   *   <li>Handles exceptions during file I/O operations and logs errors if the process fails.
-   *   <li>Supports interruption of the scanning process, ensuring proper thread termination.
+   *   <li>Log messages are recorded at various stages, including scan start, extraction completion,
+   *       and GUI update completion.</li>
+   *   <li>Kill events are extracted and displayed in each scan iteration.</li>
+   *   <li>Handles exceptions for I/O errors during file read and interruptions during sleep.</li>
    * </ul>
    *
-   * <p>Note that this method executes indefinitely unless explicitly interrupted, making it crucial
-   * to manage thread lifecycle when invoking this method.
+   * <p><strong>Note:</strong> Ensure that {@link SettingsData} is properly configured before invoking
+   * this method, as it relies on the settings like selected channel, interval, handle, and log file paths.
+   *
+   * @throws RuntimeException if any unexpected error occurs during scanning.
    */
   public void startScan() {
     String selectedPathValue =
@@ -193,26 +211,25 @@ public class ScanViewController {
   }
 
   /**
-   * Displays a list of kill events dynamically within the application's user interface. This method
-   * executes on the JavaFX Application Thread using the Platform.runLater mechanism to ensure
-   * thread safety when updating the user interface.
+   * Displays the kill events in the user interface while ensuring that each kill event
+   * is displayed only once. The method filters and adds the kill events to the text pane
+   * based on specific conditions and user settings.
    *
-   * <p>The method clears the existing content of the textPane, then iterates through the list of
-   * kill events and determines which events should be displayed based on specific conditions. If a
-   * kill event meets the criteria, it is processed and added to the textPane for display.
+   * <p>The kill events are processed on the JavaFX application thread using the
+   * {@code Platform.runLater} method. This ensures that the UI updates occur on the
+   * correct thread. Each kill event is checked against a list of already evaluated events
+   * to prevent duplication.
    *
-   * <p>Conditions for displaying kill events:
-   *
+   * <p>Kill events are displayed if:
    * <ul>
-   *   <li>If the killer in the kill event matches the handle retrieved from SettingsData.
-   *   <li>If the killer's name contains certain predefined keywords such as "unknown", "aimodule",
-   *       or "pu_human".
-   *   <li>If SettingsData.isShowAll() is true, the event is displayed regardless of other
-   *       conditions.
+   *   <li>The killer field matches the user's handle.</li>
+   *   <li>The killer's name includes certain predefined substrings (e.g., "unknown",
+   *       "aimodule", "pu_", "npc_", "kopion_").</li>
+   *   <li>The user settings permit displaying all kill events.</li>
    * </ul>
    *
-   * <p>The method integrates with the getKillEventPane helper function to generate the appropriate
-   * UI components for each kill event.
+   * <p>When a kill event meets the display criteria, it is added to the UI and marked as
+   * evaluated by adding it to the collection of processed events.
    */
   private void displayKillEvents() {
     Platform.runLater(
@@ -239,11 +256,11 @@ public class ScanViewController {
   }
 
   /**
-   * Creates a VBox containing a non-editable TextArea that displays information about the specified
-   * KillEvent. The VBox adjusts its width dynamically according to the width of its container.
+   * Creates and returns a VBox containing a non-editable TextArea, which displays the formatted
+   * details of the provided KillEvent object.
    *
-   * @param killEvent the KillEvent object whose details are to be displayed in the TextArea
-   * @return a VBox containing the TextArea displaying the details of the KillEvent
+   * @param killEvent the KillEvent containing data to be displayed in the TextArea; must not be null.
+   * @return a VBox containing the formatted KillEvent display; never null.
    */
   private @NotNull VBox getKillEventPane(@NotNull KillEvent killEvent) {
     TextArea textArea = new TextArea(KillEventFormatter.format(killEvent));
