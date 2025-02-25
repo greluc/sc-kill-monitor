@@ -170,10 +170,11 @@ public class ScanViewController {
     log.info("Using the selected interval: {}", SettingsData.getInterval());
     log.info("Using the selected channel: {}", SettingsData.getSelectedChannel());
     log.info("Using the selected log file path: {}", selectedPathValue);
+    ZonedDateTime scanStartTime = ZonedDateTime.now();
 
     while (true) {
       try {
-        extractKillEvents(killEvents, selectedPathValue, ZonedDateTime.now());
+        extractKillEvents(killEvents, selectedPathValue, scanStartTime);
         log.debug("Finished extracting kill events");
         displayKillEvents();
         log.debug("Finished updating the GUI with kill events");
