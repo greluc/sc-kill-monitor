@@ -290,7 +290,7 @@ public class SettingsViewController {
    *     selection is made, returns an empty string.
    */
   private @NotNull String getPath() {
-    Optional<File> fileContainer = FileHandler.showFileChooser();
+    Optional<File> fileContainer = FileHandler.openFileChooser();
     return fileContainer.map(File::getAbsolutePath).orElse("");
   }
 }
