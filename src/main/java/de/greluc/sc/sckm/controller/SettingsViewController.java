@@ -26,6 +26,7 @@ import de.greluc.sc.sckm.settings.SettingsHandler;
 import java.io.File;
 import java.util.Optional;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import lombok.Generated;
@@ -63,6 +64,7 @@ public class SettingsViewController {
   @FXML private TextField inputPathHotfix;
   @FXML private TextField inputPathTechPreview;
   @FXML private TextField inputPathCustom;
+  @FXML private CheckBox cbWriteKillEvent;
   @Setter private SettingsHandler settingsHandler;
 
   /**
@@ -93,6 +95,7 @@ public class SettingsViewController {
     inputPathHotfix.setText(SettingsData.getPathHotfix());
     inputPathTechPreview.setText(SettingsData.getPathTechPreview());
     inputPathCustom.setText(SettingsData.getPathCustom());
+    cbWriteKillEvent.setSelected(SettingsData.isWriteKillEventToFile());
   }
 
   /**
@@ -120,6 +123,7 @@ public class SettingsViewController {
     SettingsData.setPathHotfix(inputPathHotfix.getText());
     SettingsData.setPathTechPreview(inputPathTechPreview.getText());
     SettingsData.setPathCustom(inputPathCustom.getText());
+    SettingsData.setWriteKillEventToFile(cbWriteKillEvent.isSelected());
     settingsHandler.saveSettings();
     closeWindow();
   }

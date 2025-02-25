@@ -79,6 +79,7 @@ public class SettingsData {
   @Getter private static int interval = 60;
   @Getter private static String selectedChannel = LIVE;
   @Getter private static boolean isShowAll = false;
+  @Getter private static boolean isWriteKillEventToFile = false;
 
   /** Used to exclude the unused constructor from code coverage evaluation. */
   @Generated
@@ -185,6 +186,11 @@ public class SettingsData {
 
   public static void setShowAll(boolean isShowAll) {
     SettingsData.isShowAll = isShowAll;
+    listeners.forEach(SettingsListener::settingsChanged);
+  }
+
+  public static void setWriteKillEventToFile(boolean isWriteKillEventToFile) {
+    SettingsData.isWriteKillEventToFile = isWriteKillEventToFile;
     listeners.forEach(SettingsListener::settingsChanged);
   }
 

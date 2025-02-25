@@ -50,6 +50,7 @@ public class Constants {
   public static final String SETTINGS_PLAYER_HANDLE = "PLAYER_HANDLE";
   public static final String SETTINGS_SCAN_INTERVAL_SECONDS = "SCAN_INTERVAL_SECONDS";
   public static final String SETTINGS_SHOW_ALL = "SHOW_ALL";
+  public static final String SETTINGS_WRITE_KILLEVENT_TO_FILE = "WRITE_KILLEVENT_TO_FILE";
 
   public static final String APP_TITLE = "SC Kill Monitor";
 

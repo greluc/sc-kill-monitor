@@ -81,9 +81,11 @@ public class KillEventExtractor {
                   killEvents.addFirst(killEvent);
                   log.info("New kill event detected");
                   log.debug("Kill Event:\n{}", killEvent);
-                  writeKillEventToFile(
-                      killEvent,
-                      scanStartTime.format(DateTimeFormatter.ofPattern("yyMMdd-HHmmss")));
+                  if (SettingsData.isWriteKillEventToFile()) {
+                    writeKillEventToFile(
+                        killEvent,
+                        scanStartTime.format(DateTimeFormatter.ofPattern("yyMMdd-HHmmss")));
+                  }
                 }
               });
         }
